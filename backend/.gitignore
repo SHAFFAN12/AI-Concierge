@@ -1,0 +1,12 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Node
+node_modules/
+
+# Env files
+.env
+backend/credentials.json

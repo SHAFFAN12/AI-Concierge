@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+requests
+pydantic
+playwright
+python-dotenv
+motor   
+pymongo
+google.generativeai
+faiss-cpu 
+sentence-transformers
+google-api-python-client
+google-auth-oauthlib
+
+google-cloud-speech
+pytest
