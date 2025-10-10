@@ -1,6 +1,9 @@
 # app/dashboard_routes.py
 from fastapi import APIRouter, Depends
 from app.db import get_db
+from bson.objectid import ObjectId
+from app.services.scraper_service import analyze_website_forms
+
 
 router = APIRouter()
 
@@ -28,3 +31,29 @@ async def get_site_analytics(site_id: str, db = Depends(get_db)):
     # For now, just return the number of chats
     num_chats = await db["chats"].count_documents({"site_id": site_id})
     return {"num_chats": num_chats}
+
+@router.put("/sites/{site_id}/scraper-config")
+async def update_scraper_config(site_id: str, scraper_config: dict, db = Depends(get_db)):
+    try:
+        obj_id = ObjectId(site_id)
+    except Exception:
+        return {"status": "failed", "error": "Invalid site ID."}
+
+    result = await db["sites"].update_one(
+        {"_id": obj_id},
+        {"$set": {"scraper_config": scraper_config}}
+    )
+
+    if result.modified_count == 1:
+        return {"status": "ok"}
+    else:
+        return {"status": "failed", "error": "Site not found."}
+
+
+@router.post("/analyze-site")
+async def analyze_site(data: dict):
+    url = data.get("url")
+    if not url:
+        return {"status": "failed", "error": "URL is required"}
+    result = await analyze_website_forms(url)
+    return result

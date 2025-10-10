@@ -1,46 +1,39 @@
 # app/services/parse_booking.py
 import re
-import json
 from typing import Dict
-from app.services.llm_provider import decide_action_raw
+from datetime import datetime
+import dateparser
 
-PROMPT = """
-Extract booking details from the following user text. Return ONLY valid JSON (no extra text) with keys:
-{
-  "doctor_name": null,          # or string
-  "specialty": null,            # or string
-  "datetime_text": "Friday at 3pm",  # natural language date/time (preferred)
-  "duration_minutes": 30,
-  "attendee_emails": []
-}
+async def extract_booking_params(user_message: str) -> Dict:
+    """
+    Extract dynamic booking parameters from user message.
+    Works for ANY booking type: restaurant, doctor, travel, salon, etc.
+    """
+    params = {}
 
-If you cannot find a doctor name or specialty set that field to null.
-If you cannot parse a specific datetime, set "datetime_text" to the original text.
-User text: >>>{user_text}<<<
-"""
+    # Name extraction
+    name_match = re.search(r"(my name is|I am|This is)\s+([A-Za-z ]+)", user_message, re.IGNORECASE)
+    if name_match:
+        params["name"] = name_match.group(2).strip()
 
-async def extract_booking_params(user_text: str) -> Dict:
-    prompt = PROMPT.format(user_text=user_text)
-    raw = await decide_action_raw(prompt)
+    # Number of guests / participants / people
+    guests_match = re.search(r"(\d+)\s+(people|guests|participants|members)", user_message, re.IGNORECASE)
+    if guests_match:
+        params["guests"] = int(guests_match.group(1))
 
-    # remove markdown fences
-    cleaned = re.sub(r"```(?:json)?", "", raw).strip("` \n")
-    try:
-        parsed = json.loads(cleaned)
-        # normalize keys
-        return {
-            "doctor_name": parsed.get("doctor_name"),
-            "specialty": parsed.get("specialty"),
-            "datetime_text": parsed.get("datetime_text") or parsed.get("datetime") or user_text,
-            "duration_minutes": parsed.get("duration_minutes", 30),
-            "attendee_emails": parsed.get("attendee_emails", []),
-        }
-    except Exception:
-        # fallback: keep user text as datetime_text
-        return {
-            "doctor_name": None,
-            "specialty": None,
-            "datetime_text": user_text,
-            "duration_minutes": 30,
-            "attendee_emails": [],
-        }
+    # Date & Time extraction
+    dt = dateparser.parse(user_message, settings={"PREFER_DATES_FROM": "future"})
+    if dt:
+        params["date"] = dt.strftime("%Y-%m-%d %H:%M")
+
+    # Booking item/service
+    item_match = re.search(r"book (?:a|an|the)?\s*([\w\s]+)", user_message, re.IGNORECASE)
+    if item_match:
+        params["item"] = item_match.group(1).strip()
+
+    # Additional details
+    details_match = re.search(r"for (.+)", user_message, re.IGNORECASE)
+    if details_match:
+        params["details"] = details_match.group(1).strip()
+
+    return params

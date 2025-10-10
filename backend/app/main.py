@@ -1,13 +1,18 @@
+import asyncio
+import sys
+
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routes import router
 from app.dashboard_routes import router as dashboard_router
 from app.services.rag_service import add_documents
+from app.services.knowledge_base import initialize_knowledge_base
 
 app = FastAPI(title="Agentic AI Backend")
 
-
-from app.services.knowledge_base import initialize_knowledge_base
 
 @app.on_event("startup")
 async def startup_event():

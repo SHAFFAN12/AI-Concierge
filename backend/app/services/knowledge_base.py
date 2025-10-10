@@ -33,4 +33,3 @@ def initialize_knowledge_base():
                 content = f.read()
                 add_documents([content])
             print(f"✅ Loaded: {filename}")
-

@@ -22,10 +22,11 @@ export default function WidgetPage() {
   const [userId, setUserId] = useState("");
   const [loading, setLoading] = useState(false);
   const [listening, setListening] = useState(false);
+  const [pageInfo, setPageInfo] = useState<{ url: string; domain: string } | null>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<any>(null);
 
-  // ✅ Setup SpeechRecognition if available
+  // 🎤 Speech recognition
   useEffect(() => {
     if (typeof window !== "undefined" && "webkitSpeechRecognition" in window) {
       const SpeechRecognition =
@@ -38,14 +39,10 @@ export default function WidgetPage() {
       recognition.onresult = (event: any) => {
         const transcript = event.results[0][0].transcript;
         console.log("Speech recognized:", transcript);
-        setInput(transcript); // voice input → textbox me aa jaye
+        setInput(transcript);
       };
 
-      recognition.onend = () => {
-        console.log("Speech recognition ended.");
-        setListening(false);
-      };
-
+      recognition.onend = () => setListening(false);
       recognition.onerror = (event: any) => {
         console.error("Speech recognition error:", event.error);
         setListening(false);
@@ -55,7 +52,7 @@ export default function WidgetPage() {
     }
   }, []);
 
-  // ✅ Speak function (TTS)
+  // 🗣️ Text to speech
   function speak(text: string) {
     if ("speechSynthesis" in window) {
       const utterance = new SpeechSynthesisUtterance(text);
@@ -64,13 +61,11 @@ export default function WidgetPage() {
     }
   }
 
+  // 👋 Initial bot message
   useEffect(() => {
     setUserId(getUserId());
     setMessages([
-      {
-        role: "bot",
-        text: "Hello! I'm your AI Concierge. How can I help you today?",
-      },
+      { role: "bot", text: "👋 Hi there! I’m your AI Concierge. How can I help you today?" },
     ]);
   }, []);
 
@@ -78,6 +73,22 @@ export default function WidgetPage() {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // 🌐 Receive page info
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data.type === "page_info") {
+        const { url, domain } = event.data.payload;
+        console.log("📩 Received page info:", url, domain);
+        setPageInfo({ url, domain });
+        localStorage.setItem("current_page_url", url);
+        localStorage.setItem("current_page_domain", domain);
+      }
+    };
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, []);
+
+  // 🚀 Send message
   async function sendMessage() {
     if (!input.trim()) return;
     const userMsg = { role: "user", text: input };
@@ -88,41 +99,37 @@ export default function WidgetPage() {
     try {
       const res = await fetch(`${API_URL}/api/chat`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           user_id: userId,
           message: input,
+          current_url: pageInfo?.url || localStorage.getItem("current_page_url"),
+          domain: pageInfo?.domain || localStorage.getItem("current_page_domain"),
         }),
       });
 
-      if (!res.ok) {
-        throw new Error(`API error: ${res.status}`);
-      }
-
+      if (!res.ok) throw new Error(`API error: ${res.status}`);
       const data = await res.json();
 
-      // ✅ backend ke sahi fields check karo
       const replyText =
-        data?.result?.note || // booking/search ka output
-        data?.plan?.message || // simple reply
-        "Sorry, I didn't understand that.";
+        data?.result?.note ||
+        data?.plan?.message ||
+        data?.message ||
+        "Sorry, I didn’t understand that.";
 
       const botMsg = { role: "bot", text: replyText };
       setMessages((prev) => [...prev, botMsg]);
-
-      // ✅ Voice output
       speak(replyText);
 
-      // Handle autofill action
-      if (data.action && data.action.type === 'autofill') {
-        window.parent.postMessage(data.action, '*'); // Be more specific with the target origin in production
+      if (data.action && data.action.type === "autofill") {
+        console.log("📤 Sending autofill action to parent page:", data.action);
+        window.parent.postMessage(data.action, "*");
       }
-
     } catch (err: any) {
-      const botMsg = { role: "bot", text: `❌ Error: ${err.message}` };
-      setMessages((prev) => [...prev, botMsg]);
+      setMessages((prev) => [
+        ...prev,
+        { role: "bot", text: `❌ Error: ${err.message}` },
+      ]);
     } finally {
       setLoading(false);
     }
@@ -130,82 +137,73 @@ export default function WidgetPage() {
 
   const startListening = () => {
     if (recognitionRef.current) {
-      console.log("Starting speech recognition...");
       setListening(true);
       recognitionRef.current.start();
-    } else {
-      alert("Speech recognition not supported in this browser.");
-    }
+    } else alert("Speech recognition not supported.");
   };
 
   const stopListening = () => {
-    if (recognitionRef.current) {
-      recognitionRef.current.stop();
-    }
+    if (recognitionRef.current) recognitionRef.current.stop();
     setListening(false);
   };
 
   return (
-    <div className="dark min-h-screen flex flex-col bg-card">
-        <div className="max-w-4xl mx-auto w-full">
-          <div className="bg-card rounded-lg shadow-lg overflow-hidden h-full flex flex-col">
-            <div className="p-4 border-b border-border">
-              <h4 className="text-lg font-semibold">Chat with your assistant</h4>
-            </div>
-            <div className="p-4 flex-1 overflow-y-auto space-y-4">
-              {messages.map((m, i) => (
-                <div key={i} className={`flex items-start gap-3 ${m.role === "user" ? "justify-end" : ""}`}>
-                  {m.role === "bot" && <Bot className="w-6 h-6 text-primary" />}
-                  <div
-                    className={`rounded-lg px-4 py-2 max-w-[80%] ${
-                      m.role === "user"
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-input"
-                    }`}
-                  >
-                    <p className="text-sm">{m.text}</p>
-                  </div>
-                  {m.role === "user" && <User className="w-6 h-6 text-secondary-foreground" />}
-                </div>
-              ))}
-              <div ref={chatEndRef} />
-            </div>
-
-            {/* Input + Buttons */}
-            <div className="p-4 border-t border-border flex items-center gap-2">
-              <input
-                className="flex-1 bg-input rounded-l-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-                placeholder="Ask me anything..."
-                disabled={loading}
-              />
-              <button
-                onClick={sendMessage}
-                disabled={loading}
-                className="bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 flex items-center"
-              >
-                {loading ? (
-                  <span className="text-sm">Thinking...</span>
-                ) : (
-                  <>
-                    <Send className="w-5 h-5 mr-2" />
-                    Send
-                  </>
-                )}
-              </button>
-
-              {/* 🎤 Mic Button */}
-              <button
-                onClick={listening ? stopListening : startListening}
-                className="bg-gray-700 text-white px-3 py-2 rounded-md hover:bg-gray-600"
-              >
-                {listening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
-              </button>
-            </div>
-          </div>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 via-white to-blue-100 text-gray-800">
+      <div className="w-full max-w-2xl bg-white shadow-xl rounded-2xl flex flex-col overflow-hidden border border-gray-200">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-blue-600 to-indigo-500 text-white py-3 px-5 flex items-center justify-between">
+          <h2 className="text-lg font-semibold flex items-center gap-2">
+            <Bot className="w-5 h-5" /> AI Concierge
+          </h2>
+          <span className="text-sm opacity-80">powered by LLM</span>
         </div>
+
+        {/* Chat Messages */}
+        <div className="flex-1 p-5 overflow-y-auto space-y-4 bg-gray-50">
+          {messages.map((m, i) => (
+            <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+              <div
+                className={`px-4 py-2 rounded-xl shadow-sm max-w-[75%] ${
+                  m.role === "user"
+                    ? "bg-blue-600 text-white rounded-br-none"
+                    : "bg-white border border-gray-200 text-gray-800 rounded-bl-none"
+                }`}
+              >
+                <p className="text-sm leading-relaxed">{m.text}</p>
+              </div>
+            </div>
+          ))}
+          <div ref={chatEndRef} />
+        </div>
+
+        {/* Input Bar */}
+        <div className="border-t bg-white p-3 flex items-center gap-2">
+          <input
+            type="text"
+            placeholder="Type your message..."
+            className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+            disabled={loading}
+          />
+          <button
+            onClick={sendMessage}
+            disabled={loading}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full transition"
+          >
+            {loading ? "..." : <Send className="w-5 h-5" />}
+          </button>
+          <button
+            onClick={listening ? stopListening : startListening}
+            className={`p-2 rounded-full ${
+              listening ? "bg-red-500 hover:bg-red-600" : "bg-gray-200 hover:bg-gray-300"
+            } transition`}
+          >
+            {listening ? <MicOff className="w-5 h-5 text-white" /> : <Mic className="w-5 h-5 text-gray-700" />}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
