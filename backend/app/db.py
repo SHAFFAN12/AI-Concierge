@@ -1,21 +1,25 @@
+# app/db.py (Updated Structure)
 import os
 from motor.motor_asyncio import AsyncIOMotorClient
 from datetime import datetime
+from typing import Dict, Any
 
 # ======================================================
-# MongoDB Configuration
+# MongoDB Client and DB Instance
 # ======================================================
 MONGO_URI = os.environ.get("MONGO_URI", "mongodb://localhost:27017")
 MONGO_DB_NAME = os.environ.get("MONGO_DB_NAME", "agentic_ai")
 
-# Create a single Mongo client
+# 1. Client ko directly initialize kar dein
 client = AsyncIOMotorClient(MONGO_URI)
+# 2. db instance ko bhi directly export kar dein
 db = client[MONGO_DB_NAME]
 
 
 # ======================================================
-# DB Dependency (for FastAPI)
+# DB Dependency (for FastAPI) - This is what dashboard_routes.py tries to import
 # ======================================================
+# get_db function sirf FastAPI dependencies ke liye chahiye
 async def get_db():
     """Return the active MongoDB database instance."""
     return db
@@ -24,41 +28,32 @@ async def get_db():
 # ======================================================
 # Save Booking
 # ======================================================
-async def save_booking(data: dict):
+async def save_booking(data: Dict[str, Any]):
     """
     Save booking details extracted by AI to MongoDB.
-
-    Args:
-        data (dict): Booking details such as name, number, item, details, user_id, etc.
-    Returns:
-        str: The inserted booking document ID.
+    This version is more flexible and saves all keys from the data dict.
     """
     booking_collection = db["bookings"]
 
-    doc = {
-        "user_id": data.get("user_id"),
-        "site_id": data.get("site_id"),
-        "name": data.get("name"),
-        "number": data.get("number"),
-        "item": data.get("item"),
-        "details": data.get("details"),
-        "date": data.get("date") or datetime.utcnow(),
-        "status": data.get("status", "pending"),
-        "form_submitted": data.get("form_submitted", False),
-        "created_at": datetime.utcnow()
-    }
+    # Start with the data provided
+    doc = data.copy()
+
+    # Ensure essential fields are present and add timestamps
+    doc.setdefault("status", "pending")
+    doc.setdefault("form_submitted", False)
+    doc["created_at"] = doc.get("created_at") or datetime.utcnow()
+    doc["date"] = doc.get("date") or datetime.utcnow()
+
 
     result = await booking_collection.insert_one(doc)
     return str(result.inserted_id)
 
 
 # ======================================================
-# Save Chat  ✅ (this was missing)
+# Save Chat
 # ======================================================
 async def save_chat(user_id, message, plan, result, site_id=None):
-    """
-    Save chat interaction and AI result to MongoDB.
-    """
+    # ... (function body remains the same)
     chat_collection = db["chats"]
 
     doc = {

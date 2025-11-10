@@ -1,4 +1,6 @@
+# app/routes.py
 import re
+import json
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
 from app.services.llm_provider import decide_action
@@ -7,9 +9,10 @@ from app.services.memory import get_memory, add_message
 from app.services.search import run_search
 from app.services.scraper_service import analyze_website_forms, ai_map_fields
 from app.scrapper.form_filler_async import auto_fill_and_submit_async
+from app.db import save_booking
 
 from bson import ObjectId
-from typing import Optional
+from typing import Optional, Dict, Any # Added Dict, Any for type hints
 
 
 router = APIRouter()
@@ -21,14 +24,11 @@ class ChatRequest(BaseModel):
     domain: Optional[str] = None
 
 
-
 @router.post("/chat")
 async def chat_endpoint(req: Request):
-    """
-    Main chat route — handles AI actions like booking, search, or reply.
-    This version submits booking **directly to the website's form**, no local DB storage.
-    """
-    # to solve 422 error, we first log the request body
+    # ... (chat_endpoint function remains the same as provided by you)
+    # ... (Action dispatch logic remains the same)
+    
     body = await req.json()
     print("Received request body:", body)
     
@@ -48,7 +48,7 @@ async def chat_endpoint(req: Request):
         if action_type == "booking":
             print("🚀 Booking flow triggered with:", request.message)
             site_id = await get_or_create_site(request.current_url)
-            await handle_booking_action(request, result, site_id)
+            await handle_booking_action(request, result, site_id) # The key call
 
         elif action_type == "search":
             result = await run_search(plan.get("params", {}))
@@ -63,7 +63,7 @@ async def chat_endpoint(req: Request):
         print("❌ Error in chat flow:", e)
         result = {"status": "failed", "error": str(e)}
 
-    # 4️⃣ Save chat memory only (optional, local)
+    # 4️⃣ Save chat memory 
     from app.db import save_chat
     await save_chat(request.user_id, request.message, plan, result, site_id=site_id)
     add_message(request.user_id, "user", request.message)
@@ -76,7 +76,7 @@ async def chat_endpoint(req: Request):
     }
 
 async def get_or_create_site(url: str) -> str:
-    """Get or create a site in the database."""
+    # ... (get_or_create_site function remains the same)
     if not url:
         return None
     from app.db import db
@@ -88,74 +88,63 @@ async def get_or_create_site(url: str) -> str:
         return str(result.inserted_id)
 
 async def handle_booking_action(request: ChatRequest, result: dict, site_id: str):
-    booking_data = await extract_booking_params(request.message)
+    if not request.current_url:
+        result.update({"status": "failed", "error": "Current URL is required for booking."})
+        return
 
-    form_submitted = False
-    site_url = None
-    action_payload = None
+    try:
+        booking_data = await extract_booking_params(request.message)
+        if not booking_data:
+            raise ValueError("Could not extract any booking details from the message.")
+        print(f"📝 Extracted booking data: {booking_data}")
+    except Exception as e:
+        print(f"❌ Error extracting booking params: {e}")
+        result.update({"status": "failed", "error": f"Could not understand booking details: {e}"})
+        return
 
-    if site_id:
+    try:
         from app.db import db
         site = await db["sites"].find_one({"_id": ObjectId(site_id)})
-        if site:
-            site_url = site.get("url")
+        site_url = site.get("url") if site else request.current_url
 
-            # 🔍 Scrape forms dynamically
-            forms = await analyze_website_forms(site_url)
-            mapped_fields = await ai_map_fields(forms, booking_data)
+        forms = await analyze_website_forms(site_url)
+        if not forms:
+            raise ValueError("No forms found on the page to fill.")
+        print(f"📄 Scraped {len(forms)} forms from {site_url}")
 
-            # 🧠 Build selectors for frontend autofill
-            def build_selector(field):
-                if field.get("name"):
-                    return f'input[name="{field["name"]}"], textarea[name="{field["name"]}"], select[name="{field["name"]}"]'
-                if field.get("id"):
-                    return f'#{field["id"]}'
-                if field.get("placeholder"):
-                    return f'input[placeholder*="{field["placeholder"]}"], textarea[placeholder*="{field["placeholder"]}"]'
-                return None
+        mapped_fields = await ai_map_fields(forms, booking_data)
+        if not mapped_fields:
+            raise ValueError("AI could not map booking data to any form fields.")
+        print(f"🔗 AI Mapped fields: {mapped_fields}")
 
-            fields_for_frontend = []
-            for form in forms:
-                for inp in form.get("fields", []):
-                    for key, value in mapped_fields.items():
-                        if key.lower() in (
-                            inp.get("name", "").lower(),
-                            inp.get("id", "").lower(),
-                            inp.get("label", "").lower(),
-                        ):
-                            sel = build_selector(inp)
-                            if sel:
-                                fields_for_frontend.append({"selector": sel, "value": value})
+        submission_result = await auto_fill_and_submit_async(site_url, mapped_fields)
+        form_submitted = submission_result.get("status") == "success"
+        
+        if form_submitted:
+            print("✅ Form submission successful on the target website.")
+            # Save booking to our database
+            booking_data.update({
+                "user_id": request.user_id,
+                "site_id": site_id,
+                "form_submitted": True,
+                "submitted_data": mapped_fields
+            })
+            await save_booking(booking_data)
+            print("💾 Booking details saved to local DB.")
+            result.update({
+                "status": "success",
+                "note": "Booking successful!",
+                "booking_details": booking_data,
+            })
+        else:
+            print("⚠️ Form submission failed on the target website.")
+            booking_data.update({"form_submitted": False})
+            result.update({
+                "status": "failed",
+                "note": "Booking failed.",
+                "booking_details": booking_data,
+            })
 
-            if not fields_for_frontend:
-                for key, value in mapped_fields.items():
-                    fields_for_frontend.append({
-                        "selector": f'input[name*="{key}"i], input[id*="{key}"i]',
-                        "value": value,
-                    })
-
-            # 🚀 Server-side submission
-            submission_result = await auto_fill_and_submit_async(site_url, mapped_fields)
-            form_submitted = submission_result.get("status") == "success"
-
-            # Save for caching
-            await db["sites"].update_one(
-                {"_id": site["_id"]},
-                {"$set": {"scraper_config": forms}}
-            )
-
-            # 🎯 Prepare action for frontend
-            action_payload = {
-                "type": "autofill",
-                "payload": {
-                    "fields": fields_for_frontend,
-                    "submitted_on_server": form_submitted,
-                },
-            }
-
-    result.update({
-        "status": "success" if form_submitted else "failed",
-        "booking_saved_on_website": form_submitted,
-        "booking_details": booking_data,
-        "action": action_payload,
-    })
+    except Exception as e:
+        print(f"❌ Error in booking action: {e}")
+        result.update({"status": "failed", "error": str(e)})

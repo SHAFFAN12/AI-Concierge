@@ -1,8 +1,10 @@
 import asyncio
-import sys
+import sys # Import sys
 
-if sys.platform == "win32":
-    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+if sys.platform == 'win32':
+    # Windows par Playwright aur asyncio subprocesses ke liye zaroori
+    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+    print("✅ AsyncIO policy set for Windows.")
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
