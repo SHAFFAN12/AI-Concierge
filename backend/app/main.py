@@ -13,6 +13,9 @@ from app.dashboard_routes import router as dashboard_router
 from app.services.rag_service import add_documents
 from app.services.knowledge_base import initialize_knowledge_base
 
+from fastapi_limiter import FastAPILimiter # New import
+from redis.asyncio import Redis # New import
+
 app = FastAPI(title="Agentic AI Backend")
 
 
@@ -20,6 +23,11 @@ app = FastAPI(title="Agentic AI Backend")
 async def startup_event():
     initialize_knowledge_base()
     print("✅ Knowledge base initialized")
+
+    # Initialize Redis for rate limiting
+    redis = Redis(host="localhost", port=6379, db=0) # Assuming Redis is running locally
+    await FastAPILimiter.init(redis)
+    print("✅ FastAPILimiter initialized.")
 
 
 # Allow frontend dev origin; in prod set strict origin list

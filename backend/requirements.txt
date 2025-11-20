@@ -1,14 +1,11 @@
 fastapi
 uvicorn[standard]
-requests
 pydantic
-selenium
-webdriver-manager
 python-dotenv
-motor   
+motor
 pymongo
 google.generativeai
-faiss-cpu 
+faiss-cpu
 sentence-transformers
 google-api-python-client
 google-auth-oauthlib
@@ -17,3 +14,9 @@ pytest
 crawl4ai
 playwright
 dateparser
+httpx
+langchain
+langchain-community
+langchain-groq
+duckduckgo-search
+fastapi-limiter
