@@ -78,8 +78,13 @@ def _sync_fill_and_submit(url: str, field_data: Dict[str, str]) -> Dict:
             # Get the actual HTML field name/id from the mapping, or use the logical key if not found
             html_field_name = field_mapping.get(logical_key, logical_key)
             try:
-                # Construct a robust XPath to find the element using the mapped HTML field name
-                xpath_selector = f"//*[@name='{html_field_name}' or @id='{html_field_name}' or @aria-label='{html_field_name}' or contains(@placeholder, '{html_field_name}')]"
+                # Construct a robust XPath to find the element
+                # Prioritize exact name/id match, then aria-label, then placeholder, then type for inputs
+                xpath_selector = f"""
+                //*[@name='{html_field_name}' or @id='{html_field_name}' or @aria-label='{html_field_name}' or
+                (self::input and @type='{html_field_name}') or
+                (self::input and contains(@placeholder, '{html_field_name}'))]
+                """
                 elements = WebDriverWait(driver, 10).until(
                     EC.presence_of_all_elements_located((By.XPATH, xpath_selector))
                 )
@@ -87,6 +92,8 @@ def _sync_fill_and_submit(url: str, field_data: Dict[str, str]) -> Dict:
                 for element in elements:
                     if element.is_displayed() and element.is_enabled():
                         tag_name = element.tag_name
+                        input_type = element.get_attribute("type")
+
                         if tag_name == "select":
                             from selenium.webdriver.support.ui import Select
                             select = Select(element)
@@ -101,6 +108,32 @@ def _sync_fill_and_submit(url: str, field_data: Dict[str, str]) -> Dict:
                                     filled = True
                                 except:
                                     print(f"⚠️ Could not select '{value}' in '{logical_key}'")
+                        elif input_type == "radio":
+                            if element.get_attribute("value") == value:
+                                element.click()
+                                print(f"✅ Selected radio button '{logical_key}' with value '{value}'")
+                                filled = True
+                        elif input_type == "checkbox":
+                            # Assuming value is a boolean-like string ("true", "false")
+                            if str(value).lower() == "true" and not element.is_selected():
+                                element.click()
+                                print(f"✅ Checked checkbox '{logical_key}'")
+                                filled = True
+                            elif str(value).lower() == "false" and element.is_selected():
+                                element.click()
+                                print(f"✅ Unchecked checkbox '{logical_key}'")
+                                filled = True
+                            elif str(value).lower() not in ["true", "false"]:
+                                print(f"⚠️ Checkbox '{logical_key}' received non-boolean value '{value}'")
+                                # If the value is not boolean, we might want to just click it if it's not already selected
+                                if not element.is_selected():
+                                    element.click()
+                                    print(f"✅ Clicked checkbox '{logical_key}' with non-boolean value '{value}'")
+                                    filled = True
+                                else:
+                                    filled = True # Already in desired state or clicked
+                            else:
+                                filled = True # Already in desired state
                         elif tag_name in ["input", "textarea"]:
                             element.clear()
                             element.send_keys(value)

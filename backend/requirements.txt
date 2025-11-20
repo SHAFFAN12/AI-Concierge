@@ -12,6 +12,8 @@ faiss-cpu
 sentence-transformers
 google-api-python-client
 google-auth-oauthlib
-
 google-cloud-speech
 pytest
+crawl4ai
+playwright
+dateparser

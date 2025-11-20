@@ -4,28 +4,33 @@ import { Send, Bot, User, Mic, MicOff } from "lucide-react";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
-function getUserId() {
-  if (typeof window !== "undefined") {
-    let userId = localStorage.getItem("user_id");
-    if (!userId) {
-      userId = Math.random().toString(36).substring(2);
-      localStorage.setItem("user_id", userId);
-    }
-    return userId;
-  }
-  return "anonymous";
-}
-
 export default function Home() {
   const [messages, setMessages] = useState<{ role: string; text: string }[]>([]);
   const [input, setInput] = useState("");
-  const [userId, setUserId] = useState("");
   const [loading, setLoading] = useState(false);
   const [listening, setListening] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<any>(null);
 
-  // ✅ Speech Recognition
+  useEffect(() => {
+    // Load chat history from localStorage on startup
+    const savedMessages = localStorage.getItem("chat_history");
+    if (savedMessages) {
+      setMessages(JSON.parse(savedMessages));
+    } else {
+      setMessages([
+        { role: "bot", text: "👋 Hi there! I’m your AI Concierge. How can I assist you today?" },
+      ]);
+    }
+  }, []);
+
+  useEffect(() => {
+    // Save chat history to localStorage whenever it changes
+    localStorage.setItem("chat_history", JSON.stringify(messages));
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  // Speech Recognition and Text-to-Speech setup (remains the same)
   useEffect(() => {
     if (
       typeof window !== "undefined" &&
@@ -39,8 +44,7 @@ export default function Home() {
       recognition.interimResults = false;
 
       recognition.onresult = (event: any) => {
-        const transcript = event.results[0][0].transcript;
-        setInput(transcript);
+        setInput(event.results[0][0].transcript);
       };
 
       recognition.onend = () => setListening(false);
@@ -53,7 +57,6 @@ export default function Home() {
     }
   }, []);
 
-  // ✅ Text-to-Speech
   function speak(text: string) {
     if ("speechSynthesis" in window) {
       const utterance = new SpeechSynthesisUtterance(text);
@@ -62,21 +65,11 @@ export default function Home() {
     }
   }
 
-  useEffect(() => {
-    setUserId(getUserId());
-    setMessages([
-      { role: "bot", text: "👋 Hi there! I’m your AI Concierge. How can I assist you today?" },
-    ]);
-  }, []);
-
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-
   async function sendMessage() {
     if (!input.trim()) return;
     const userMsg = { role: "user", text: input };
-    setMessages((prev) => [...prev, userMsg]);
+    const newMessages = [...messages, userMsg];
+    setMessages(newMessages);
     setInput("");
     setLoading(true);
 
@@ -85,20 +78,25 @@ export default function Home() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          user_id: userId,
           message: input,
+          history: newMessages,
+          current_url: window.location.href,
         }),
       });
 
       if (!res.ok) throw new Error(`API error: ${res.status}`);
       const data = await res.json();
-
-      const replyText =
-        data?.result?.note || data?.plan?.message || "Sorry, I didn’t quite catch that.";
-
+      
+      const replyText = data.note || "Sorry, I didn’t quite catch that.";
       const botMsg = { role: "bot", text: replyText };
       setMessages((prev) => [...prev, botMsg]);
       speak(replyText);
+
+      // Handle actions from the backend
+      if (data.action) {
+        handleBackendAction(data.action);
+      }
+
     } catch (err: any) {
       setMessages((prev) => [
         ...prev,
@@ -106,6 +104,23 @@ export default function Home() {
       ]);
     } finally {
       setLoading(false);
+    }
+  }
+
+  function handleBackendAction(action: { type: string; [key: string]: any }) {
+    console.log("Received action from backend:", action);
+    switch (action.type) {
+      case "click":
+        // In a real scenario, you would use the selector to click the element
+        alert(`AI wants to click on element: ${action.selector}`);
+        break;
+      case "fill_form":
+        // In a real scenario, you would use the selectors to fill the form
+        alert(`AI wants to fill a form with these details: ${JSON.stringify(action.fields)}`);
+        break;
+      // Add more cases for other actions here
+      default:
+        console.warn("Unknown action type:", action.type);
     }
   }
 

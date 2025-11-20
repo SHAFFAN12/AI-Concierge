@@ -3,91 +3,88 @@ import re
 import json
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
+from typing import Optional, List, Dict, Any
+
 from app.services.llm_provider import decide_action
 from app.services.parse_booking import extract_booking_params
-from app.services.memory import get_memory, add_message
 from app.services.search import run_search
-from app.services.scraper_service import analyze_website_forms, ai_map_fields
+from app.services.scraper_service import get_interactive_elements, ai_map_fields
 from app.scrapper.form_filler_async import auto_fill_and_submit_async
 from app.db import save_booking
-
-from bson import ObjectId
-from typing import Optional, Dict, Any # Added Dict, Any for type hints
-
+from app.services.crawler_service import get_page_content_as_markdown
 
 router = APIRouter()
 
 class ChatRequest(BaseModel):
-    user_id: str
     message: str
+    history: Optional[List[Dict[str, str]]] = []
     current_url: Optional[str] = None
     domain: Optional[str] = None
 
-
 @router.post("/chat")
-async def chat_endpoint(req: Request):
-    # ... (chat_endpoint function remains the same as provided by you)
-    # ... (Action dispatch logic remains the same)
+async def chat_endpoint(req: ChatRequest):
     
-    body = await req.json()
-    print("Received request body:", body)
+    # 1. Get page content and interactive elements
+    page_content = await get_page_content_as_markdown(req.current_url)
+    interactive_elements = await get_interactive_elements(req.current_url)
     
+    # 2. Get AI's next action
+    plan = await decide_action(
+        prompt=req.message,
+        page_content=page_content,
+        interactive_elements=interactive_elements
+    )
+    
+    result = {"status": "no_action", "plan": plan}
+    action_type = plan.get("type") or plan.get("action_type") or plan.get("action") or "reply"
+
+    # 3. Execute the action
     try:
-        request = ChatRequest(**body)
-    except Exception as e:
-        raise HTTPException(status_code=422, detail=str(e))
-
-    history = get_memory(request.user_id)
-    plan = await decide_action(request.message)
-    result = {"status": "no_action"}
-    site_id = None
-
-    try:
-        action_type = plan.get("type") or plan.get("action_type") or plan.get("action") or "reply"
-
         if action_type == "booking":
-            print("🚀 Booking flow triggered with:", request.message)
-            site_id = await get_or_create_site(request.current_url)
-            await handle_booking_action(request, result, site_id) # The key call
+            await handle_booking_action(req, result)
 
         elif action_type == "search":
-            result = await run_search(plan.get("params", {}))
+            result.update(await run_search(plan.get("parameters", {})))
 
+        elif action_type == "click":
+            # The frontend will handle the click, we just provide the selector
+            result.update({
+                "status": "action",
+                "action": {
+                    "type": "click",
+                    "selector": plan.get("parameters", {}).get("selector")
+                },
+                "note": f"Clicking on element with selector: {plan.get('parameters', {}).get('selector')}"
+            })
+
+        elif action_type == "fill_form":
+             # The frontend will handle filling the form, we just provide the instructions
+            result.update({
+                "status": "action",
+                "action": {
+                    "type": "fill_form",
+                    "fields": plan.get("parameters", {}).get("fields")
+                },
+                "note": "Please fill the form with the provided details."
+            })
+        
         elif action_type == "reply":
-            result = {"status": "ok", "note": plan.get("message") or plan.get("reply_message") or ""}
+            result.update({
+                "status": "ok",
+                "note": plan.get("parameters", {}).get("message")
+            })
 
         else:
-            result = {"status": "unknown", "note": plan.get("message") or str(plan)}
+            result.update({"status": "unknown", "note": "Could not determine the action to take."})
 
     except Exception as e:
-        print("❌ Error in chat flow:", e)
-        result = {"status": "failed", "error": str(e)}
+        print(f"❌ Error executing action '{action_type}': {e}")
+        result.update({"status": "failed", "error": str(e)})
 
-    # 4️⃣ Save chat memory 
-    from app.db import save_chat
-    await save_chat(request.user_id, request.message, plan, result, site_id=site_id)
-    add_message(request.user_id, "user", request.message)
-    add_message(request.user_id, "assistant", result.get("note") or result.get("status"))
+    return result
 
-    return {
-        "ok": True,
-        "plan": plan,
-        "result": result
-    }
 
-async def get_or_create_site(url: str) -> str:
-    # ... (get_or_create_site function remains the same)
-    if not url:
-        return None
-    from app.db import db
-    site = await db["sites"].find_one({"url": url})
-    if site:
-        return str(site["_id"])
-    else:
-        result = await db["sites"].insert_one({"url": url})
-        return str(result.inserted_id)
-
-async def handle_booking_action(request: ChatRequest, result: dict, site_id: str):
+async def handle_booking_action(request: ChatRequest, result: dict):
     if not request.current_url:
         result.update({"status": "failed", "error": "Current URL is required for booking."})
         return
@@ -96,54 +93,54 @@ async def handle_booking_action(request: ChatRequest, result: dict, site_id: str
         booking_data = await extract_booking_params(request.message)
         if not booking_data:
             raise ValueError("Could not extract any booking details from the message.")
-        print(f"📝 Extracted booking data: {booking_data}")
-    except Exception as e:
-        print(f"❌ Error extracting booking params: {e}")
-        result.update({"status": "failed", "error": f"Could not understand booking details: {e}"})
-        return
 
-    try:
-        from app.db import db
-        site = await db["sites"].find_one({"_id": ObjectId(site_id)})
-        site_url = site.get("url") if site else request.current_url
+        # Re-using the get_interactive_elements to get form details
+        # In a future refactor, this could be more efficient
+        elements = await get_interactive_elements(request.current_url)
+        forms = [el for el in elements if el.get('tag') == 'form']
 
-        forms = await analyze_website_forms(site_url)
         if not forms:
             raise ValueError("No forms found on the page to fill.")
-        print(f"📄 Scraped {len(forms)} forms from {site_url}")
 
         mapped_fields = await ai_map_fields(forms, booking_data)
         if not mapped_fields:
             raise ValueError("AI could not map booking data to any form fields.")
-        print(f"🔗 AI Mapped fields: {mapped_fields}")
 
-        submission_result = await auto_fill_and_submit_async(site_url, mapped_fields)
-        form_submitted = submission_result.get("status") == "success"
+        # This part needs to be adapted for the new frontend-driven action
+        # For now, we assume the first form is the target
+        form_selector = forms[0].get('selector')
         
-        if form_submitted:
-            print("✅ Form submission successful on the target website.")
-            # Save booking to our database
-            booking_data.update({
-                "user_id": request.user_id,
-                "site_id": site_id,
-                "form_submitted": True,
-                "submitted_data": mapped_fields
-            })
-            await save_booking(booking_data)
-            print("💾 Booking details saved to local DB.")
-            result.update({
-                "status": "success",
-                "note": "Booking successful!",
-                "booking_details": booking_data,
-            })
-        else:
-            print("⚠️ Form submission failed on the target website.")
-            booking_data.update({"form_submitted": False})
-            result.update({
-                "status": "failed",
-                "note": "Booking failed.",
-                "booking_details": booking_data,
-            })
+        # We are not submitting from the backend anymore. 
+        # The plan should be to tell the frontend what to fill and where.
+        
+        fill_instructions = []
+        for field_name, value in mapped_fields.items():
+            # Find the selector for the field
+            field_selector = None
+            for form in forms:
+                for field in form.get('fields', []):
+                    if field.get('name') == field_name or field.get('id') == field_name:
+                        field_selector = field.get('selector')
+                        break
+                if field_selector:
+                    break
+            
+            if field_selector:
+                fill_instructions.append({"selector": field_selector, "value": value})
+
+        result.update({
+            "status": "action",
+            "action": {
+                "type": "fill_form",
+                "fields": fill_instructions
+            },
+            "note": "I've identified the form and the fields to fill. Please confirm to proceed.",
+            "booking_details": booking_data,
+        })
+        
+        # The actual booking saving should happen after the form is submitted by the user
+        # This requires another endpoint or a different flow.
+        # For now, we are just sending the instructions to the frontend.
 
     except Exception as e:
         print(f"❌ Error in booking action: {e}")

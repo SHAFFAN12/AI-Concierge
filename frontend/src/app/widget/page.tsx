@@ -121,9 +121,9 @@ export default function WidgetPage() {
       setMessages((prev) => [...prev, botMsg]);
       speak(replyText);
 
-      if (data.action && data.action.type === "autofill") {
-        console.log("📤 Sending autofill action to parent page:", data.action);
-        window.parent.postMessage(data.action, "*");
+      if (data.result && data.result.action) {
+        console.log("📤 Sending action to parent page:", data.result.action);
+        window.parent.postMessage(data.result.action, "*");
       }
     } catch (err: any) {
       setMessages((prev) => [

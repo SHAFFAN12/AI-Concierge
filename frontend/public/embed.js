@@ -54,32 +54,47 @@
     }, 800);
   });
 
-  // Listen for autofill requests
+  // Listen for actions from the widget
   window.addEventListener("message", (event) => {
     const data = event.data;
 
-    // Only process messages that contain autofill data
-    if (!data || data.type !== "autofill") return;
+    if (!data || !data.type) return;
 
-    console.log("🧩 Autofill received:", data);
+    if (data.type === "autofill") {
+      console.log("🧩 Autofill received:", data);
+      const fields = data.payload?.fields || [];
+      fields.forEach(({ selector, value }) => {
+        const element = document.querySelector(selector);
+        if (element) {
+          element.value = value;
+          element.dispatchEvent(new Event("input", { bubbles: true }));
+          console.log(`✅ Filled ${selector} with "${value}"`);
+        } else {
+          console.warn(`⚠️ Element not found for selector: ${selector}`);
+        }
+      });
 
-    const fields = data.payload?.fields || [];
-    fields.forEach(({ selector, value }) => {
-      const element = document.querySelector(selector);
-      if (element) {
-        element.value = value;
-        element.dispatchEvent(new Event("input", { bubbles: true }));
-        console.log(`✅ Filled ${selector} with "${value}"`);
-      } else {
-        console.warn(`⚠️ Element not found for selector: ${selector}`);
+      // Optional: Auto-submit form if found
+      const form = document.querySelector("form");
+      if (form) {
+        console.log("🚀 Form ready — auto-submitting...");
+        form.dispatchEvent(new Event("submit", { bubbles: true }));
       }
-    });
-
-    // Optional: Auto-submit form if found
-    const form = document.querySelector("form");
-    if (form) {
-      console.log("🚀 Form ready — auto-submitting...");
-      form.dispatchEvent(new Event("submit", { bubbles: true }));
+    } else if (data.type === "click") {
+      console.log("🖱️ Click action received:", data);
+      const { element_text } = data.payload;
+      if (element_text) {
+        // Find the element by its text content using XPath
+        const xpath = `//*[text()='${element_text}'] | //button[contains(.,'${element_text}')] | //a[contains(.,'${element_text}')]`;
+        const element = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+        
+        if (element) {
+          element.click();
+          console.log(`✅ Clicked on element with text: "${element_text}"`);
+        } else {
+          console.warn(`⚠️ Element not found with text: "${element_text}"`);
+        }
+      }
     }
   });
 })();
