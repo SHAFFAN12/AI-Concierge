@@ -139,23 +139,37 @@ export default function ChatInterface() {
                 }),
             });
 
-            if (!res.ok || !res.body) throw new Error(`API error: ${res.status}`);
+            if (!res.ok) throw new Error(`API error: ${res.status}`);
+            if (!res.body) throw new Error('Response body is null');
 
             const reader = res.body.getReader();
             const decoder = new TextDecoder();
             let fullBotResponse = "";
             let currentMessageText = "";
+            let buffer = "";
 
             while (true) {
                 const { value, done } = await reader.read();
                 if (done) break;
 
-                const chunk = decoder.decode(value);
-                const eventStrings = chunk.split('\ndata: ').filter(s => s.trim() !== '').map(s => s.replace('data: ', ''));
+                const chunk = decoder.decode(value, { stream: true });
+                buffer += chunk;
                 
-                for (const eventString of eventStrings) {
-                    try {
-                        const data = JSON.parse(eventString);
+                const lines = buffer.split('\n');
+                buffer = lines.pop() || ""; // Keep incomplete line in buffer
+                
+                for (const line of lines) {
+                    const trimmedLine = line.trim();
+                    if (!trimmedLine || trimmedLine === '') continue;
+                    
+                    if (trimmedLine.startsWith('data:')) {
+                        const eventString = trimmedLine.substring(5).trim(); // Remove 'data:' prefix and trim
+                        if (!eventString) continue;
+                        
+                        try {
+                            console.log('About to parse:', eventString);
+                            const data = JSON.parse(eventString);
+                            console.log('Parsed successfully:', data);
 
                         if (data.ops) { 
                             for (const op of data.ops) {
@@ -204,14 +218,12 @@ export default function ChatInterface() {
                             );
                             break;
                         }
-                    } catch (e) {
-                        console.error("Error parsing stream chunk:", e, eventString);
-                        setMessages((prevMessages) =>
-                            prevMessages.map((msg) =>
-                                msg.id === tempBotMsgId ? { ...msg, text: `❌ Error: Could not parse AI response.`, streaming: false } : msg
-                            )
-                        );
-                        break;
+                        } catch (e: any) {
+                            console.error("Error parsing stream chunk:", e);
+                            console.error("Failed string was:", eventString);
+                            console.error("Error message:", e.message);
+                            // Don't throw, just skip this chunk
+                        }
                     }
                 }
             }
