@@ -19,4 +19,5 @@ langchain
 langchain-community
 langchain-groq
 duckduckgo-search
+ddgs
 fastapi-limiter

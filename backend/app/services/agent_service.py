@@ -1,10 +1,10 @@
 # backend/app/services/agent_service.py
 import os
+import json
 from typing import List, Dict, Any, AsyncGenerator
 
-from langchain.agents import AgentExecutor, create_react_agent
 from langchain_community.tools import DuckDuckGoSearchRun
-from langchain_core.prompts import PromptTemplate
+from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 from langchain_core.tools import tool
 from langchain_groq import ChatGroq
 
@@ -45,54 +45,10 @@ async def scrape_webpage(url: str) -> Dict[str, Any]:
 
 tools = [search_tool, scrape_webpage]
 
-# --- 3. Create the Agent ---
+# Bind tools to LLM
+llm_with_tools = llm.bind_tools(tools)
 
-# The prompt template tells the agent how to reason and what tools it has.
-# This is a standard ReAct (Reasoning and Acting) prompt, enhanced for multi-step and self-correction.
-prompt_template = PromptTemplate.from_template("""
-You are an AI assistant designed to help users interact with websites and answer questions.
-Your goal is to be as helpful and autonomous as possible, completing tasks step-by-step.
-
-You have access to the following tools:
-{tools}
-
-To use a tool, you MUST use the following format:
-```
-Thought: Do I need to use a tool? Yes
-Action: the action to take, should be one of [{tool_names}]
-Action Input: the input to the action
-Observation: the result of the action
-```
-Always observe the results of your actions. If an action fails or returns an unexpected result,
-analyze the observation and try a different approach or re-plan.
-
-When you have a complete response to say to the user, or if you don't need to use a tool,
-you MUST use the following format:
-```
-Thought: Do I need to use a tool? No
-Final Answer: [your response here, including any actions the user needs to take on the frontend]
-```
-The "Final Answer" should be a comprehensive response that directly addresses the user's request.
-If you suggest a frontend action (like a click or form fill), clearly state it in the Final Answer
-so the user knows what to expect or confirm.
-
-Begin!
-
-Previous conversation history (for context, do not repeat yourself):
-{chat_history}
-
-New user input: {input}
-{agent_scratchpad}
-""")
-
-# Create the agent using the LLM, tools, and prompt
-agent = create_react_agent(llm, tools, prompt_template)
-
-# The AgentExecutor is what runs the agent and executes the tools
-# We set handle_parsing_errors=True to gracefully handle LLM parsing errors
-agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True, handle_parsing_errors=True)
-
-# --- 4. Define the main function to run the agent with streaming ---
+# --- 3. Define the main function to run the agent with streaming ---
 
 async def run_agent_stream(user_input: str, chat_history: List[Dict[str, str]]) -> AsyncGenerator[str, None]:
     """
@@ -100,11 +56,45 @@ async def run_agent_stream(user_input: str, chat_history: List[Dict[str, str]]) 
     streaming intermediate steps and the final answer.
     """
     try:
-        async for chunk in agent_executor.astream_log(
-            {"input": user_input, "chat_history": chat_history},
-            include_names=["Agent"], # Only stream events related to the main agent run
-        ):
-            yield json.dumps(chunk) + "\n" # Yield each chunk as a JSON string
+        # Build message history
+        messages = [
+            SystemMessage(content="""You are an AI assistant designed to help users interact with websites and answer questions.
+Your goal is to be as helpful and autonomous as possible, completing tasks step-by-step.
+
+When you need to search for information, use the duckduckgo_search tool.
+When you need to scrape a webpage, use the scrape_webpage tool.
+
+Always think through your approach and use tools when necessary to provide accurate information.""")
+        ]
+        
+        # Add chat history
+        for msg in chat_history:
+            if msg.get("role") == "user":
+                messages.append(HumanMessage(content=msg.get("content", "")))
+            elif msg.get("role") == "assistant":
+                messages.append(AIMessage(content=msg.get("content", "")))
+        
+        # Add current user input
+        messages.append(HumanMessage(content=user_input))
+        
+        # Stream the response
+        async for chunk in llm_with_tools.astream(messages):
+            # Check if the chunk has tool calls
+            if hasattr(chunk, 'tool_calls') and chunk.tool_calls:
+                for tool_call in chunk.tool_calls:
+                    yield json.dumps({
+                        "type": "tool_call",
+                        "tool": tool_call.get("name"),
+                        "args": tool_call.get("args")
+                    }) + "\n"
+            
+            # Check for content
+            if hasattr(chunk, 'content') and chunk.content:
+                yield json.dumps({
+                    "type": "content",
+                    "content": chunk.content
+                }) + "\n"
+                
     except Exception as e:
-        error_message = {"error": f"Error running agent: {e}"}
+        error_message = {"type": "error", "error": f"Error running agent: {str(e)}"}
         yield json.dumps(error_message) + "\n"

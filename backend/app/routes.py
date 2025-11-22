@@ -3,9 +3,16 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from typing import Optional, List, Dict
 import json
+import os
 
 from app.services.agent_service import run_agent_stream
-from fastapi_limiter.depends import RateLimiter # New import
+
+# Only import and use rate limiter if Redis is available
+try:
+    from fastapi_limiter.depends import RateLimiter
+    RATE_LIMIT_ENABLED = True
+except:
+    RATE_LIMIT_ENABLED = False
 
 router = APIRouter()
 
@@ -14,7 +21,10 @@ class ChatRequest(BaseModel):
     history: Optional[List[Dict[str, str]]] = []
     current_url: Optional[str] = None
 
-@router.post("/chat", dependencies=[Depends(RateLimiter(times=5, seconds=10))]) # Apply rate limit
+# Apply rate limit only if enabled
+dependencies = [Depends(RateLimiter(times=5, seconds=10))] if RATE_LIMIT_ENABLED else []
+
+@router.post("/chat", dependencies=dependencies)
 async def chat_endpoint(req: ChatRequest):
     """
     This endpoint receives a user's message and chat history, and streams

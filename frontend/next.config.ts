@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
               style-src 'self' 'unsafe-inline';
               img-src 'self' data:;
               font-src 'self';
-              connect-src 'self' ${process.env.NEXT_PUBLIC_API_URL};
+              connect-src 'self' ${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'} ws://localhost:8000;
               media-src 'self';
               object-src 'none';
               base-uri 'self';

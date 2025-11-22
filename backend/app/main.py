@@ -24,10 +24,14 @@ async def startup_event():
     initialize_knowledge_base()
     print("✅ Knowledge base initialized")
 
-    # Initialize Redis for rate limiting
-    redis = Redis(host="localhost", port=6379, db=0) # Assuming Redis is running locally
-    await FastAPILimiter.init(redis)
-    print("✅ FastAPILimiter initialized.")
+    # Initialize Redis for rate limiting (optional)
+    try:
+        redis = Redis(host="localhost", port=6379, db=0)
+        await FastAPILimiter.init(redis)
+        print("✅ FastAPILimiter initialized with Redis.")
+    except Exception as e:
+        print(f"⚠️ Redis not available: {e}")
+        print("⚠️ Rate limiting will be disabled. Install and start Redis to enable it.")
 
 
 # Allow frontend dev origin; in prod set strict origin list

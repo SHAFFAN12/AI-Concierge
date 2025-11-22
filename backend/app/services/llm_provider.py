@@ -87,8 +87,7 @@ async def decide_action(
             f"- Tag: '{el.get('tag')}', Text: '{el.get('text', '')[:50]}', Selector: '{el.get('selector')}'"
             for el in interactive_elements
         ]
-        dynamic_system_prompt += f"\nHere is a list of interactive elements available on the page. Use their 'selector' to perform actions like 'click' or 'fill_form'.\n---\n{json.dumps(elements_summary[:20], indent=2)}
----"
+        dynamic_system_prompt += f"\nHere is a list of interactive elements available on the page. Use their 'selector' to perform actions like 'click' or 'fill_form'.\n---\n{json.dumps(elements_summary[:20], indent=2)}\n---"
 
     dynamic_system_prompt += "\nBased on the user message and the context, what is the next action? Return ONLY the JSON object."
 
