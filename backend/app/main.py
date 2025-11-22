@@ -1,5 +1,6 @@
 import asyncio
-import sys # Import sys
+import sys  # Import sys
+import os
 
 if sys.platform == 'win32':
     # Windows par Playwright aur asyncio subprocesses ke liye zaroori
@@ -22,10 +23,19 @@ async def startup_event():
     print("✅ Knowledge base initialized")
 
 
-# Allow frontend dev origin; in prod set strict origin list
+"""CORS configuration
+In development we default to http://localhost:3000.
+Production origin(s) can be provided via either:
+ - WIDGET_ORIGIN=https://your-frontend-domain
+ - CORS_ALLOW_ORIGINS=https://a.com,https://b.com (comma separated)
+The first available variable is used. Falls back to localhost.
+"""
+origins_env = os.getenv("CORS_ALLOW_ORIGINS") or os.getenv("WIDGET_ORIGIN")
+allow_origins = [o.strip() for o in origins_env.split(",") if o.strip()] if origins_env else ["http://localhost:3000"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # change as needed
+    allow_origins=allow_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

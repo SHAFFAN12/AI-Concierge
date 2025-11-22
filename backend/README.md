@@ -64,6 +64,11 @@ The application is built using the **FastAPI** web framework. The logic is separ
     Create a `.env` file in the `backend` directory and add your Groq API key:
     ```
     GROQ_API_KEY="your_groq_api_key_here"
+    # Optional CORS/embedding configuration
+    # Single origin (widget hosting domain)
+    WIDGET_ORIGIN="https://your-frontend-domain"
+    # OR multiple origins (comma separated)
+    CORS_ALLOW_ORIGINS="https://site-a.com,https://site-b.com"
     ```
 
 ## Running the Application
@@ -81,6 +86,20 @@ The server will be available at `http://127.0.0.1:8000`.
 ### Public API
 
 -   `POST /api/chat`: The main endpoint for interacting with the conversational agent. It accepts a stream of messages and returns a streamed response.
+
+### Streaming Format
+Responses are sent as Server-Sent Events (SSE) with JSON chunks shaped like:
+```json
+{ "ops": [ { "path": "/logs/Agent/streamed_output/-", "value": "partial text" } ] }
+```
+Final answer:
+```json
+{ "ops": [ { "path": "/logs/Agent/final_output", "value": { "output": "full text" } } ] }
+```
+Action instructions (from `web_action` tool):
+```json
+{ "ops": [ { "path": "/actions/-", "value": { "type": "click", "target": "Submit" } } ] }
+```
 
 ### Dashboard API (`/api/dashboard`)
 
@@ -102,6 +121,7 @@ The server will be available at `http://127.0.0.1:8000`.
 │   ├── dashboard_routes.py # Admin dashboard API endpoints
 │   ├── services/           # Business logic
 │   │   ├── agent_service.py    # Core agent logic (LLM, tools)
+│   │   ├── web_action tool     # Emits action instructions (click/fill/form_fill)
 │   │   ├── crawler_service.py  # Reads page content
 │   │   ├── scraper_service.py  # Analyzes interactive elements
 │   │   └── ...
@@ -123,3 +143,43 @@ Tests are written using the `pytest` framework. To run the test suite, execute t
 ```bash
 pytest
 ```
+
+## Embedding the Widget
+
+Include the script on any page you want the concierge widget:
+```html
+<script src="https://your-frontend-domain/embed.js" data-base-url="https://your-frontend-domain"></script>
+```
+If `data-base-url` is omitted, the widget infers the origin from the script's `src`.
+
+## Agent Actions
+
+The agent can propose actions via the `web_action` tool:
+- `click`: `{ "type": "click", "target": "Button Text" }` – front-end searches for elements with matching text and clicks.
+- `fill`: `{ "type": "fill", "target": "CSS selector or field label", "value": "Text" }` – front-end attempts to fill the field.
+- `form_fill`: `{ "type": "form_fill", "target": "https://page-url", "value": "{ JSON mapping of fields }" }` – server attempts automation (Selenium) and also sends instructions client-side.
+
+Client pages receive actions via `postMessage` with shape:
+```js
+{ type: 'action', payload: { type, target, value } }
+```
+You can intercept and extend handling:
+```js
+window.addEventListener('message', (e) => {
+    if (e.data?.type === 'action') {
+        // custom handling
+        console.log('Action received', e.data.payload);
+    }
+});
+```
+
+## CORS Configuration
+
+`main.py` reads `CORS_ALLOW_ORIGINS` (comma-separated) or `WIDGET_ORIGIN` to set allowed origins. If neither is provided it defaults to `http://localhost:3000` for development.
+
+| Variable | Purpose | Example |
+|----------|---------|---------|
+| `WIDGET_ORIGIN` | Single allowed origin for embedding | `https://app.example.com` |
+| `CORS_ALLOW_ORIGINS` | Multiple origins (comma separated) | `https://a.com,https://b.com` |
+
+Set one (prefer `CORS_ALLOW_ORIGINS` if multiple). Do not include trailing slashes.

@@ -18,7 +18,25 @@
 
   const iframe = document.createElement("iframe");
   iframe.id = "ai-concierge-iframe";
-  iframe.src = "http://localhost:3000/widget";
+  // Determine base URL:
+  // 1. data-base-url attribute on the embedding <script>
+  // 2. origin of the script src
+  // 3. fallback to current window origin
+  const scriptEl = document.currentScript;
+  let baseUrl = window.location.origin;
+  if (scriptEl) {
+    const attrBase = scriptEl.getAttribute("data-base-url");
+    if (attrBase) {
+      baseUrl = attrBase.replace(/\/$/, "");
+    } else if (scriptEl.src) {
+      try {
+        baseUrl = new URL(scriptEl.src).origin;
+      } catch (e) {
+        // keep fallback
+      }
+    }
+  }
+  iframe.src = baseUrl;
   iframe.style.width = "400px";
   iframe.style.height = "600px";
   iframe.style.border = "1px solid #ccc";
