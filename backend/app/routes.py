@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends # Import Depends
+from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from typing import Optional, List, Dict
@@ -7,13 +7,6 @@ import os
 
 from app.services.agent_service import run_agent_stream
 
-# Only import and use rate limiter if Redis is available
-try:
-    from fastapi_limiter.depends import RateLimiter
-    RATE_LIMIT_ENABLED = True
-except:
-    RATE_LIMIT_ENABLED = False
-
 router = APIRouter()
 
 class ChatRequest(BaseModel):
@@ -21,10 +14,7 @@ class ChatRequest(BaseModel):
     history: Optional[List[Dict[str, str]]] = []
     current_url: Optional[str] = None
 
-# Apply rate limit only if enabled
-dependencies = [Depends(RateLimiter(times=5, seconds=10))] if RATE_LIMIT_ENABLED else []
-
-@router.post("/chat", dependencies=dependencies)
+@router.post("/chat")
 async def chat_endpoint(req: ChatRequest):
     """
     This endpoint receives a user's message and chat history, and streams
@@ -41,7 +31,11 @@ async def chat_endpoint(req: ChatRequest):
             user_input=user_input,
             chat_history=req.history
         ):
-            # Each chunk is already JSON, so we just need to send it
-            yield f"data: {chunk}\n"
+            print(f"CHUNK RECEIVED: {chunk}")
+            # Each chunk is a dict, so we format it as a JSON string
+            # and send it in SSE format with a double newline
+            data_to_send = f"data: {json.dumps(chunk)}\n\n"
+            print(f"DATA SENT: {data_to_send}")
+            yield data_to_send
 
     return StreamingResponse(event_generator(), media_type="text/event-stream")

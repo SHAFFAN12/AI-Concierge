@@ -50,7 +50,7 @@ llm_with_tools = llm.bind_tools(tools)
 
 # --- 3. Define the main function to run the agent with streaming ---
 
-async def run_agent_stream(user_input: str, chat_history: List[Dict[str, str]]) -> AsyncGenerator[str, None]:
+async def run_agent_stream(user_input: str, chat_history: List[Dict[str, str]]) -> AsyncGenerator[Dict, None]:
     """
     Runs the LangChain agent with the given user input and chat history,
     streaming intermediate steps and the final answer.
@@ -77,24 +77,41 @@ Always think through your approach and use tools when necessary to provide accur
         # Add current user input
         messages.append(HumanMessage(content=user_input))
         
+        full_response = ""
+        
         # Stream the response
         async for chunk in llm_with_tools.astream(messages):
             # Check if the chunk has tool calls
             if hasattr(chunk, 'tool_calls') and chunk.tool_calls:
                 for tool_call in chunk.tool_calls:
-                    yield json.dumps({
-                        "type": "tool_call",
-                        "tool": tool_call.get("name"),
-                        "args": tool_call.get("args")
-                    }) + "\n"
+                    # Send tool call notification
+                    yield {
+                        "ops": [{
+                            "path": f"/logs/Agent/steps/0/start",
+                            "value": {"name": f"Tool:{tool_call.get('name')}"}
+                        }]
+                    }
             
             # Check for content
             if hasattr(chunk, 'content') and chunk.content:
-                yield json.dumps({
-                    "type": "content",
-                    "content": chunk.content
-                }) + "\n"
+                full_response += chunk.content
+                # Send streaming content
+                yield {
+                    "ops": [{
+                        "path": "/logs/Agent/streamed_output/-",
+                        "value": chunk.content
+                    }]
+                }
+        
+        # Send final output
+        if full_response:
+            yield {
+                "ops": [{
+                    "path": "/logs/Agent/final_output",
+                    "value": {"output": full_response}
+                }]
+            }
                 
     except Exception as e:
-        error_message = {"type": "error", "error": f"Error running agent: {str(e)}"}
-        yield json.dumps(error_message) + "\n"
+        error_message = {"error": f"Error running agent: {str(e)}"}
+        yield error_message
