@@ -118,15 +118,27 @@ llm_with_tools = llm.bind_tools(tools)
 
 # --- 3. Define the main function to run the agent with streaming ---
 
-async def run_agent_stream(user_input: str, chat_history: List[Dict[str, str]]) -> AsyncGenerator[Dict, None]:
+async def run_agent_stream(user_input: str, chat_history: List[Dict[str, str]], current_url: str = None, site_navigation: List[Dict[str, str]] = None) -> AsyncGenerator[Dict, None]:
     """
     Runs the LangChain agent with the given user input and chat history,
     streaming intermediate steps and the final answer.
     """
     try:
-        # Build message history
-        messages = [
-            SystemMessage(content="""You are an AI assistant designed to help users interact with websites and answer questions.
+        # Define System Prompt with Context
+        system_prompt = """You are an AI assistant designed to help users interact with websites and answer questions."""
+        
+        if current_url:
+            system_prompt += f"\n\n**CURRENT CONTEXT**: The user is currently browsing: {current_url}\n"
+            system_prompt += "Your primary job is to assist with THIS website. If the user asks about 'this site' or 'here', refer to this URL. "
+            system_prompt += "You should proactively `scrape_webpage` on this URL if the user asks a question about the content."
+
+        if site_navigation:
+            system_prompt += "\n\n**SITE NAVIGATION** (Detected from page):\n"
+            for nav in site_navigation:
+                system_prompt += f"- {nav.get('label')}: {nav.get('url')}\n"
+            system_prompt += "\nUse this navigation list to understand the website structure and suggest relevant pages to the user."
+
+        system_prompt += """
 You have access to the following tools:
 
 1.  `duckduckgo_search`: Use this to find information on the web.
@@ -148,8 +160,10 @@ You have access to the following tools:
 **Important:**
 - When using `web_action`, be precise with selectors. Use the ones found in the scrape result if possible.
 - If a tool fails, try a different approach or ask the user for clarification.
-"""),
-        ]
+"""
+        
+        # Initialize messages
+        messages = [SystemMessage(content=system_prompt)]
 
         # Add chat history
         for msg in chat_history:

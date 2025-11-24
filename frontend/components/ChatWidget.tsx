@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { FiSend, FiTrash2, FiMic, FiMicOff, FiCpu, FiUser } from "react-icons/fi";
 import ReactMarkdown from "react-markdown";
 import { saveMessage, getHistory, clearHistory, ChatMessage } from "../utils/storage";
+import { scanSiteNavigation } from "../utils/siteScanner";
 
 // --- Components ---
 
@@ -14,8 +15,8 @@ const MessageBubble = ({ role, content }: { role: "user" | "assistant"; content:
       <div className={`flex max-w-[85%] ${isUser ? "flex-row-reverse" : "flex-row"} gap-3`}>
         {/* Avatar */}
         <div className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center ${isUser
-            ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/30"
-            : "bg-purple-500/20 text-purple-400 border border-purple-500/30"
+          ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/30"
+          : "bg-purple-500/20 text-purple-400 border border-purple-500/30"
           }`}>
           {isUser ? <FiUser size={16} /> : <FiCpu size={16} />}
         </div>
@@ -23,8 +24,8 @@ const MessageBubble = ({ role, content }: { role: "user" | "assistant"; content:
         {/* Bubble */}
         <div
           className={`p-4 rounded-2xl shadow-lg ${isUser
-              ? "glass-bubble-user text-white rounded-tr-none"
-              : "glass-bubble-assistant text-gray-100 rounded-tl-none"
+            ? "glass-bubble-user text-white rounded-tr-none"
+            : "glass-bubble-assistant text-gray-100 rounded-tl-none"
             }`}
         >
           <div className="prose prose-invert prose-sm max-w-none leading-relaxed">
@@ -157,7 +158,12 @@ export default function ChatWidget() {
       const response = await fetch("http://localhost:8000/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: input, history: messages }),
+        body: JSON.stringify({
+          message: input,
+          history: messages,
+          current_url: window.location.href,
+          site_navigation: scanSiteNavigation()
+        }),
       });
 
       if (!response.body) throw new Error("No response body");
@@ -275,8 +281,8 @@ export default function ChatWidget() {
             type="button"
             onClick={toggleListening}
             className={`p-3 rounded-xl transition-all duration-300 ${isListening
-                ? "bg-red-500/20 text-red-400 animate-pulse border border-red-500/50"
-                : "hover:bg-cyan-500/10 text-gray-400 hover:text-cyan-400"
+              ? "bg-red-500/20 text-red-400 animate-pulse border border-red-500/50"
+              : "hover:bg-cyan-500/10 text-gray-400 hover:text-cyan-400"
               }`}
             title="Voice Input"
           >

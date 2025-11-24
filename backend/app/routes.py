@@ -13,6 +13,7 @@ class ChatRequest(BaseModel):
     message: str
     history: Optional[List[Dict[str, Any]]] = []
     current_url: Optional[str] = None
+    site_navigation: Optional[List[Dict[str, str]]] = []
 
 import logging
 
@@ -31,12 +32,12 @@ async def chat_endpoint(req: ChatRequest):
     user_input = req.message
     if req.current_url:
         user_input += f"\n\n(The user is currently on this URL: {req.current_url})"
-
-    async def event_generator():
         try:
             async for chunk in run_agent_stream(
                 user_input=user_input,
-                chat_history=req.history
+                chat_history=req.history,
+                current_url=req.current_url,
+                site_navigation=req.site_navigation
             ):
                 # logger.debug(f"CHUNK RECEIVED: {chunk}")
                 # Each chunk is a dict, so we format it as a JSON string
