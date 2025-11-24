@@ -15,6 +15,7 @@ if __name__ == "__main__":
         "app.main:app",
         host="127.0.0.1",
         port=8000,
-        reload=True,
-        log_level="info"
+        reload=False, # Disabled to fix Windows Playwright crash
+        log_level="info",
+        loop="asyncio" # Force use of the policy we set above
     )

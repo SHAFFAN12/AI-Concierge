@@ -136,7 +136,8 @@ async def run_agent_stream(user_input: str, chat_history: List[Dict[str, str]], 
             system_prompt += "\n\n**SITE NAVIGATION** (Detected from page):\n"
             for nav in site_navigation:
                 system_prompt += f"- {nav.get('label')}: {nav.get('url')}\n"
-            system_prompt += "\nUse this navigation list to understand the website structure and suggest relevant pages to the user."
+            system_prompt += "\nUse this navigation list to understand the website structure.\n"
+            system_prompt += "**CRITICAL**: If the user asks a question that might be answered on one of these other pages (e.g., 'How much does it cost?' -> check '/pricing'), you MUST use the `scrape_webpage` tool on that specific URL to find the answer."
 
         system_prompt += """
 You have access to the following tools:

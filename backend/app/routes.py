@@ -32,6 +32,8 @@ async def chat_endpoint(req: ChatRequest):
     user_input = req.message
     if req.current_url:
         user_input += f"\n\n(The user is currently on this URL: {req.current_url})"
+
+    async def event_generator():
         try:
             async for chunk in run_agent_stream(
                 user_input=user_input,

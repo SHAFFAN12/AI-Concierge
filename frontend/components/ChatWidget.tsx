@@ -15,8 +15,8 @@ const MessageBubble = ({ role, content }: { role: "user" | "assistant"; content:
       <div className={`flex max-w-[85%] ${isUser ? "flex-row-reverse" : "flex-row"} gap-3`}>
         {/* Avatar */}
         <div className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center ${isUser
-          ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/30"
-          : "bg-purple-500/20 text-purple-400 border border-purple-500/30"
+            ? "bg-red-600/20 text-red-500 border border-red-500/30"
+            : "bg-orange-600/20 text-orange-500 border border-orange-500/30"
           }`}>
           {isUser ? <FiUser size={16} /> : <FiCpu size={16} />}
         </div>
@@ -24,8 +24,8 @@ const MessageBubble = ({ role, content }: { role: "user" | "assistant"; content:
         {/* Bubble */}
         <div
           className={`p-4 rounded-2xl shadow-lg ${isUser
-            ? "glass-bubble-user text-white rounded-tr-none"
-            : "glass-bubble-assistant text-gray-100 rounded-tl-none"
+              ? "glass-bubble-user text-white rounded-tr-none"
+              : "glass-bubble-assistant text-gray-100 rounded-tl-none"
             }`}
         >
           <div className="prose prose-invert prose-sm max-w-none leading-relaxed">
@@ -40,13 +40,13 @@ const MessageBubble = ({ role, content }: { role: "user" | "assistant"; content:
 const TypingIndicator = () => (
   <div className="flex justify-start mb-6 animate-fade-in">
     <div className="flex gap-3">
-      <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 border border-purple-500/30 flex items-center justify-center">
+      <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-orange-600/20 text-orange-500 border border-orange-500/30 flex items-center justify-center">
         <FiCpu size={16} />
       </div>
       <div className="glass-bubble-assistant p-4 rounded-2xl rounded-tl-none flex items-center space-x-2">
-        <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-        <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
-        <div className="w-1.5 h-1.5 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+        <div className="w-1.5 h-1.5 bg-red-500 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+        <div className="w-1.5 h-1.5 bg-orange-500 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+        <div className="w-1.5 h-1.5 bg-yellow-500 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
       </div>
     </div>
   </div>
@@ -154,6 +154,20 @@ export default function ChatWidget() {
     setInput("");
     setIsLoading(true);
 
+    // Determine Context URL (Handle Localhost & Iframes)
+    let contextUrl = window.location.href;
+    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+      // FOR TESTING: Override localhost with the target website
+      contextUrl = "https://shaffan12.github.io/Foodio/";
+    } else if (window.parent !== window) {
+      // If inside an iframe, try to get parent URL (might fail due to CORS)
+      try {
+        contextUrl = window.parent.location.href;
+      } catch (e) {
+        console.warn("Could not access parent URL:", e);
+      }
+    }
+
     try {
       const response = await fetch("http://localhost:8000/api/chat", {
         method: "POST",
@@ -161,7 +175,7 @@ export default function ChatWidget() {
         body: JSON.stringify({
           message: input,
           history: messages,
-          current_url: window.location.href,
+          current_url: contextUrl,
           site_navigation: scanSiteNavigation()
         }),
       });
@@ -236,29 +250,29 @@ export default function ChatWidget() {
   return (
     <div className="flex flex-col h-screen max-w-5xl mx-auto p-4 md:p-6 relative overflow-hidden">
       {/* Background Glows */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-cyan-600/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-red-900/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-orange-900/10 rounded-full blur-[100px] pointer-events-none" />
 
       {/* Header */}
       <div className="glass-panel rounded-2xl p-4 mb-6 flex items-center justify-between relative z-10 neon-border">
         <div className="flex items-center space-x-4">
           <div className="relative">
-            <div className="absolute inset-0 bg-cyan-500 blur-md opacity-50 animate-pulse"></div>
-            <div className="relative w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg">
+            <div className="absolute inset-0 bg-red-600 blur-md opacity-40 animate-pulse"></div>
+            <div className="relative w-10 h-10 rounded-lg bg-gradient-to-br from-red-600 to-orange-600 flex items-center justify-center shadow-lg">
               <FiCpu className="text-white text-xl" />
             </div>
           </div>
           <div>
-            <h1 className="text-xl font-bold text-white tracking-wide font-mono">AI_CONCIERGE<span className="animate-pulse text-cyan-400">_</span></h1>
+            <h1 className="text-xl font-bold text-white tracking-wide font-mono">AI_CONCIERGE<span className="animate-pulse text-red-500">_</span></h1>
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_5px_#22c55e]"></span>
-              <p className="text-xs text-cyan-200/70 font-mono tracking-wider">SYSTEM ONLINE</p>
+              <p className="text-xs text-red-200/70 font-mono tracking-wider">SYSTEM ONLINE</p>
             </div>
           </div>
         </div>
         <button
           onClick={handleClearChat}
-          className="p-2.5 text-cyan-400/70 hover:text-red-400 hover:bg-red-500/10 transition-all rounded-lg border border-transparent hover:border-red-500/30"
+          className="p-2.5 text-red-400/70 hover:text-red-400 hover:bg-red-500/10 transition-all rounded-lg border border-transparent hover:border-red-500/30"
           title="Purge Memory"
         >
           <FiTrash2 size={18} />
@@ -276,13 +290,13 @@ export default function ChatWidget() {
 
       {/* Input Area */}
       <form onSubmit={handleSubmit} className="relative z-10">
-        <div className="glass-panel rounded-2xl p-2 flex items-center gap-2 shadow-2xl border border-white/10 focus-within:border-cyan-500/50 transition-colors duration-300">
+        <div className="glass-panel rounded-2xl p-2 flex items-center gap-2 shadow-2xl border border-white/5 focus-within:border-red-500/50 transition-colors duration-300">
           <button
             type="button"
             onClick={toggleListening}
             className={`p-3 rounded-xl transition-all duration-300 ${isListening
-              ? "bg-red-500/20 text-red-400 animate-pulse border border-red-500/50"
-              : "hover:bg-cyan-500/10 text-gray-400 hover:text-cyan-400"
+                ? "bg-red-500/20 text-red-400 animate-pulse border border-red-500/50"
+                : "hover:bg-red-500/10 text-gray-400 hover:text-red-400"
               }`}
             title="Voice Input"
           >
@@ -293,7 +307,7 @@ export default function ChatWidget() {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder={isListening ? "Listening..." : "Enter command..."}
+            placeholder={isListening ? "Listening..." : "Ask about food..."}
             className="flex-1 bg-transparent border-none focus:ring-0 text-white placeholder-gray-600 px-2 py-3 font-mono text-sm"
             disabled={isLoading}
           />
@@ -301,7 +315,7 @@ export default function ChatWidget() {
           <button
             type="submit"
             disabled={!input.trim() || isLoading}
-            className="p-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 active:scale-95"
+            className="p-3 rounded-xl bg-gradient-to-r from-red-600 to-orange-600 text-white shadow-lg shadow-red-500/20 hover:shadow-red-500/40 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 active:scale-95"
           >
             <FiSend size={18} />
           </button>

@@ -2,7 +2,9 @@ import asyncio
 import sys
 import os
 
-# Policy is now handled in run.py for Windows compatibility
+# Policy must be set here for Uvicorn reload subprocesses
+if sys.platform == 'win32':
+    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
 
 
 from fastapi import FastAPI
@@ -17,6 +19,8 @@ app = FastAPI(title="Agentic AI Backend")
 
 @app.on_event("startup")
 async def startup_event():
+    loop = asyncio.get_running_loop()
+    print(f"🔍 Active Event Loop: {type(loop)}")
     await initialize_knowledge_base()
     print("✅ Knowledge base initialized")
 

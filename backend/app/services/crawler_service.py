@@ -24,6 +24,7 @@ async def get_page_content_as_markdown(url: str, max_retries: int = 3, js_code: 
     for attempt in range(max_retries):
         try:
             logger.info(f"Crawling URL (attempt {attempt + 1}/{max_retries}): {url}")
+            logger.info(f"Crawler Loop Type: {type(asyncio.get_running_loop())}")
             
             # Configure browser with realistic settings
             browser_config = BrowserConfig(
