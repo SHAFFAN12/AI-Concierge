@@ -1,285 +1,306 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import {
-  FiSend,
-  FiX,
-  FiMessageSquare,
-  FiChevronDown,
-  FiChevronUp,
-} from "react-icons/fi";
-import { BsRobot, BsPersonCircle } from "react-icons/bs";
-import { AiOutlineRobot } from "react-icons/ai";
+import React, { useState, useEffect, useRef } from "react";
+import { FiSend, FiTrash2, FiMic, FiMicOff, FiCpu, FiUser } from "react-icons/fi";
+import ReactMarkdown from "react-markdown";
+import { saveMessage, getHistory, clearHistory, ChatMessage } from "../utils/storage";
 
-interface Message {
-  role: "user" | "assistant";
-  content: string;
-}
+// --- Components ---
+
+const MessageBubble = ({ role, content }: { role: "user" | "assistant"; content: string }) => {
+  const isUser = role === "user";
+  return (
+    <div className={`flex w-full ${isUser ? "justify-end" : "justify-start"} mb-6 animate-fade-in-up`}>
+      <div className={`flex max-w-[85%] ${isUser ? "flex-row-reverse" : "flex-row"} gap-3`}>
+        {/* Avatar */}
+        <div className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center ${isUser
+            ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/30"
+            : "bg-purple-500/20 text-purple-400 border border-purple-500/30"
+          }`}>
+          {isUser ? <FiUser size={16} /> : <FiCpu size={16} />}
+        </div>
+
+        {/* Bubble */}
+        <div
+          className={`p-4 rounded-2xl shadow-lg ${isUser
+              ? "glass-bubble-user text-white rounded-tr-none"
+              : "glass-bubble-assistant text-gray-100 rounded-tl-none"
+            }`}
+        >
+          <div className="prose prose-invert prose-sm max-w-none leading-relaxed">
+            <ReactMarkdown>{content}</ReactMarkdown>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const TypingIndicator = () => (
+  <div className="flex justify-start mb-6 animate-fade-in">
+    <div className="flex gap-3">
+      <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 border border-purple-500/30 flex items-center justify-center">
+        <FiCpu size={16} />
+      </div>
+      <div className="glass-bubble-assistant p-4 rounded-2xl rounded-tl-none flex items-center space-x-2">
+        <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+        <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+        <div className="w-1.5 h-1.5 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+      </div>
+    </div>
+  </div>
+);
+
+// --- Main Component ---
 
 export default function ChatWidget() {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
-  const [isAssistantTyping, setIsAssistantTyping] = useState(false);
-  const [isMinimized, setIsMinimized] = useState(false);
-  const [currentUrl, setCurrentUrl] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const recognitionRef = useRef<any>(null);
 
+  // Load history on mount
   useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      const { type, payload } = event.data;
-      if (type === "page_info") setCurrentUrl(payload.url);
+    const loadHistory = async () => {
+      const history = await getHistory();
+      if (history.length > 0) {
+        setMessages(history);
+      } else {
+        // Initial greeting if no history
+        const initialMsg: ChatMessage = {
+          role: "assistant",
+          content: "System Online. I am your AI Concierge. How may I assist you today?",
+          timestamp: Date.now()
+        };
+        setMessages([initialMsg]);
+        saveMessage(initialMsg);
+      }
     };
-    window.addEventListener("message", handleMessage);
-    return () => window.removeEventListener("message", handleMessage);
+    loadHistory();
   }, []);
 
+  // Scroll to bottom
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // Voice Recognition Setup
+  useEffect(() => {
+    if (typeof window !== "undefined" && (window as any).webkitSpeechRecognition) {
+      const SpeechRecognition = (window as any).webkitSpeechRecognition;
+      recognitionRef.current = new SpeechRecognition();
+      recognitionRef.current.continuous = false;
+      recognitionRef.current.interimResults = false;
+      recognitionRef.current.lang = "en-US";
+
+      recognitionRef.current.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setInput(transcript);
+        setIsListening(false);
+      };
+
+      recognitionRef.current.onerror = (event: any) => {
+        console.error("Speech recognition error", event.error);
+        setIsListening(false);
+      };
+
+      recognitionRef.current.onend = () => {
+        setIsListening(false);
+      };
+    }
+  }, []);
+
+  const toggleListening = () => {
+    if (isListening) {
+      recognitionRef.current?.stop();
+    } else {
+      recognitionRef.current?.start();
+      setIsListening(true);
+    }
+  };
+
+  const speakText = (text: string) => {
+    if (typeof window !== "undefined" && window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      const voices = window.speechSynthesis.getVoices();
+      const preferredVoice = voices.find(v => v.name.includes("Google US English") || v.name.includes("Samantha"));
+      if (preferredVoice) utterance.voice = preferredVoice;
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
+  const handleClearChat = async () => {
+    await clearHistory();
+    setMessages([{
+      role: "assistant",
+      content: "Memory purged. Ready for new instructions.",
+      timestamp: Date.now()
+    }]);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim()) return;
+    if (!input.trim() || isLoading) return;
 
-    const userMessage: Message = { role: "user", content: input };
-    setMessages((prev) => [...prev, userMessage]);
+    const userMsg: ChatMessage = { role: "user", content: input, timestamp: Date.now() };
+    setMessages((prev) => [...prev, userMsg]);
+    saveMessage(userMsg);
     setInput("");
-    setIsAssistantTyping(true);
+    setIsLoading(true);
 
     try {
-      const response = await fetch("/api/chat", {
+      const response = await fetch("http://localhost:8000/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: input,
-          history: messages,
-          current_url: currentUrl,
-        }),
+        body: JSON.stringify({ message: input, history: messages }),
       });
 
-      if (!response.body) throw new Error("Response body is null");
+      if (!response.body) throw new Error("No response body");
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
+      let assistantMessageContent = "";
 
-      let assistantMessage: Message = { role: "assistant", content: "" };
-      setMessages((prev) => [...prev, assistantMessage]);
+      const assistantMsgTimestamp = Date.now();
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: "", timestamp: assistantMsgTimestamp },
+      ]);
 
       while (true) {
         const { value, done } = await reader.read();
-        if (done) {
-          setIsAssistantTyping(false);
-          break;
-        }
+        if (done) break;
 
         const chunk = decoder.decode(value);
-        const events = chunk.split("\n\n").filter(Boolean);
+        const lines = chunk.split("\n");
 
-        for (const event of events) {
-          if (event.startsWith("data: ")) {
-            const dataString = event.substring(6);
-            if (dataString === "[DONE]") {
-              setIsAssistantTyping(false);
-              reader.cancel();
-              break;
-            }
+        for (const line of lines) {
+          if (line.startsWith("data: ")) {
+            try {
+              const dataString = line.slice(6);
+              if (dataString.trim() === "[DONE]") continue;
 
-            const data = JSON.parse(dataString);
-            console.log("Received data:", data);
-            
-            if (data.ops) {
-              data.ops.forEach((op: any) => {
-                // Handle streaming output from agent
-                if (op.path === "/logs/Agent/streamed_output/-" && op.value) {
-                  // Filter out XML tool tags
-                  const cleanValue = op.value;
-                  // Only add if it's not a tool invocation tag
-                  if (!cleanValue.includes("<scrape_webpage") && 
-                      !cleanValue.includes("</scrape_webpage>") &&
-                      !cleanValue.includes("<search_web") &&
-                      !cleanValue.includes("</search_web>") &&
-                      !cleanValue.includes("<fill_form") &&
-                      !cleanValue.includes("</fill_form>") &&
-                      !cleanValue.includes("<click_element") &&
-                      !cleanValue.includes("</click_element>")) {
-                    assistantMessage.content += cleanValue;
-                    setMessages((prev) => {
-                      const updated = [...prev];
-                      updated[updated.length - 1] = { ...assistantMessage };
-                      return updated;
-                    });
-                  }
+              const data = JSON.parse(dataString);
+
+              if (data.error) {
+                console.error("Backend Error:", data.error);
+                assistantMessageContent = `⚠️ Error: ${data.error}`;
+              } else if (data.content) {
+                const cleanContent = data.content.replace(/<tool_code>[\s\S]*?<\/tool_code>/g, "")
+                  .replace(/<tool_output>[\s\S]*?<\/tool_output>/g, "");
+                if (cleanContent) {
+                  assistantMessageContent += cleanContent;
                 }
-                // Handle final output - only use if there's no streamed content
-                if (op.path === "/logs/Agent/final_output" && op.value?.output) {
-                  // Clean the final output from XML tags
-                  let cleanOutput = op.value.output;
-                  // Remove any XML tool invocation tags
-                  cleanOutput = cleanOutput.replace(/<scrape_webpage[^>]*>[\s\S]*?<\/scrape_webpage>/g, '');
-                  cleanOutput = cleanOutput.replace(/<search_web[^>]*>[\s\S]*?<\/search_web>/g, '');
-                  cleanOutput = cleanOutput.replace(/<fill_form[^>]*>[\s\S]*?<\/fill_form>/g, '');
-                  cleanOutput = cleanOutput.replace(/<click_element[^>]*>[\s\S]*?<\/click_element>/g, '');
-                  cleanOutput = cleanOutput.replace(/<[^>]+>/g, ''); // Remove any remaining XML tags
-                  cleanOutput = cleanOutput.trim();
-                  
-                  // Only use if we don't have content or the current content is just tool calls
-                  if (!assistantMessage.content || assistantMessage.content.trim() === "" || 
-                      assistantMessage.content.includes("<scrape_webpage") || 
-                      assistantMessage.content.includes("<search_web")) {
-                    assistantMessage.content = cleanOutput;
-                  } else if (cleanOutput && cleanOutput !== assistantMessage.content) {
-                    // If final output is different and meaningful, append or replace
-                    assistantMessage.content = cleanOutput;
-                  }
-                  
-                  setMessages((prev) => {
-                    const updated = [...prev];
-                    updated[updated.length - 1] = { ...assistantMessage };
-                    return updated;
-                  });
-                  
-                  // Stop typing indicator when final output is received
-                  setIsAssistantTyping(false);
+              }
+
+              setMessages((prev) => {
+                const newHistory = [...prev];
+                const lastMsg = newHistory[newHistory.length - 1];
+                if (lastMsg.role === "assistant") {
+                  lastMsg.content = assistantMessageContent;
                 }
-                // Handle legacy message format
-                if (op.path === "/messages/-" && op.value?.content) {
-                  assistantMessage.content += op.value.content;
-                  setMessages((prev) => {
-                    const updated = [...prev];
-                    updated[updated.length - 1] = { ...assistantMessage };
-                    return updated;
-                  });
-                }
-                // Handle actions (form fill, clicks, etc.)
-                if (op.path === "/actions/-") {
-                  window.parent.postMessage(op.value, "*");
-                }
+                return newHistory;
               });
+
+            } catch (err) {
+              console.error("Error parsing SSE:", err);
             }
           }
         }
       }
-    } catch (e) {
-      setMessages((prev) => [...prev, { role: "assistant", content: "Error: Could not connect." }]);
-      setIsAssistantTyping(false);
+
+      saveMessage({ role: "assistant", content: assistantMessageContent, timestamp: assistantMsgTimestamp });
+      speakText(assistantMessageContent);
+
+    } catch (error) {
+      console.error("Error sending message:", error);
+      const errorMsg: ChatMessage = { role: "assistant", content: "Connection interrupted.", timestamp: Date.now() };
+      setMessages((prev) => [...prev, errorMsg]);
+      saveMessage(errorMsg);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="w-full h-full flex flex-col bg-gradient-to-br from-black via-gray-900 to-black text-white rounded-3xl shadow-2xl border border-yellow-500/30 overflow-hidden backdrop-blur-xl">
+    <div className="flex flex-col h-screen max-w-5xl mx-auto p-4 md:p-6 relative overflow-hidden">
+      {/* Background Glows */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-cyan-600/10 rounded-full blur-[100px] pointer-events-none" />
+
       {/* Header */}
-      <div className="flex items-center justify-between p-4 bg-gradient-to-r from-yellow-500/10 to-yellow-600/10 border-b border-yellow-500/30 backdrop-blur-xl">
-        <div className="flex items-center gap-3">
+      <div className="glass-panel rounded-2xl p-4 mb-6 flex items-center justify-between relative z-10 neon-border">
+        <div className="flex items-center space-x-4">
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-yellow-500 to-yellow-400 rounded-full blur-md opacity-80 animate-pulse"></div>
-            <div className="relative bg-gradient-to-br from-yellow-500 to-yellow-600 p-2.5 rounded-full shadow-lg shadow-yellow-500/50">
-              <AiOutlineRobot className="text-black text-lg" />
+            <div className="absolute inset-0 bg-cyan-500 blur-md opacity-50 animate-pulse"></div>
+            <div className="relative w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg">
+              <FiCpu className="text-white text-xl" />
             </div>
           </div>
           <div>
-            <h2 className="text-lg font-bold bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent">
-              AI Concierge
-            </h2>
-            <p className="text-xs text-yellow-300/70">Here whenever you need</p>
+            <h1 className="text-xl font-bold text-white tracking-wide font-mono">AI_CONCIERGE<span className="animate-pulse text-cyan-400">_</span></h1>
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_5px_#22c55e]"></span>
+              <p className="text-xs text-cyan-200/70 font-mono tracking-wider">SYSTEM ONLINE</p>
+            </div>
           </div>
         </div>
-
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setIsMinimized(!isMinimized)}
-            className="p-2 rounded-xl hover:bg-yellow-500/20 transition text-yellow-400"
-          >
-            {isMinimized ? <FiChevronUp /> : <FiChevronDown />}
-          </button>
-          <button className="p-2 rounded-xl hover:bg-red-500/20 transition text-yellow-400 hover:text-red-400">
-            <FiX />
-          </button>
-        </div>
+        <button
+          onClick={handleClearChat}
+          className="p-2.5 text-cyan-400/70 hover:text-red-400 hover:bg-red-500/10 transition-all rounded-lg border border-transparent hover:border-red-500/30"
+          title="Purge Memory"
+        >
+          <FiTrash2 size={18} />
+        </button>
       </div>
 
-      {/* Chat Window */}
-      {!isMinimized && (
-        <>
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin">
-            {messages.length === 0 && (
-              <div className="flex flex-col items-center justify-center text-center opacity-60 h-full">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-yellow-500 rounded-full blur-2xl opacity-30"></div>
-                  <FiMessageSquare className="relative text-5xl text-yellow-400 mb-3" />
-                </div>
-                <p className="font-semibold text-yellow-200">Start a conversation</p>
-                <p className="text-sm text-yellow-300/70">Ask anything you want!</p>
-              </div>
-            )}
+      {/* Chat Area */}
+      <div className="flex-1 overflow-y-auto mb-6 pr-2 scrollbar-thin relative z-10">
+        {messages.map((msg, idx) => (
+          <MessageBubble key={idx} role={msg.role} content={msg.content} />
+        ))}
+        {isLoading && <TypingIndicator />}
+        <div ref={messagesEndRef} />
+      </div>
 
-            {messages.map((msg, i) => (
-              <div
-                key={i}
-                className={`flex gap-2 animate-fade-in ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}
-              >
-                <div className={`p-2 rounded-full shadow-lg ${msg.role === "user" ? "bg-gradient-to-br from-yellow-500 to-yellow-600 shadow-yellow-500/50" : "bg-gradient-to-br from-gray-700 to-gray-800 border border-yellow-500/30 shadow-yellow-500/20"}`}>
-                  {msg.role === "user" ? (
-                    <BsPersonCircle className="text-black text-lg" />
-                  ) : (
-                    <BsRobot className="text-yellow-400 text-lg" />
-                  )}
-                </div>
+      {/* Input Area */}
+      <form onSubmit={handleSubmit} className="relative z-10">
+        <div className="glass-panel rounded-2xl p-2 flex items-center gap-2 shadow-2xl border border-white/10 focus-within:border-cyan-500/50 transition-colors duration-300">
+          <button
+            type="button"
+            onClick={toggleListening}
+            className={`p-3 rounded-xl transition-all duration-300 ${isListening
+                ? "bg-red-500/20 text-red-400 animate-pulse border border-red-500/50"
+                : "hover:bg-cyan-500/10 text-gray-400 hover:text-cyan-400"
+              }`}
+            title="Voice Input"
+          >
+            {isListening ? <FiMicOff size={20} /> : <FiMic size={20} />}
+          </button>
 
-                <div className="max-w-[75%]">
-                  <div
-                    className={`px-4 py-3 rounded-2xl shadow-lg text-sm whitespace-pre-wrap break-words backdrop-blur-xl ${
-                      msg.role === "user"
-                        ? "bg-gradient-to-br from-yellow-500 to-yellow-600 text-black rounded-tr-md shadow-yellow-500/30"
-                        : "bg-gradient-to-br from-gray-800 to-gray-900 border border-yellow-500/20 rounded-tl-md text-yellow-50"
-                    }`}
-                  >
-                    {msg.content}
-                  </div>
-                  <p className="text-[10px] text-yellow-400/50 mt-1">
-                    {new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                  </p>
-                </div>
-              </div>
-            ))}
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder={isListening ? "Listening..." : "Enter command..."}
+            className="flex-1 bg-transparent border-none focus:ring-0 text-white placeholder-gray-600 px-2 py-3 font-mono text-sm"
+            disabled={isLoading}
+          />
 
-            {isAssistantTyping && (
-              <div className="flex gap-2 animate-fade-in">
-                <div className="p-2 rounded-full bg-gradient-to-br from-gray-700 to-gray-800 border border-yellow-500/30 shadow-lg shadow-yellow-500/20">
-                  <BsRobot className="text-yellow-400 text-lg" />
-                </div>
-                <div className="px-4 py-3 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-yellow-500/20 shadow-lg">
-                  <div className="flex gap-1">
-                    <span className="w-2 h-2 bg-yellow-400 rounded-full animate-bounce"></span>
-                    <span className="w-2 h-2 bg-yellow-400 rounded-full animate-bounce [animation-delay:150ms]"></span>
-                    <span className="w-2 h-2 bg-yellow-400 rounded-full animate-bounce [animation-delay:300ms]"></span>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            <div ref={messagesEndRef} />
-          </div>
-
-          <form onSubmit={handleSubmit} className="p-4 bg-gradient-to-r from-yellow-500/5 to-yellow-600/5 border-t border-yellow-500/30 backdrop-blur-xl">
-            <div className="flex items-center gap-3 bg-gray-900/50 rounded-2xl px-3 py-2 border border-yellow-500/30 focus-within:border-yellow-500/70 transition-all duration-200">
-              <input
-                className="flex-1 bg-transparent outline-none text-sm text-yellow-50 placeholder-yellow-400/40"
-                placeholder="Type a message..."
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                disabled={isAssistantTyping}
-              />
-              <button
-                type="submit"
-                disabled={!input.trim() || isAssistantTyping}
-                className="p-3 rounded-xl bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-400 hover:to-yellow-500 shadow-lg shadow-yellow-500/50 transition-all duration-200 disabled:opacity-40 disabled:shadow-none disabled:cursor-not-allowed group"
-              >
-                <FiSend className="text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </button>
-            </div>
-          </form>
-        </>
-      )}
+          <button
+            type="submit"
+            disabled={!input.trim() || isLoading}
+            className="p-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 active:scale-95"
+          >
+            <FiSend size={18} />
+          </button>
+        </div>
+      </form>
     </div>
   );
 }

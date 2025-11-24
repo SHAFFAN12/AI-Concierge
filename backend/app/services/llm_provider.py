@@ -24,6 +24,14 @@ HEADERS = {
     "Content-Type": "application/json"
 }
 
+# Initialize LangChain Chat Model
+from langchain_groq import ChatGroq
+llm = ChatGroq(
+    api_key=GROQ_API_KEY,
+    model_name=MODEL_NAME,
+    temperature=0
+)
+
 # Updated System Prompt to include interactive elements
 SYSTEM_PROMPT = """
 You are an expert AI assistant that determines the user's intent and extracts relevant parameters.

@@ -6,10 +6,11 @@ from typing import Optional
 
 logger = logging.getLogger(__name__)
 
-async def get_page_content_as_markdown(url: str, max_retries: int = 3) -> str:
+async def get_page_content_as_markdown(url: str, max_retries: int = 3, js_code: Optional[str] = None, wait_for: Optional[str] = None) -> str:
     """
     Uses crawl4ai to fetch the fully rendered content of a given URL
     and return it in Markdown format with retry logic and better error handling.
+    Supports executing custom JS and waiting for specific selectors.
     """
     if not url:
         logger.warning("Empty URL provided to crawler")
@@ -39,7 +40,8 @@ async def get_page_content_as_markdown(url: str, max_retries: int = 3) -> str:
             # Configure crawler run settings
             run_config = CrawlerRunConfig(
                 cache_mode=CacheMode.BYPASS,  # Always fetch fresh content
-                wait_for="networkidle",  # Wait for network to be idle
+                wait_for=wait_for or "networkidle",  # Wait for specific selector or network idle
+                js_code=js_code, # Execute custom JS if provided
                 page_timeout=30000,  # 30 second timeout
                 delay_before_return_html=2.0,  # Wait 2 seconds for JS to render
                 remove_overlay_elements=True,  # Remove popups/overlays
@@ -89,7 +91,7 @@ async def get_page_content_as_markdown(url: str, max_retries: int = 3) -> str:
     return ""
 
 
-async def get_page_content_with_elements(url: str) -> dict:
+async def get_page_content_with_elements(url: str, js_code: Optional[str] = None, wait_for: Optional[str] = None) -> dict:
     """
     Enhanced version that returns both markdown content and structured data.
     """
@@ -110,7 +112,8 @@ async def get_page_content_with_elements(url: str) -> dict:
         
         run_config = CrawlerRunConfig(
             cache_mode=CacheMode.BYPASS,
-            wait_for="networkidle",
+            wait_for=wait_for or "networkidle",
+            js_code=js_code,
             page_timeout=30000,
             delay_before_return_html=2.0,
             remove_overlay_elements=True,

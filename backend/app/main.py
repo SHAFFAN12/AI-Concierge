@@ -1,11 +1,9 @@
 import asyncio
-import sys  # Import sys
+import sys
 import os
 
-if sys.platform == 'win32':
-    # Windows par Playwright aur asyncio subprocesses ke liye zaroori
-    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
-    print("✅ AsyncIO policy set for Windows.")
+# Policy is now handled in run.py for Windows compatibility
+
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -19,7 +17,7 @@ app = FastAPI(title="Agentic AI Backend")
 
 @app.on_event("startup")
 async def startup_event():
-    initialize_knowledge_base()
+    await initialize_knowledge_base()
     print("✅ Knowledge base initialized")
 
 
