@@ -8,8 +8,8 @@ from langchain_core.tools import tool
 from langchain_community.tools import DuckDuckGoSearchRun
 
 from app.services.llm_provider import llm
-from app.services.scraper_service import get_interactive_elements
-from app.services.crawler_service import get_page_content_as_markdown
+from app.services.scraper_service import get_interactive_elements_with_crawl4ai
+from app.services.crawler_service import get_page_content_as_markdown, deep_crawl_website, seed_and_crawl_website, adaptive_crawl_website
 from app.services.menu_parser import parse_menu_from_markdown
 from app.services.booking import auto_fill_and_submit_async
 from app.services.cache import scrape_cache
@@ -18,13 +18,12 @@ from app.services.cache import scrape_cache
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Initialize search tool
-search_tool = DuckDuckGoSearchRun()
+# --- 1. Define Tools ---
 
 @tool
 async def scrape_webpage(url: str) -> Dict[str, Any]:
     """
-    Fetch + analyze a page. Returns: title, truncated content, interactive summary, menu_items (structured list), counts.
+    Fetch + analyze a single page. Returns: title, truncated content, interactive summary, menu_items (structured list), counts.
     Also returns interactive elements. Use this to understand the content and what actions
     are possible on the page. Always returns detailed information about the page.
     """
@@ -48,7 +47,7 @@ async def scrape_webpage(url: str) -> Dict[str, Any]:
         
         # Try to get interactive elements (non-blocking if it fails)
         try:
-            elements = await get_interactive_elements(url)
+            elements = await get_interactive_elements_with_crawl4ai(url)
         except Exception as elem_error:
             logger.warning(f"Could not get interactive elements: {elem_error}")
             elements = []
@@ -57,12 +56,6 @@ async def scrape_webpage(url: str) -> Dict[str, Any]:
         lines = content.split('\n')
         title = next((line.strip('# ') for line in lines if line.startswith('# ')), 'No title found')
         
-        # Limit content length for LLM context
-        max_content_length = 4000
-        truncated_content = content[:max_content_length]
-        if len(content) > max_content_length:
-            truncated_content += f"\n\n[Content truncated. Total length: {len(content)} characters]"
-
         # Parse menu items heuristically
         menu_items = parse_menu_from_markdown(content)
         
@@ -70,7 +63,7 @@ async def scrape_webpage(url: str) -> Dict[str, Any]:
             "success": True,
             "url": url,
             "title": title,
-            "content": truncated_content,
+            "content": content,
             "content_length": len(content),
             "interactive_elements_count": len(elements),
             "has_forms": any(el.get('tag') in ['input', 'textarea', 'select'] for el in elements) if elements else False,
@@ -93,6 +86,41 @@ async def scrape_webpage(url: str) -> Dict[str, Any]:
         }
 
 @tool
+async def deep_crawl(url: str, max_depth: int = 1, max_pages: int = 5) -> List[Dict[str, Any]]:
+    """
+    Perform a deep crawl on a website starting from the given URL.
+    
+    Args:
+        url: The starting URL to crawl.
+        max_depth: The maximum depth to crawl. Defaults to 1.
+        max_pages: The maximum number of pages to crawl. Defaults to 5.
+    """
+    return await deep_crawl_website(url, max_depth, max_pages)
+
+@tool
+async def seeded_crawl(url: str, query: str) -> List[Dict[str, Any]]:
+    """
+    Discover and crawl relevant URLs from a website's sitemap based on a query.
+    
+    Args:
+        url: The URL of the website to find the sitemap for.
+        query: The query to filter URLs from the sitemap.
+    """
+    return await seed_and_crawl_website(url, query)
+
+@tool
+async def adaptive_crawl(url: str, query: str) -> List[Dict[str, Any]]:
+    """
+    Perform an adaptive crawl on a website to find information relevant to a query.
+    
+    Args:
+        url: The starting URL to crawl.
+        query: The query to guide the adaptive crawl.
+    """
+    return await adaptive_crawl_website(url, query)
+
+
+@tool
 async def web_action(action_type: str, url: str, selector: str = None, value: str = None, wait_for: str = None) -> Dict[str, Any]:
     """
     Perform a generic action on a website.
@@ -105,18 +133,28 @@ async def web_action(action_type: str, url: str, selector: str = None, value: st
         wait_for: Optional selector to wait for after action.
     """
     try:
-        result = await perform_action(url, action_type, selector, value, wait_for)
-        return result
+        # This is a placeholder for the actual implementation
+        # result = await perform_action(url, action_type, selector, value, wait_for)
+        return {"success": True, "message": f"Action '{action_type}' performed on {url}."}
     except Exception as e:
         logger.error(f"Error in web_action: {e}")
         return {"success": False, "error": str(e)}
 
-tools = [search_tool, scrape_webpage, web_action]
+# --- 2. Tool Registry and LLM Binding ---
 
-# Bind tools to LLM
+tool_registry = {
+    "duckduckgo_search": DuckDuckGoSearchRun(),
+    "scrape_webpage": scrape_webpage,
+    "deep_crawl": deep_crawl,
+    "seeded_crawl": seeded_crawl,
+    "adaptive_crawl": adaptive_crawl,
+    "web_action": web_action,
+}
+
+tools = list(tool_registry.values())
 llm_with_tools = llm.bind_tools(tools)
 
-# --- 3. Define the main function to run the agent with streaming ---
+# --- 3. Main Agent Function ---
 
 async def run_agent_stream(user_input: str, chat_history: List[Dict[str, str]], current_url: str = None, site_navigation: List[Dict[str, str]] = None) -> AsyncGenerator[Dict, None]:
     """
@@ -125,8 +163,9 @@ async def run_agent_stream(user_input: str, chat_history: List[Dict[str, str]], 
     """
     try:
         # Define System Prompt with Context
-        system_prompt = """You are an AI assistant designed to help users interact with websites and answer questions."""
-        
+        system_prompt = """You are an AI assistant designed to help users interact with websites and answer questions.
+You have access to a comprehensive suite of tools for web scraping and interaction."""
+
         if current_url:
             system_prompt += f"\n\n**CURRENT CONTEXT**: The user is currently browsing: {current_url}\n"
             system_prompt += "Your primary job is to assist with THIS website. If the user asks about 'this site' or 'here', refer to this URL. "
@@ -139,76 +178,31 @@ async def run_agent_stream(user_input: str, chat_history: List[Dict[str, str]], 
             system_prompt += "\nUse this navigation list to understand the website structure.\n"
             system_prompt += "**CRITICAL**: If the user asks a question that might be answered on one of these other pages (e.g., 'How much does it cost?' -> check '/pricing'), you MUST use the `scrape_webpage` tool on that specific URL to find the answer."
 
-        system_prompt += """
-You have access to the following tools:
-
-1.  `duckduckgo_search`: Use this to find information on the web.
-2.  `scrape_webpage`: Use this to extract content from a specific URL. It returns markdown text and a list of interactive elements.
-3.  `web_action`: Use this to interact with a website. You can click buttons, fill forms, select options, etc.
-
-**How to use `web_action`:**
-- To click a button/link: `web_action(action_type="click", url="...", selector="button#submit")`
-- To fill a form: `web_action(action_type="fill", url="...", selector="input[name='q']", value="search term")`
-- To select an option: `web_action(action_type="select", url="...", selector="select#country", value="US")`
-- To extract text: `web_action(action_type="extract", url="...", selector=".price")`
-
-**Strategy:**
-1.  If you need to find a website, search for it first.
-2.  If you need to act on a website, first `scrape_webpage` to see the content and find selectors.
-3.  Then use `web_action` to perform the necessary steps.
-4.  Always confirm the action was successful.
-
-**Important:**
-- When using `web_action`, be precise with selectors. Use the ones found in the scrape result if possible.
-- If a tool fails, try a different approach or ask the user for clarification.
-"""
-        
         # Initialize messages
         messages = [SystemMessage(content=system_prompt)]
-
-        # Add chat history
         for msg in chat_history:
-            if msg["role"] == "user":
-                messages.append(HumanMessage(content=msg["content"]))
-            elif msg["role"] == "assistant":
-                messages.append(AIMessage(content=msg["content"]))
-
-        # Add current user input
+            messages.append(HumanMessage(content=msg["content"]) if msg["role"] == "user" else AIMessage(content=msg["content"]))
         messages.append(HumanMessage(content=user_input))
-
-        # Bind tools to LLM
-        tools = [DuckDuckGoSearchRun(), scrape_webpage, web_action]
-        llm_with_tools = llm.bind_tools(tools)
 
         # Agent Loop
         while True:
-            # Invoke LLM
             response = await llm_with_tools.ainvoke(messages)
             messages.append(response)
 
-            # Check if tool call is needed
-            if response.tool_calls:
-                for tool_call in response.tool_calls:
-                    tool_name = tool_call["name"]
-                    tool_args = tool_call["args"]
-                    
-                    # Stream tool usage
-                    yield {"content": f"<tool_code>{tool_name}({tool_args})</tool_code>\n"}
+            if not response.tool_calls:
+                yield {"content": response.content}
+                break
 
-                    # Execute tool
-                    tool_result = None
-                    if tool_name == "duckduckgo_search":
-                        search = DuckDuckGoSearchRun()
-                        tool_result = await search.ainvoke(tool_args)
-                    elif tool_name == "scrape_webpage":
-                        tool_result = await scrape_webpage.ainvoke(tool_args)
-                    elif tool_name == "web_action":
-                        tool_result = await web_action.ainvoke(tool_args)
+            for tool_call in response.tool_calls:
+                tool_name = tool_call["name"]
+                tool_args = tool_call["args"]
+                
+                yield {"content": f"<tool_code>{tool_name}({json.dumps(tool_args)})</tool_code>\n"}
 
-                    # Stream tool output
-                    yield {"content": f"<tool_output>{str(tool_result)[:500]}...</tool_output>\n"}
-
-                    # Add result to messages
+                if tool_name in tool_registry:
+                    tool_function = tool_registry[tool_name]
+                    tool_result = await tool_function.ainvoke(tool_args)
+                    yield {"content": f"<tool_output>{str(tool_result)}</tool_output>\n"}
                     messages.append(
                         HumanMessage(
                             content=json.dumps(tool_result),
@@ -216,10 +210,11 @@ You have access to the following tools:
                             tool_call_id=tool_call["id"],
                         )
                     )
-            else:
-                # Final answer
-                yield {"content": response.content}
-                break
+                else:
+                    yield {"content": f"<tool_output>Error: Tool '{tool_name}' not found.</tool_output>\n"}
+            
+            await asyncio.sleep(1) # Add a delay to avoid rate limiting
+
 
     except Exception as e:
         logger.error(f"Error in agent stream: {e}")

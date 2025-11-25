@@ -1,8 +1,12 @@
 # backend/app/services/crawler_service.py
 import asyncio
-from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
+import httpx
+import html2text
+from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode, SeedingConfig, AsyncUrlSeeder
+from crawl4ai.deep_crawling import BFSDeepCrawlStrategy, BestFirstCrawlingStrategy
+from crawl4ai.deep_crawling.scorers import KeywordRelevanceScorer
 import logging
-from typing import Optional
+from typing import Optional, List
 
 logger = logging.getLogger(__name__)
 
@@ -10,7 +14,7 @@ async def get_page_content_as_markdown(url: str, max_retries: int = 3, js_code: 
     """
     Uses crawl4ai to fetch the fully rendered content of a given URL
     and return it in Markdown format with retry logic and better error handling.
-    Supports executing custom JS and waiting for specific selectors.
+    Falls back to a simple HTTP request if crawl4ai fails.
     """
     if not url:
         logger.warning("Empty URL provided to crawler")
@@ -21,75 +25,59 @@ async def get_page_content_as_markdown(url: str, max_retries: int = 3, js_code: 
         logger.error(f"Invalid URL format: {url}")
         return ""
 
-    for attempt in range(max_retries):
+    try:
+        logger.info(f"Crawling URL with crawl4ai: {url}")
+        browser_config = BrowserConfig(
+            headless=True,
+            verbose=False,
+            stealth=True,
+            use_undetected_browser=True,
+            extra_args=[
+                "--disable-blink-features=AutomationControlled",
+                "--disable-dev-shm-usage",
+                "--no-sandbox",
+                "--disable-setuid-sandbox"
+            ]
+        )
+        
+        run_config = CrawlerRunConfig(
+            cache_mode=CacheMode.BYPASS,
+            js_code=js_code,
+            page_timeout=60000,
+            delay_before_return_html=5.0,
+            remove_overlay_elements=True,
+            screenshot=False,
+            wait_for_images=True,
+            scan_full_page=True,
+        )
+        
+        async with AsyncWebCrawler(config=browser_config) as crawler:
+            result = await crawler.arun(url=url, config=run_config)
+            
+            if result.success and result.markdown:
+                logger.info(f"Successfully crawled {url} with crawl4ai")
+                return result.markdown
+            else:
+                raise Exception(f"Crawl4ai failed: {result.error_message}")
+
+    except Exception as e:
+        logger.warning(f"crawl4ai failed for {url}: {e}. Falling back to httpx.")
         try:
-            logger.info(f"Crawling URL (attempt {attempt + 1}/{max_retries}): {url}")
-            logger.info(f"Crawler Loop Type: {type(asyncio.get_running_loop())}")
-            
-            # Configure browser with realistic settings
-            browser_config = BrowserConfig(
-                headless=True,
-                verbose=False,
-                extra_args=[
-                    "--disable-blink-features=AutomationControlled",
-                    "--disable-dev-shm-usage",
-                    "--no-sandbox",
-                    "--disable-setuid-sandbox"
-                ]
-            )
-            
-            # Configure crawler run settings
-            run_config = CrawlerRunConfig(
-                cache_mode=CacheMode.BYPASS,  # Always fetch fresh content
-                wait_for=wait_for or "networkidle",  # Wait for specific selector or network idle
-                js_code=js_code, # Execute custom JS if provided
-                page_timeout=30000,  # 30 second timeout
-                delay_before_return_html=2.0,  # Wait 2 seconds for JS to render
-                remove_overlay_elements=True,  # Remove popups/overlays
-                screenshot=False,  # Don't take screenshots for performance
-            )
-            
-            async with AsyncWebCrawler(config=browser_config) as crawler:
-                result = await crawler.arun(
-                    url=url,
-                    config=run_config
-                )
-                
-                if result.success and result.markdown:
-                    content_length = len(result.markdown)
-                    logger.info(f"Successfully crawled {url}, content length: {content_length}")
-                    
-                    # Basic content validation
-                    if content_length < 50:
-                        logger.warning(f"Content seems too short ({content_length} chars), may be incomplete")
-                    
-                    return result.markdown
-                    
-                elif result.error_message:
-                    logger.error(f"Crawl4AI error for {url}: {result.error_message}")
-                    if attempt < max_retries - 1:
-                        logger.info(f"Retrying in 2 seconds...")
-                        await asyncio.sleep(2)
-                        continue
-                else:
-                    logger.warning(f"Crawl4AI returned no markdown content for {url}")
-                    if attempt < max_retries - 1:
-                        await asyncio.sleep(1)
-                        continue
-                        
-        except asyncio.TimeoutError:
-            logger.error(f"Timeout crawling {url} (attempt {attempt + 1})")
-            if attempt < max_retries - 1:
-                await asyncio.sleep(2)
-                continue
-        except Exception as e:
-            logger.error(f"Error crawling URL {url} (attempt {attempt + 1}): {type(e).__name__}: {str(e)}")
-            if attempt < max_retries - 1:
-                await asyncio.sleep(2)
-                continue
-    
-    logger.error(f"Failed to crawl {url} after {max_retries} attempts")
-    return ""
+            async with httpx.AsyncClient() as client:
+                response = await client.get(url, follow_redirects=True, timeout=30)
+                response.raise_for_status()
+                html = response.text
+                h = html2text.HTML2Text()
+                h.ignore_links = True
+                markdown = h.handle(html)
+                logger.info(f"Successfully fetched {url} with httpx.")
+                return markdown
+        except httpx.HTTPStatusError as http_err:
+            logger.error(f"HTTP error fetching {url} with httpx: {http_err}")
+            return f"Error: Failed to fetch the page with status code {http_err.response.status_code}."
+        except Exception as http_e:
+            logger.error(f"Error fetching {url} with httpx: {http_e}")
+            return f"Error: Failed to fetch the page with httpx."
 
 
 async def get_page_content_with_elements(url: str, js_code: Optional[str] = None, wait_for: Optional[str] = None) -> dict:
@@ -100,49 +88,19 @@ async def get_page_content_with_elements(url: str, js_code: Optional[str] = None
         return {"error": "Invalid URL", "content": "", "html": ""}
     
     try:
-        logger.info(f"Crawling URL with full data: {url}")
-        
-        browser_config = BrowserConfig(
-            headless=True,
-            verbose=False,
-            extra_args=[
-                "--disable-blink-features=AutomationControlled",
-                "--disable-dev-shm-usage"
-            ]
-        )
-        
-        run_config = CrawlerRunConfig(
-            cache_mode=CacheMode.BYPASS,
-            wait_for=wait_for or "networkidle",
-            js_code=js_code,
-            page_timeout=30000,
-            delay_before_return_html=2.0,
-            remove_overlay_elements=True,
-            screenshot=False,
-        )
-        
-        async with AsyncWebCrawler(config=browser_config) as crawler:
-            result = await crawler.arun(url=url, config=run_config)
+        markdown = await get_page_content_as_markdown(url, js_code=js_code, wait_for=wait_for)
+        if markdown.startswith("Error:"):
+            return {"success": False, "error": markdown}
             
-            if result.success:
-                return {
-                    "success": True,
-                    "url": url,
-                    "markdown": result.markdown or "",
-                    "html": result.html or "",
-                    "links": result.links.get("internal", [])[:20] if result.links else [],  # First 20 links
-                    "media": result.media.get("images", [])[:10] if result.media else [],  # First 10 images
-                    "metadata": {
-                        "title": getattr(result, 'title', ''),
-                        "description": getattr(result, 'description', ''),
-                    }
-                }
-            else:
-                return {
-                    "success": False,
-                    "error": result.error_message or "Unknown error",
-                    "url": url
-                }
+        return {
+            "success": True,
+            "url": url,
+            "markdown": markdown,
+            "html": "",  # html is not available in the fallback
+            "links": [],
+            "media": [],
+            "metadata": {}
+        }
                 
     except Exception as e:
         logger.error(f"Error in get_page_content_with_elements for {url}: {e}")
@@ -151,6 +109,82 @@ async def get_page_content_with_elements(url: str, js_code: Optional[str] = None
             "error": str(e),
             "url": url
         }
+
+async def deep_crawl_website(url: str, max_depth: int = 2, max_pages: int = 10) -> List[dict]:
+    """
+    Performs a deep crawl on a website up to a max_depth and max_pages.
+    """
+    try:
+        browser_config = BrowserConfig(
+            headless=True,
+            verbose=False,
+            stealth=True,
+            use_undetected_browser=True,
+        )
+        
+        strategy = BFSDeepCrawlStrategy(max_depth=max_depth, max_pages=max_pages)
+        
+        async with AsyncWebCrawler(config=browser_config, crawl_strategy=strategy) as crawler:
+            results = await crawler.acrawl(url=url)
+            return results
+    except Exception as e:
+        logger.error(f"Error in deep_crawl_website for {url}: {e}")
+        return [{"success": False, "error": str(e), "url": url}]
+
+async def seed_and_crawl_website(url: str, query: str) -> List[dict]:
+    """
+    Uses URL seeding to find relevant URLs from a sitemap and then crawls them.
+    """
+    try:
+        seeder_config = SeedingConfig(
+            url_regex=[f".*{query}.*"],
+            max_pages=10
+        )
+
+        async with AsyncUrlSeeder(config=seeder_config) as seeder:
+            urls = await seeder.aseed(url)
+
+        browser_config = BrowserConfig(
+            headless=True,
+            verbose=False,
+            stealth=True,
+            use_undetected_browser=True,
+        )
+
+        async with AsyncWebCrawler(config=browser_config) as crawler:
+            results = await crawler.acrawl_many(urls=urls)
+            return results
+    except Exception as e:
+        logger.error(f"Error in seed_and_crawl_website for {url}: {e}")
+        return [{"success": False, "error": str(e), "url": url}]
+
+
+async def adaptive_crawl_website(url: str, query: str) -> List[dict]:
+    """
+    Performs an adaptive crawl on a website using a query.
+    """
+    try:
+        browser_config = BrowserConfig(
+            headless=True,
+            verbose=False,
+            stealth=True,
+            use_undetected_browser=True,
+        )
+
+        scorer = KeywordRelevanceScorer(keywords=[query])
+        strategy = BestFirstCrawlingStrategy(
+            scorer=scorer,
+            score_threshold=0.5,
+            max_pages=5
+        )
+
+        async with AsyncWebCrawler(config=browser_config, crawl_strategy=strategy) as crawler:
+            results = await crawler.acrawl(url=url)
+            return results
+    except Exception as e:
+        logger.error(f"Error in adaptive_crawl_website for {url}: {e}")
+        return [{"success": False, "error": str(e), "url": url}]
+
 
 if __name__ == "__main__":
     # Example usage for testing

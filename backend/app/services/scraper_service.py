@@ -5,6 +5,92 @@ import json
 import re
 
 from app.services.llm_provider import decide_action_raw
+from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
+
+async def get_interactive_elements_with_crawl4ai(url: str) -> List[Dict[str, Any]]:
+    """
+    Uses crawl4ai to navigate to a URL and extract all interactive elements,
+    including buttons, links, and form fields.
+    """
+    
+    # JavaScript to be executed in the browser context to extract elements
+    extraction_js = """() => {
+        const interactive_elements = [];
+        
+        // Function to create a unique CSS selector
+        const create_selector = (element) => {
+            if (element.id) {
+                return `#${element.id}`;
+            }
+            let path = '';
+            while (element.parentElement) {
+                let sibling_index = 1;
+                let sibling = element.previousElementSibling;
+                while (sibling) {
+                    if (sibling.nodeName === element.nodeName) {
+                        sibling_index++;
+                    }
+                    sibling = sibling.previousElementSibling;
+                }
+                const tag_name = element.nodeName.toLowerCase();
+                const path_segment = `${tag_name}:nth-of-type(${sibling_index})`;
+                path = path_segment + (path ? ' > ' + path : '');
+                element = element.parentElement;
+            }
+            return path;
+        };
+
+        // Find all potential interactive elements
+        document.querySelectorAll(
+            'a, button, input, textarea, select, [role="button"], [onclick]'
+        ).forEach(el => {
+            const selector = create_selector(el);
+            const tag_name = el.tagName.toLowerCase();
+            
+            let element_data = {
+                selector: selector,
+                tag: tag_name,
+                text: el.innerText || el.value || '',
+                aria_label: el.getAttribute('aria-label'),
+                id: el.id,
+                name: el.name,
+                type: el.type,
+                placeholder: el.placeholder,
+                href: el.href,
+            };
+            
+            interactive_elements.push(element_data);
+        });
+        return interactive_elements;
+    }"""
+
+    try:
+        browser_config = BrowserConfig(
+            headless=True,
+            stealth=True,
+            use_undetected_browser=True
+        )
+        run_config = CrawlerRunConfig(
+            cache_mode=CacheMode.BYPASS,
+            js_code=extraction_js,
+            page_timeout=60000,
+            delay_before_return_html=5.0
+        )
+
+        async with AsyncWebCrawler(config=browser_config) as crawler:
+            result = await crawler.arun(url=url, config=run_config)
+            if result.success and result.extracted_data:
+                return result.extracted_data
+            elif result.error_message:
+                print(f"Error getting interactive elements from {url} with crawl4ai: {result.error_message}")
+                return []
+            else:
+                return []
+
+    except Exception as e:
+        print(f"Error getting interactive elements from {url} with crawl4ai: {e}")
+        return []
+
 
 async def get_interactive_elements(url: str) -> List[Dict[str, Any]]:
     """
@@ -15,7 +101,7 @@ async def get_interactive_elements(url: str) -> List[Dict[str, Any]]:
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page()
         try:
-            await page.goto(url, wait_until="networkidle")
+            await page.goto(url)
             
             # Use page.evaluate to run JavaScript in the browser context
             elements = await page.evaluate("""() => {
@@ -85,7 +171,7 @@ async def analyze_website_forms(url: str) -> List[Dict]:
         browser = await p.chromium.launch(headless=True)
         page = await browser.new_page()
         try:
-            await page.goto(url, wait_until="networkidle")
+            await page.goto(url)
             
             forms = []
             for form_element in await page.locator('form').all():
@@ -184,7 +270,7 @@ Provide only the JSON mapping object.
         mapped_fields = json.loads(cleaned_str)
     except (json.JSONDecodeError, TypeError):
         try:
-            mapped_fields = eval(cleaned_str)
+            mapped_.fields = eval(cleaned_str)
         except Exception:
             mapped_fields = {}
 

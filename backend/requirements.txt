@@ -20,3 +20,4 @@ langchain-community
 langchain-groq
 duckduckgo-search
 ddgs
+html2text
