@@ -78,41 +78,100 @@
 
     if (!data || !data.type) return;
 
-    if (data.type === "autofill") {
-      console.log("🧩 Autofill received:", data);
-      const fields = data.payload?.fields || [];
-      fields.forEach(({ selector, value }) => {
-        const element = document.querySelector(selector);
-        if (element) {
-          element.value = value;
-          element.dispatchEvent(new Event("input", { bubbles: true }));
-          console.log(`✅ Filled ${selector} with "${value}"`);
-        } else {
-          console.warn(`⚠️ Element not found for selector: ${selector}`);
-        }
-      });
+    if (data.type === "action") {
+      const { action, selector, value, x, y } = data.payload;
+      console.log(`⚡ Action received: ${action}`, data.payload);
 
-      // Optional: Auto-submit form if found
-      const form = document.querySelector("form");
-      if (form) {
-        console.log("🚀 Form ready — auto-submitting...");
-        form.dispatchEvent(new Event("submit", { bubbles: true }));
-      }
-    } else if (data.type === "click") {
-      console.log("🖱️ Click action received:", data);
-      const { element_text } = data.payload;
-      if (element_text) {
-        // Find the element by its text content using XPath
-        const xpath = `//*[text()='${element_text}'] | //button[contains(.,'${element_text}')] | //a[contains(.,'${element_text}')]`;
-        const element = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-        
-        if (element) {
-          element.click();
-          console.log(`✅ Clicked on element with text: "${element_text}"`);
-        } else {
-          console.warn(`⚠️ Element not found with text: "${element_text}"`);
+      try {
+        if (action === "scroll") {
+          if (selector) {
+            const el = document.querySelector(selector);
+            if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+          } else if (value === "bottom") {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+          } else if (value === "top") {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          } else if (typeof x === "number" || typeof y === "number") {
+            window.scrollTo({ top: y || window.scrollY, left: x || window.scrollX, behavior: "smooth" });
+          } else {
+            // specific amount down
+            window.scrollBy({ top: 500, behavior: "smooth" });
+          }
+
+        } else if (action === "click") {
+          let el = null;
+          if (selector) {
+            el = document.querySelector(selector);
+          } else if (value) {
+            // Text search fallback
+            const xpath = `//*[text()='${value}'] | //button[contains(.,'${value}')] | //a[contains(.,'${value}')]`;
+            el = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+          }
+
+          if (el) {
+            el.click();
+            el.focus(); // Give focus
+          } else {
+            console.warn(`Element not found for click: ${selector || value}`);
+          }
+
+        } else if (action === "fill") {
+          let el = document.querySelector(selector);
+
+          // Fallback: Fuzzy search if selector failed
+          if (!el) {
+            const keyword = selector.replace(/[#.]/g, '').toLowerCase();
+            if (!el) el = document.querySelector(`input[name*='${keyword}']`);
+            if (!el) el = document.querySelector(`input[id*='${keyword}']`);
+            if (!el) el = document.querySelector(`input[placeholder*='${keyword}' i]`);
+            if (!el) {
+              const xpath = `//label[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '${keyword}')]/following-sibling::input | //label[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '${keyword}')]//input`;
+              const result = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+              if (result) el = result.singleNodeValue;
+            }
+          }
+
+          if (el) {
+            el.focus(); // Focus first
+
+            // React 15/16+ hack: react overrides the value setter, so we need to call the native one
+            try {
+              const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+              if (nativeInputValueSetter) {
+                nativeInputValueSetter.call(el, value);
+              } else {
+                el.value = value;
+              }
+            } catch (e) {
+              el.value = value;
+            }
+
+            el.dispatchEvent(new Event("input", { bubbles: true }));
+            el.dispatchEvent(new Event("change", { bubbles: true }));
+            el.dispatchEvent(new Event("blur", { bubbles: true })); // Blur to trigger validation
+          } else {
+            console.warn(`Element not found for fill: ${selector}`);
+          }
+
+        } else if (action === "navigate") {
+          if (value) window.location.href = value;
+
+        } else if (action === "hover") {
+          const el = document.querySelector(selector);
+          if (el) {
+            el.dispatchEvent(new MouseEvent('mouseover', { view: window, bubbles: true, cancelable: true }));
+            el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          }
         }
+      } catch (err) {
+        console.error("Action failed:", err);
       }
+    }
+
+    // Keep legacy support if needed, or remove. keeping minimal legacy logic
+    if (data.type === "autofill") {
+      // ... existing autofill logic could be mapped to multiple "fill" actions, 
+      // but for now we'll assume the agent uses the new "action" type.
     }
   });
 })();

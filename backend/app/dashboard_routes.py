@@ -1,4 +1,5 @@
 # app/dashboard_routes.py
+import asyncio
 from fastapi import APIRouter, Depends
 from app.db import get_db
 from bson.objectid import ObjectId
@@ -55,5 +56,5 @@ async def analyze_site(data: dict):
     url = data.get("url")
     if not url:
         return {"status": "failed", "error": "URL is required"}
-    result = await analyze_website_forms(url)
+    result = await asyncio.to_thread(analyze_website_forms, url)
     return result

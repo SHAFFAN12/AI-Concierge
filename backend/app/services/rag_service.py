@@ -4,7 +4,11 @@ import asyncio
 import os
 import json
 import logging
-from sentence_transformers import SentenceTransformer
+
+try:
+    from sentence_transformers import SentenceTransformer
+except ImportError:
+    SentenceTransformer = None
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -13,7 +17,14 @@ logger = logging.getLogger(__name__)
 # Load embedding model
 # Note: SentenceTransformer is not thread-safe for parallel inference in some cases, 
 # but for simple usage it's okay. We will run it in an executor.
-embedder = SentenceTransformer("all-MiniLM-L6-v2")
+embedder = None
+if SentenceTransformer:
+    try:
+        embedder = SentenceTransformer("all-MiniLM-L6-v2")
+    except Exception as e:
+        logger.error(f"Failed to load SentenceTransformer: {e}")
+else:
+    logger.warning("SentenceTransformer not found. RAG functionality will be disabled.")
 
 # Storage paths
 STORAGE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "storage")
@@ -61,6 +72,11 @@ load_index()
 async def add_documents(texts: list[str]):
     """Async wrapper to add documents and save index."""
     global documents
+    
+    if embedder is None:
+        logger.warning("⚠️ RAG is disabled because SentenceTransformer is not available.")
+        return
+
     loop = asyncio.get_running_loop()
     
     # Run blocking embedding generation in a thread pool
@@ -75,6 +91,10 @@ async def add_documents(texts: list[str]):
 
 async def search_documents(query: str, k: int = 3):
     """Async wrapper to search documents."""
+    if embedder is None:
+        logger.warning("⚠️ RAG is disabled because SentenceTransformer is not available.")
+        return []
+
     loop = asyncio.get_running_loop()
     
     # Run blocking embedding generation in a thread pool

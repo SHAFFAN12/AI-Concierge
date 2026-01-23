@@ -18,7 +18,7 @@ The application is built using the **FastAPI** web framework. The logic is separ
 
 -   `agent_service.py`: The "brain" of the agent, orchestrating LLM calls and tool usage.
 -   `crawler_service.py`: The "eyes" of the agent, responsible for reading and parsing web page content into Markdown.
--   `scraper_service.py`: The "hands" of the agent, using Playwright to identify and analyze interactive elements on a page.
+-   `scraper_service.py`: The "hands" of the agent, using Selenium to identify and analyze interactive elements on a page.
 -   `db.py`: Handles database interaction with a MongoDB instance via the async `motor` library.
 -   `main.py`: The main entrypoint for the application, where the FastAPI app is initialized and configured.
 -   `routes.py` & `dashboard_routes.py`: Define the public-facing and administrative API endpoints, respectively.
@@ -29,10 +29,10 @@ The application is built using the **FastAPI** web framework. The logic is separ
 -   MongoDB server
 -   Redis server
 -   A `GROQ_API_KEY` environment variable with a valid API key from [Groq](https://groq.com/).
--   Google Chrome browser (version 114)
--   ChromeDriver (version 114)
+-   Google Chrome browser
+-   ChromeDriver
 
-*Note: The requirement for a specific Chrome/ChromeDriver version is for the Selenium-based form filler. The Playwright-based scraper is more flexible.*
+
 
 ## Installation
 
@@ -55,10 +55,7 @@ The application is built using the **FastAPI** web framework. The logic is separ
     pip install -r requirements.txt
     ```
 
-4.  **Install Playwright browser binaries:**
-    ```bash
-    playwright install
-    ```
+
 
 5.  **Set up environment variables:**
     Create a `.env` file in the `backend` directory and add your Groq API key:

@@ -197,4 +197,3 @@ def _sync_fill_and_submit(url: str, field_data: Dict[str, str]) -> Dict:
         if driver:
             driver.quit()
             print("Browser closed.")
-

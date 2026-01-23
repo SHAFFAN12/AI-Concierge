@@ -15,8 +15,8 @@ const MessageBubble = ({ role, content }: { role: "user" | "assistant"; content:
       <div className={`flex max-w-[85%] ${isUser ? "flex-row-reverse" : "flex-row"} gap-3`}>
         {/* Avatar */}
         <div className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center ${isUser
-            ? "bg-red-600/20 text-red-500 border border-red-500/30"
-            : "bg-orange-600/20 text-orange-500 border border-orange-500/30"
+          ? "bg-red-600/20 text-red-500 border border-red-500/30"
+          : "bg-orange-600/20 text-orange-500 border border-orange-500/30"
           }`}>
           {isUser ? <FiUser size={16} /> : <FiCpu size={16} />}
         </div>
@@ -24,8 +24,8 @@ const MessageBubble = ({ role, content }: { role: "user" | "assistant"; content:
         {/* Bubble */}
         <div
           className={`p-4 rounded-2xl shadow-lg ${isUser
-              ? "glass-bubble-user text-white rounded-tr-none"
-              : "glass-bubble-assistant text-gray-100 rounded-tl-none"
+            ? "glass-bubble-user text-white rounded-tr-none"
+            : "glass-bubble-assistant text-gray-100 rounded-tl-none"
             }`}
         >
           <div className="prose prose-invert prose-sm max-w-none leading-relaxed">
@@ -210,6 +210,19 @@ export default function ChatWidget() {
               if (data.error) {
                 console.error("Backend Error:", data.error);
                 assistantMessageContent = `⚠️ Error: ${data.error}`;
+              } else if (data.action) {
+                console.log("⚡ Action Triggered:", data.action);
+                // Forward to parent window (Embed Script)
+                if (typeof window !== 'undefined' && window.parent) {
+                  window.parent.postMessage({
+                    type: "action",
+                    payload: {
+                      action: data.action.action_type,
+                      selector: data.action.selector,
+                      value: data.action.value
+                    }
+                  }, "*");
+                }
               } else if (data.content) {
                 const cleanContent = data.content.replace(/<tool_code>[\s\S]*?<\/tool_code>/g, "")
                   .replace(/<tool_output>[\s\S]*?<\/tool_output>/g, "");
@@ -295,8 +308,8 @@ export default function ChatWidget() {
             type="button"
             onClick={toggleListening}
             className={`p-3 rounded-xl transition-all duration-300 ${isListening
-                ? "bg-red-500/20 text-red-400 animate-pulse border border-red-500/50"
-                : "hover:bg-red-500/10 text-gray-400 hover:text-red-400"
+              ? "bg-red-500/20 text-red-400 animate-pulse border border-red-500/50"
+              : "hover:bg-red-500/10 text-gray-400 hover:text-red-400"
               }`}
             title="Voice Input"
           >
