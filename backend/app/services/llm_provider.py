@@ -87,7 +87,7 @@ async def decide_action(
     dynamic_system_prompt = SYSTEM_PROMPT
     
     if page_content:
-        dynamic_system_prompt += f"\nHere is the content of the current webpage in Markdown format:\n---\n{page_content[:4000]}\n---"
+        dynamic_system_prompt += f"\nHere is the content of the current webpage in Markdown format:\n---\n{page_content[:3000]}\n---"
 
     if interactive_elements:
         # Simplified representation of interactive elements for the prompt
@@ -112,6 +112,10 @@ async def decide_action(
             }
 
             response = await client.post(API_URL, headers=HEADERS, json=payload, timeout=60)
+
+            if response.status_code == 413:
+                 print("❌ Groq API error: Request too large (413).")
+                 return {"type": "reply", "parameters": {"message": "The page content is too large for me to process at once."}}
 
             if response.status_code != 200:
                 print("❌ Groq API error:", response.text)

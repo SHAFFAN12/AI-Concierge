@@ -48,6 +48,13 @@ async def perform_action(
             elif action_type == "fill":
                 if not selector or value is None:
                     raise ValueError("Selector and value required for fill")
+                
+                # Check if input has a value
+                current_value = await page.input_value(selector)
+                if current_value:
+                    logger.info(f"Clearing existing value for selector: {selector}")
+                    await page.fill(selector, "")
+                
                 await page.fill(selector, value)
                 
             elif action_type == "select":

@@ -1,0 +1,6 @@
+Verifying installation...
+[FAIL] fastapi: No module named 'fastapi'
+[FAIL] uvicorn: No module named 'uvicorn'
+[FAIL] pydantic: No module named 'pydantic'
+[FAIL] pymongo: No module named 'pymongo'
+[FAIL] sentence_transformers: No module named 'sentence_transformers'

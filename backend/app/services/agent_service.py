@@ -63,7 +63,7 @@ async def scrape_webpage(url: str, user_agent: Optional[str] = None, verify_ssl:
             "success": True,
             "url": url,
             "title": title,
-            "content": content,
+            "content": content[:4000],
             "content_length": len(content),
             "interactive_elements_count": len(elements),
             "has_forms": any(el.get('tag') in ['input', 'textarea', 'select'] for el in elements) if elements else False,

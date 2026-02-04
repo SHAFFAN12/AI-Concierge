@@ -213,7 +213,7 @@ Example:
 Provide only the JSON mapping object.
 """
 
-    mapped_fields_str = await decide_action_raw(prompt)
+    mapped_fields_str = await decide_action_raw(prompt[:4000] if len(prompt) > 4000 else prompt)
 
     try:
         cleaned_str = re.sub(r"```json|```", "", mapped_fields_str).strip()

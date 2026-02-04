@@ -1,0 +1,1032 @@
+Using pip 25.1.1 from /home/shaffan/Desktop/AI-Concierge/backend/venv/lib64/python3.14/site-packages/pip (python 3.14)
+Collecting fastapi (from -r requirements.txt (line 1))
+  Obtaining dependency information for fastapi from https://files.pythonhosted.org/packages/5c/05/5cbb59154b093548acd0f4c7c474a118eda06da25aa75c616b72d8fcd92a/fastapi-0.128.0-py3-none-any.whl.metadata
+  Using cached fastapi-0.128.0-py3-none-any.whl.metadata (30 kB)
+Collecting pydantic (from -r requirements.txt (line 3))
+  Obtaining dependency information for pydantic from https://files.pythonhosted.org/packages/5a/87/b70ad306ebb6f9b585f114d0ac2137d792b48be34d732d60e597c2f8465a/pydantic-2.12.5-py3-none-any.whl.metadata
+  Using cached pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+Collecting python-dotenv (from -r requirements.txt (line 4))
+  Obtaining dependency information for python-dotenv from https://files.pythonhosted.org/packages/14/1b/a298b06749107c305e1fe0f814c6c74aea7b2f1e10989cb30f544a1b3253/python_dotenv-1.2.1-py3-none-any.whl.metadata
+  Using cached python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+Collecting motor (from -r requirements.txt (line 5))
+  Obtaining dependency information for motor from https://files.pythonhosted.org/packages/01/9a/35e053d4f442addf751ed20e0e922476508ee580786546d699b0567c4c67/motor-3.7.1-py3-none-any.whl.metadata
+  Using cached motor-3.7.1-py3-none-any.whl.metadata (21 kB)
+Collecting pymongo (from -r requirements.txt (line 6))
+  Obtaining dependency information for pymongo from https://files.pythonhosted.org/packages/65/19/f815533d1a88fb8a3b6c6e895bb085ffdae68ccb1e6ed7102202a307f8e2/pymongo-4.16.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Using cached pymongo-4.16.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (10.0 kB)
+Collecting google.generativeai (from -r requirements.txt (line 7))
+  Obtaining dependency information for google.generativeai from https://files.pythonhosted.org/packages/97/0f/ef33b5bb71437966590c6297104c81051feae95d54b11ece08533ef937d3/google_generativeai-0.8.6-py3-none-any.whl.metadata
+  Using cached google_generativeai-0.8.6-py3-none-any.whl.metadata (3.9 kB)
+Collecting faiss-cpu (from -r requirements.txt (line 8))
+  Obtaining dependency information for faiss-cpu from https://files.pythonhosted.org/packages/e7/e1/a5acac02aa593809f0123539afe7b4aff61d1db149e7093239888c9053e1/faiss_cpu-1.13.2-cp310-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Using cached faiss_cpu-1.13.2-cp310-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (7.6 kB)
+Collecting google-api-python-client (from -r requirements.txt (line 9))
+  Obtaining dependency information for google-api-python-client from https://files.pythonhosted.org/packages/33/67/a99a7d79d7a37a67cb8008f1d7dcedc46d29c6df5063aeb446112afd4aa4/google_api_python_client-2.188.0-py3-none-any.whl.metadata
+  Using cached google_api_python_client-2.188.0-py3-none-any.whl.metadata (7.0 kB)
+Collecting google-auth-oauthlib (from -r requirements.txt (line 10))
+  Obtaining dependency information for google-auth-oauthlib from https://files.pythonhosted.org/packages/84/21/fb96db432d187b07756e62971c4d89bdef70259e4cfa76ee32bcc0ac97d1/google_auth_oauthlib-1.2.4-py3-none-any.whl.metadata
+  Using cached google_auth_oauthlib-1.2.4-py3-none-any.whl.metadata (3.1 kB)
+Collecting google-cloud-speech (from -r requirements.txt (line 11))
+  Obtaining dependency information for google-cloud-speech from https://files.pythonhosted.org/packages/cb/0e/29e5d7bfe636e7b7b2647d6f4d50ca07b84149ba9adba86c6be219ac8480/google_cloud_speech-2.36.0-py3-none-any.whl.metadata
+  Using cached google_cloud_speech-2.36.0-py3-none-any.whl.metadata (9.8 kB)
+Collecting pytest (from -r requirements.txt (line 12))
+  Obtaining dependency information for pytest from https://files.pythonhosted.org/packages/3b/ab/b3226f0bd7cdcf710fbede2b3548584366da3b19b5021e74f5bde2a8fa3f/pytest-9.0.2-py3-none-any.whl.metadata
+  Using cached pytest-9.0.2-py3-none-any.whl.metadata (7.6 kB)
+Collecting sentence-transformers (from -r requirements.txt (line 14))
+  Obtaining dependency information for sentence-transformers from https://files.pythonhosted.org/packages/cc/21/7e925890636791386e81b52878134f114d63072e79fffe14cdcc5e7a5e6a/sentence_transformers-5.2.2-py3-none-any.whl.metadata
+  Using cached sentence_transformers-5.2.2-py3-none-any.whl.metadata (16 kB)
+Collecting selenium (from -r requirements.txt (line 15))
+  Obtaining dependency information for selenium from https://files.pythonhosted.org/packages/9d/74/eb9d6540aca1911106fa0877b8e9ef24171bc18857937a6b0ffe0586c623/selenium-4.40.0-py3-none-any.whl.metadata
+  Using cached selenium-4.40.0-py3-none-any.whl.metadata (7.7 kB)
+Collecting webdriver-manager (from -r requirements.txt (line 16))
+  Obtaining dependency information for webdriver-manager from https://files.pythonhosted.org/packages/b5/b5/3bd0b038d80950ec13e6a2c8d03ed8354867dc60064b172f2f4ffac8afbe/webdriver_manager-4.0.2-py2.py3-none-any.whl.metadata
+  Using cached webdriver_manager-4.0.2-py2.py3-none-any.whl.metadata (12 kB)
+Collecting dateparser (from -r requirements.txt (line 17))
+  Obtaining dependency information for dateparser from https://files.pythonhosted.org/packages/87/22/f020c047ae1346613db9322638186468238bcfa8849b4668a22b97faad65/dateparser-1.2.2-py3-none-any.whl.metadata
+  Using cached dateparser-1.2.2-py3-none-any.whl.metadata (29 kB)
+Collecting httpx (from -r requirements.txt (line 18))
+  Obtaining dependency information for httpx from https://files.pythonhosted.org/packages/2a/39/e50c7c3a983047577ee07d2a9e53faf5a69493943ec3f6a384bdc792deb2/httpx-0.28.1-py3-none-any.whl.metadata
+  Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+Collecting langchain (from -r requirements.txt (line 19))
+  Obtaining dependency information for langchain from https://files.pythonhosted.org/packages/dd/c8/9ce37ae34870834c7d00bb14ff4876b700db31b928635e3307804dc41d74/langchain-1.2.7-py3-none-any.whl.metadata
+  Using cached langchain-1.2.7-py3-none-any.whl.metadata (4.9 kB)
+Collecting langchain-community (from -r requirements.txt (line 20))
+  Obtaining dependency information for langchain-community from https://files.pythonhosted.org/packages/f0/a4/c4fde67f193401512337456cabc2148f2c43316e445f5decd9f8806e2992/langchain_community-0.4.1-py3-none-any.whl.metadata
+  Using cached langchain_community-0.4.1-py3-none-any.whl.metadata (3.0 kB)
+Collecting langchain-groq (from -r requirements.txt (line 21))
+  Obtaining dependency information for langchain-groq from https://files.pythonhosted.org/packages/af/4a/3d6227a16fe9f79968414b50e50869519378b20653805e2e8fab283908e6/langchain_groq-1.1.1-py3-none-any.whl.metadata
+  Using cached langchain_groq-1.1.1-py3-none-any.whl.metadata (2.4 kB)
+Collecting duckduckgo-search (from -r requirements.txt (line 22))
+  Obtaining dependency information for duckduckgo-search from https://files.pythonhosted.org/packages/db/72/c027b3b488b1010cf71670032fcf7e681d44b81829d484bb04e31a949a8d/duckduckgo_search-8.1.1-py3-none-any.whl.metadata
+  Using cached duckduckgo_search-8.1.1-py3-none-any.whl.metadata (16 kB)
+Collecting ddgs (from -r requirements.txt (line 23))
+  Obtaining dependency information for ddgs from https://files.pythonhosted.org/packages/b5/0e/d4b7d6a8df5074cf67bc14adead39955b0bf847c947ff6cad0bb527887f4/ddgs-9.10.0-py3-none-any.whl.metadata
+  Using cached ddgs-9.10.0-py3-none-any.whl.metadata (12 kB)
+Collecting html2text (from -r requirements.txt (line 24))
+  Obtaining dependency information for html2text from https://files.pythonhosted.org/packages/1d/84/1a0f9555fd5f2b1c924ff932d99b40a0f8a6b12f6dd625e2a47f415b00ea/html2text-2025.4.15-py3-none-any.whl.metadata
+  Using cached html2text-2025.4.15-py3-none-any.whl.metadata (4.1 kB)
+Collecting uvicorn[standard] (from -r requirements.txt (line 2))
+  Obtaining dependency information for uvicorn[standard] from https://files.pythonhosted.org/packages/3d/d8/2083a1daa7439a66f3a48589a57d576aa117726762618f6bb09fe3798796/uvicorn-0.40.0-py3-none-any.whl.metadata
+  Using cached uvicorn-0.40.0-py3-none-any.whl.metadata (6.7 kB)
+Collecting crawl4ai[sync] (from -r requirements.txt (line 13))
+  Obtaining dependency information for crawl4ai[sync] from https://files.pythonhosted.org/packages/43/97/cecb942d60a79d20b4d718a17ef599aee80ce54c32f0f214a880f406b5b8/crawl4ai-0.8.0-py3-none-any.whl.metadata
+  Using cached crawl4ai-0.8.0-py3-none-any.whl.metadata (53 kB)
+Collecting starlette<0.51.0,>=0.40.0 (from fastapi->-r requirements.txt (line 1))
+  Obtaining dependency information for starlette<0.51.0,>=0.40.0 from https://files.pythonhosted.org/packages/d9/52/1064f510b141bd54025f9b55105e26d1fa970b9be67ad766380a3c9b74b0/starlette-0.50.0-py3-none-any.whl.metadata
+  Using cached starlette-0.50.0-py3-none-any.whl.metadata (6.3 kB)
+Collecting typing-extensions>=4.8.0 (from fastapi->-r requirements.txt (line 1))
+  Obtaining dependency information for typing-extensions>=4.8.0 from https://files.pythonhosted.org/packages/18/67/36e9267722cc04a6b9f15c7f3441c2363321a3ea07da7ae0c0707beb2a9c/typing_extensions-4.15.0-py3-none-any.whl.metadata
+  Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting annotated-doc>=0.0.2 (from fastapi->-r requirements.txt (line 1))
+  Obtaining dependency information for annotated-doc>=0.0.2 from https://files.pythonhosted.org/packages/1e/d3/26bf1008eb3d2daa8ef4cacc7f3bfdc11818d111f7e2d0201bc6e3b49d45/annotated_doc-0.0.4-py3-none-any.whl.metadata
+  Using cached annotated_doc-0.0.4-py3-none-any.whl.metadata (6.6 kB)
+Collecting anyio<5,>=3.6.2 (from starlette<0.51.0,>=0.40.0->fastapi->-r requirements.txt (line 1))
+  Obtaining dependency information for anyio<5,>=3.6.2 from https://files.pythonhosted.org/packages/38/0e/27be9fdef66e72d64c0cdc3cc2823101b80585f8119b5c112c2e8f5f7dab/anyio-4.12.1-py3-none-any.whl.metadata
+  Using cached anyio-4.12.1-py3-none-any.whl.metadata (4.3 kB)
+Collecting idna>=2.8 (from anyio<5,>=3.6.2->starlette<0.51.0,>=0.40.0->fastapi->-r requirements.txt (line 1))
+  Obtaining dependency information for idna>=2.8 from https://files.pythonhosted.org/packages/0e/61/66938bbb5fc52dbdf84594873d5b51fb1f7c7794e9c0f5bd885f30bc507b/idna-3.11-py3-none-any.whl.metadata
+  Using cached idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+Collecting click>=7.0 (from uvicorn[standard]->-r requirements.txt (line 2))
+  Obtaining dependency information for click>=7.0 from https://files.pythonhosted.org/packages/98/78/01c019cdb5d6498122777c1a43056ebb3ebfeef2076d9d026bfe15583b2b/click-8.3.1-py3-none-any.whl.metadata
+  Using cached click-8.3.1-py3-none-any.whl.metadata (2.6 kB)
+Collecting h11>=0.8 (from uvicorn[standard]->-r requirements.txt (line 2))
+  Obtaining dependency information for h11>=0.8 from https://files.pythonhosted.org/packages/04/4b/29cac41a4d98d144bf5f6d33995617b185d14b22401f75ca86f384e87ff1/h11-0.16.0-py3-none-any.whl.metadata
+  Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+Collecting httptools>=0.6.3 (from uvicorn[standard]->-r requirements.txt (line 2))
+  Obtaining dependency information for httptools>=0.6.3 from https://files.pythonhosted.org/packages/b3/cb/eea88506f191fb552c11787c23f9a405f4c7b0c5799bf73f2249cd4f5228/httptools-0.7.1-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata
+  Using cached httptools-0.7.1-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (3.5 kB)
+Collecting pyyaml>=5.1 (from uvicorn[standard]->-r requirements.txt (line 2))
+  Obtaining dependency information for pyyaml>=5.1 from https://files.pythonhosted.org/packages/88/f9/16491d7ed2a919954993e48aa941b200f38040928474c9e85ea9e64222c3/pyyaml-6.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Using cached pyyaml-6.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+Collecting uvloop>=0.15.1 (from uvicorn[standard]->-r requirements.txt (line 2))
+  Obtaining dependency information for uvloop>=0.15.1 from https://files.pythonhosted.org/packages/b5/35/60249e9fd07b32c665192cec7af29e06c7cd96fa1d08b84f012a56a0b38e/uvloop-0.22.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Using cached uvloop-0.22.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (4.9 kB)
+Collecting watchfiles>=0.13 (from uvicorn[standard]->-r requirements.txt (line 2))
+  Obtaining dependency information for watchfiles>=0.13 from https://files.pythonhosted.org/packages/b4/36/ded8aebea91919485b7bbabbd14f5f359326cb5ec218cd67074d1e426d74/watchfiles-1.1.1-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata
+  Using cached watchfiles-1.1.1-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
+Collecting websockets>=10.4 (from uvicorn[standard]->-r requirements.txt (line 2))
+  Obtaining dependency information for websockets>=10.4 from https://files.pythonhosted.org/packages/63/bc/d3e208028de777087e6fb2b122051a6ff7bbcca0d6df9d9c2bf1dd869ae9/websockets-16.0-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata
+  Using cached websockets-16.0-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.8 kB)
+Collecting annotated-types>=0.6.0 (from pydantic->-r requirements.txt (line 3))
+  Obtaining dependency information for annotated-types>=0.6.0 from https://files.pythonhosted.org/packages/78/b6/6307fbef88d9b5ee7421e68d78a9f162e0da4900bc5f5793f6d3d0e34fb8/annotated_types-0.7.0-py3-none-any.whl.metadata
+  Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+Collecting pydantic-core==2.41.5 (from pydantic->-r requirements.txt (line 3))
+  Obtaining dependency information for pydantic-core==2.41.5 from https://files.pythonhosted.org/packages/4c/d2/ef2074dc020dd6e109611a8be4449b98cd25e1b9b8a303c2f0fca2f2bcf7/pydantic_core-2.41.5-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata
+  Using cached pydantic_core-2.41.5-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+Collecting typing-inspection>=0.4.2 (from pydantic->-r requirements.txt (line 3))
+  Obtaining dependency information for typing-inspection>=0.4.2 from https://files.pythonhosted.org/packages/dc/9b/47798a6c91d8bdb567fe2698fe81e0c6b7cb7ef4d13da4114b41d239f65d/typing_inspection-0.4.2-py3-none-any.whl.metadata
+  Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+Collecting dnspython<3.0.0,>=2.6.1 (from pymongo->-r requirements.txt (line 6))
+  Obtaining dependency information for dnspython<3.0.0,>=2.6.1 from https://files.pythonhosted.org/packages/ba/5a/18ad964b0086c6e62e2e7500f7edc89e3faa45033c71c1893d34eed2b2de/dnspython-2.8.0-py3-none-any.whl.metadata
+  Using cached dnspython-2.8.0-py3-none-any.whl.metadata (5.7 kB)
+Collecting google-ai-generativelanguage==0.6.15 (from google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for google-ai-generativelanguage==0.6.15 from https://files.pythonhosted.org/packages/7c/a3/67b8a6ff5001a1d8864922f2d6488dc2a14367ceb651bc3f09a947f2f306/google_ai_generativelanguage-0.6.15-py3-none-any.whl.metadata
+  Using cached google_ai_generativelanguage-0.6.15-py3-none-any.whl.metadata (5.7 kB)
+Collecting google-api-core (from google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for google-api-core from https://files.pythonhosted.org/packages/77/b6/85c4d21067220b9a78cfb81f516f9725ea6befc1544ec9bd2c1acd97c324/google_api_core-2.29.0-py3-none-any.whl.metadata
+  Using cached google_api_core-2.29.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting google-auth>=2.15.0 (from google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for google-auth>=2.15.0 from https://files.pythonhosted.org/packages/83/1d/d6466de3a5249d35e832a52834115ca9d1d0de6abc22065f049707516d47/google_auth-2.48.0-py3-none-any.whl.metadata
+  Using cached google_auth-2.48.0-py3-none-any.whl.metadata (6.2 kB)
+Collecting protobuf (from google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for protobuf from https://files.pythonhosted.org/packages/9b/53/a9443aa3ca9ba8724fdfa02dd1887c1bcd8e89556b715cfbacca6b63dbec/protobuf-6.33.5-cp39-abi3-manylinux2014_x86_64.whl.metadata
+  Using cached protobuf-6.33.5-cp39-abi3-manylinux2014_x86_64.whl.metadata (593 bytes)
+Collecting tqdm (from google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for tqdm from https://files.pythonhosted.org/packages/f5/e2/31eac96de2915cf20ccaed0225035db149dfb9165a9ed28d4b252ef3f7f7/tqdm-4.67.2-py3-none-any.whl.metadata
+  Using cached tqdm-4.67.2-py3-none-any.whl.metadata (57 kB)
+Collecting google-auth>=2.15.0 (from google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for google-auth>=2.15.0 from https://files.pythonhosted.org/packages/7b/84/79ce885cfe78762d3f726c48a0949d19403534ff52f09482c17620d13211/google_auth-2.49.0.dev0-py3-none-any.whl.metadata
+  Using cached google_auth-2.49.0.dev0-py3-none-any.whl.metadata (6.0 kB)
+Collecting proto-plus<2.0.0dev,>=1.22.3 (from google-ai-generativelanguage==0.6.15->google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for proto-plus<2.0.0dev,>=1.22.3 from https://files.pythonhosted.org/packages/cd/24/3b7a0818484df9c28172857af32c2397b6d8fcd99d9468bd4684f98ebf0a/proto_plus-1.27.0-py3-none-any.whl.metadata
+  Using cached proto_plus-1.27.0-py3-none-any.whl.metadata (2.2 kB)
+Collecting protobuf (from google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for protobuf from https://files.pythonhosted.org/packages/85/e4/07c80521879c2d15f321465ac24c70efe2381378c00bf5e56a0f4fbac8cd/protobuf-5.29.5-cp38-abi3-manylinux2014_x86_64.whl.metadata
+  Using cached protobuf-5.29.5-cp38-abi3-manylinux2014_x86_64.whl.metadata (592 bytes)
+Collecting googleapis-common-protos<2.0.0,>=1.56.2 (from google-api-core->google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/c4/ab/09169d5a4612a5f92490806649ac8d41e3ec9129c636754575b3553f4ea4/googleapis_common_protos-1.72.0-py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.72.0-py3-none-any.whl.metadata (9.4 kB)
+Collecting requests<3.0.0,>=2.18.0 (from google-api-core->google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for requests<3.0.0,>=2.18.0 from https://files.pythonhosted.org/packages/1e/db/4254e3eabe8020b458f1a747140d32277ec7a271daf1d235b70dc0b4e6e3/requests-2.32.5-py3-none-any.whl.metadata
+  Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+Collecting grpcio<2.0.0,>=1.33.2 (from google-api-core[grpc]!=2.0.*,!=2.1.*,!=2.10.*,!=2.2.*,!=2.3.*,!=2.4.*,!=2.5.*,!=2.6.*,!=2.7.*,!=2.8.*,!=2.9.*,<3.0.0dev,>=1.34.1->google-ai-generativelanguage==0.6.15->google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for grpcio<2.0.0,>=1.33.2 from https://files.pythonhosted.org/packages/43/28/40a5be3f9a86949b83e7d6a2ad6011d993cbe9b6bd27bea881f61c7788b6/grpcio-1.76.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata
+  Using cached grpcio-1.76.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.7 kB)
+Collecting grpcio-status<2.0.0,>=1.33.2 (from google-api-core[grpc]!=2.0.*,!=2.1.*,!=2.10.*,!=2.2.*,!=2.3.*,!=2.4.*,!=2.5.*,!=2.6.*,!=2.7.*,!=2.8.*,!=2.9.*,<3.0.0dev,>=1.34.1->google-ai-generativelanguage==0.6.15->google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for grpcio-status<2.0.0,>=1.33.2 from https://files.pythonhosted.org/packages/8c/cc/27ba60ad5a5f2067963e6a858743500df408eb5855e98be778eaef8c9b02/grpcio_status-1.76.0-py3-none-any.whl.metadata
+  Using cached grpcio_status-1.76.0-py3-none-any.whl.metadata (1.1 kB)
+Collecting pyasn1-modules>=0.2.1 (from google-auth>=2.15.0->google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for pyasn1-modules>=0.2.1 from https://files.pythonhosted.org/packages/47/8d/d529b5d697919ba8c11ad626e835d4039be708a35b0d22de83a269a6682c/pyasn1_modules-0.4.2-py3-none-any.whl.metadata
+  Using cached pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+Collecting cryptography>=38.0.3 (from google-auth>=2.15.0->google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for cryptography>=38.0.3 from https://files.pythonhosted.org/packages/a6/f7/6d43cbaddf6f65b24816e4af187d211f0bc536a29961f69faedc48501d8e/cryptography-46.0.4-cp311-abi3-manylinux_2_34_x86_64.whl.metadata
+  Using cached cryptography-46.0.4-cp311-abi3-manylinux_2_34_x86_64.whl.metadata (5.7 kB)
+INFO: pip is looking at multiple versions of grpcio-status to determine which version is compatible with other requirements. This could take a while.
+Collecting grpcio-status<2.0.0,>=1.33.2 (from google-api-core[grpc]!=2.0.*,!=2.1.*,!=2.10.*,!=2.2.*,!=2.3.*,!=2.4.*,!=2.5.*,!=2.6.*,!=2.7.*,!=2.8.*,!=2.9.*,<3.0.0dev,>=1.34.1->google-ai-generativelanguage==0.6.15->google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for grpcio-status<2.0.0,>=1.33.2 from https://files.pythonhosted.org/packages/d8/ad/6f414bb0b36eee20d93af6907256f208ffcda992ae6d3d7b6a778afe31e6/grpcio_status-1.75.1-py3-none-any.whl.metadata
+  Using cached grpcio_status-1.75.1-py3-none-any.whl.metadata (1.1 kB)
+Collecting grpcio<2.0.0,>=1.33.2 (from google-api-core[grpc]!=2.0.*,!=2.1.*,!=2.10.*,!=2.2.*,!=2.3.*,!=2.4.*,!=2.5.*,!=2.6.*,!=2.7.*,!=2.8.*,!=2.9.*,<3.0.0dev,>=1.34.1->google-ai-generativelanguage==0.6.15->google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for grpcio<2.0.0,>=1.33.2 from https://files.pythonhosted.org/packages/78/66/044d412c98408a5e23cb348845979a2d17a2e2b6c3c34c1ec91b920f49d0/grpcio-1.75.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata
+  Using cached grpcio-1.75.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.7 kB)
+Collecting googleapis-common-protos<2.0.0,>=1.56.2 (from google-api-core->google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/25/e8/eba9fece11d57a71e3e22ea672742c8f3cf23b35730c9e96db768b295216/googleapis_common_protos-1.71.0-py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.71.0-py3-none-any.whl.metadata (9.4 kB)
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/86/f1/62a193f0227cf15a920390abe675f386dec35f7ae3ffe6da582d3ade42c7/googleapis_common_protos-1.70.0-py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.70.0-py3-none-any.whl.metadata (9.3 kB)
+INFO: pip is still looking at multiple versions of grpcio-status to determine which version is compatible with other requirements. This could take a while.
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/f9/53/d35476d547a286506f0a6a634ccf1e5d288fffd53d48f0bd5fef61d68684/googleapis_common_protos-1.69.2-py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.69.2-py3-none-any.whl.metadata (9.3 kB)
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/16/cb/2f4aa605b16df1e031dd7c322c597613eef933e8dd5b6a4414330b21e791/googleapis_common_protos-1.69.1-py2.py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.69.1-py2.py3-none-any.whl.metadata (9.3 kB)
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/1d/66/0025e2b7a2ae353acea03cf9d4a96ae32ef02c116944e2eb11f559cf4b7b/googleapis_common_protos-1.69.0-py2.py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.69.0-py2.py3-none-any.whl.metadata (5.1 kB)
+INFO: This is taking longer than usual. You might need to provide the dependency resolver with stricter constraints to reduce runtime. See https://pip.pypa.io/warnings/backtracking for guidance. If you want to abort this run, press Ctrl + C.
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/3f/85/c99a157ee99d67cc6c9ad123abb8b1bfb476fab32d2f3511c59314548e4f/googleapis_common_protos-1.68.0-py2.py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.68.0-py2.py3-none-any.whl.metadata (5.1 kB)
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/89/30/2bd0eb03a7dee7727cd2ec643d1e992979e62d5e7443507381cce0455132/googleapis_common_protos-1.67.0-py2.py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.67.0-py2.py3-none-any.whl.metadata (5.1 kB)
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/a0/0f/c0713fb2b3d28af4b2fded3291df1c4d4f79a00d15c2374a9e010870016c/googleapis_common_protos-1.66.0-py2.py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.66.0-py2.py3-none-any.whl.metadata (1.5 kB)
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/ec/08/49bfe7cf737952cc1a9c43e80cc258ed45dad7f183c5b8276fc94cb3862d/googleapis_common_protos-1.65.0-py2.py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.65.0-py2.py3-none-any.whl.metadata (1.5 kB)
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/b7/14/3f8b5670e7e082a3735dc9a6411b4ba37af7e6662441ee66782906265632/googleapis_common_protos-1.64.0-py2.py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.64.0-py2.py3-none-any.whl.metadata (1.5 kB)
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/02/48/87422ff1bddcae677fb6f58c97f5cfc613304a5e8ce2c3662760199c0a84/googleapis_common_protos-1.63.2-py2.py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.63.2-py2.py3-none-any.whl.metadata (1.5 kB)
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/98/87/1608d23bb9879694579fff5dc56d60e3d48e012fd08670f140cf82f6cf26/googleapis_common_protos-1.63.1-py2.py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.63.1-py2.py3-none-any.whl.metadata (1.5 kB)
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/dc/a6/12a0c976140511d8bc8a16ad15793b2aef29ac927baa0786ccb7ddbb6e1c/googleapis_common_protos-1.63.0-py2.py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.63.0-py2.py3-none-any.whl.metadata (1.5 kB)
+Collecting protobuf (from google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for protobuf from https://files.pythonhosted.org/packages/d6/c6/c9deaa6e789b6fc41b88ccbdfe7a42d2b82663248b715f55aa77fbc00724/protobuf-4.25.8-cp37-abi3-manylinux2014_x86_64.whl.metadata
+  Using cached protobuf-4.25.8-cp37-abi3-manylinux2014_x86_64.whl.metadata (541 bytes)
+Collecting googleapis-common-protos<2.0.0,>=1.56.2 (from google-api-core->google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/f0/43/c9d8f75ddf08e2a0a27db243c13a700c3cc7ec615b545b697cf6f715ad92/googleapis_common_protos-1.62.0-py2.py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.62.0-py2.py3-none-any.whl.metadata (1.5 kB)
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/21/49/12996dc0238e017504dceea1d121a48bd49fb3f4416f40d59fc3e924b4f3/googleapis_common_protos-1.61.0-py2.py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.61.0-py2.py3-none-any.whl.metadata (1.5 kB)
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/a7/bc/416a1ffeba4dcd072bc10523dac9ed97f2e7fc4b760580e2bdbdc1e2afdd/googleapis_common_protos-1.60.0-py2.py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.60.0-py2.py3-none-any.whl.metadata (1.5 kB)
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/b3/b7/bbaa556e9ff0580f408c64ccf4db0c1414eec79e7151d33a10bc209ffb6d/googleapis_common_protos-1.59.1-py2.py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.59.1-py2.py3-none-any.whl.metadata (1.5 kB)
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/a7/8d/7ccf8f63ab0a768e13720262374c0d6a1489f7f23f1b89a16c92af452f09/googleapis_common_protos-1.59.0-py2.py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.59.0-py2.py3-none-any.whl.metadata (1.5 kB)
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/32/4e/ed585842aaa704d87495a0e99317aaa44c5007a597c05b995fa8cfc4dfbe/googleapis_common_protos-1.58.0-py2.py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.58.0-py2.py3-none-any.whl.metadata (1.5 kB)
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/76/b9/fc6a31a90e3c78cea00d209d48f1e5c6c9edc6b14f3039470c3f7fae60a1/googleapis_common_protos-1.57.1-py2.py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.57.1-py2.py3-none-any.whl.metadata (1.5 kB)
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/f0/2a/25d8c1ceedc5af97de37434c9c5e38ce28aaa45960aa2bd7aa215fc420c0/googleapis_common_protos-1.57.0-py2.py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.57.0-py2.py3-none-any.whl.metadata (1.5 kB)
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/e2/fd/d9efa2085bd762fba3a637eb3e36d76d72eb6e083d170aeaca65a75f1f9c/googleapis_common_protos-1.56.4-py2.py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.56.4-py2.py3-none-any.whl.metadata (1.3 kB)
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/d9/f2/54d5285e13ddd98408ba56f15f1f56fe85ca89e269864470cc6fab67290a/googleapis_common_protos-1.56.3-py2.py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.56.3-py2.py3-none-any.whl.metadata (1.3 kB)
+  Obtaining dependency information for googleapis-common-protos<2.0.0,>=1.56.2 from https://files.pythonhosted.org/packages/4f/35/ebcc4d2ca9cf895547576e17b8c41172d19473b0c4b24f6f6c273849e00b/googleapis_common_protos-1.56.2-py2.py3-none-any.whl.metadata
+  Using cached googleapis_common_protos-1.56.2-py2.py3-none-any.whl.metadata (1.3 kB)
+Collecting protobuf (from google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for protobuf from https://files.pythonhosted.org/packages/8d/14/619e24a4c70df2901e1f4dbc50a6291eb63a759172558df326347dce1f0d/protobuf-3.20.3-py2.py3-none-any.whl.metadata
+  Using cached protobuf-3.20.3-py2.py3-none-any.whl.metadata (720 bytes)
+Collecting google-api-core[grpc]!=2.0.*,!=2.1.*,!=2.10.*,!=2.2.*,!=2.3.*,!=2.4.*,!=2.5.*,!=2.6.*,!=2.7.*,!=2.8.*,!=2.9.*,<3.0.0dev,>=1.34.1 (from google-ai-generativelanguage==0.6.15->google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for google-api-core[grpc]!=2.0.*,!=2.1.*,!=2.10.*,!=2.2.*,!=2.3.*,!=2.4.*,!=2.5.*,!=2.6.*,!=2.7.*,!=2.8.*,!=2.9.*,<3.0.0dev,>=1.34.1 from https://files.pythonhosted.org/packages/ed/d4/90197b416cb61cefd316964fd9e7bd8324bcbafabf40eef14a9f20b81974/google_api_core-2.28.1-py3-none-any.whl.metadata
+  Using cached google_api_core-2.28.1-py3-none-any.whl.metadata (3.3 kB)
+  Obtaining dependency information for google-api-core[grpc]!=2.0.*,!=2.1.*,!=2.10.*,!=2.2.*,!=2.3.*,!=2.4.*,!=2.5.*,!=2.6.*,!=2.7.*,!=2.8.*,!=2.9.*,<3.0.0dev,>=1.34.1 from https://files.pythonhosted.org/packages/54/8a/c75ed5fd7819742201ffffbd61bb081af4819ea882a6b84930fa93f8e96f/google_api_core-2.28.0-py3-none-any.whl.metadata
+  Using cached google_api_core-2.28.0-py3-none-any.whl.metadata (3.2 kB)
+  Obtaining dependency information for google-api-core[grpc]!=2.0.*,!=2.1.*,!=2.10.*,!=2.2.*,!=2.3.*,!=2.4.*,!=2.5.*,!=2.6.*,!=2.7.*,!=2.8.*,!=2.9.*,<3.0.0dev,>=1.34.1 from https://files.pythonhosted.org/packages/77/93/ecf9f7caa99c71e969091e9a78789f11b2dea5c684917eab7c54a8d13560/google_api_core-2.27.0-py3-none-any.whl.metadata
+  Using cached google_api_core-2.27.0-py3-none-any.whl.metadata (3.2 kB)
+  Obtaining dependency information for google-api-core[grpc]!=2.0.*,!=2.1.*,!=2.10.*,!=2.2.*,!=2.3.*,!=2.4.*,!=2.5.*,!=2.6.*,!=2.7.*,!=2.8.*,!=2.9.*,<3.0.0dev,>=1.34.1 from https://files.pythonhosted.org/packages/77/ad/f73cf9fe9bd95918502b270e3ddb8764e4c900b3bbd7782b90c56fac14bb/google_api_core-2.26.0-py3-none-any.whl.metadata
+  Using cached google_api_core-2.26.0-py3-none-any.whl.metadata (3.2 kB)
+  Obtaining dependency information for google-api-core[grpc]!=2.0.*,!=2.1.*,!=2.10.*,!=2.2.*,!=2.3.*,!=2.4.*,!=2.5.*,!=2.6.*,!=2.7.*,!=2.8.*,!=2.9.*,<3.0.0dev,>=1.34.1 from https://files.pythonhosted.org/packages/c8/d8/894716a5423933f5c8d2d5f04b16f052a515f78e815dab0c2c6f1fd105dc/google_api_core-2.25.2-py3-none-any.whl.metadata
+  Using cached google_api_core-2.25.2-py3-none-any.whl.metadata (3.0 kB)
+Collecting grpcio-status<2.0.0,>=1.33.2 (from google-api-core[grpc]!=2.0.*,!=2.1.*,!=2.10.*,!=2.2.*,!=2.3.*,!=2.4.*,!=2.5.*,!=2.6.*,!=2.7.*,!=2.8.*,!=2.9.*,<3.0.0dev,>=1.34.1->google-ai-generativelanguage==0.6.15->google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for grpcio-status<2.0.0,>=1.33.2 from https://files.pythonhosted.org/packages/2b/24/d536f0a0fda3a3eeb334893e5fb9d567c2777de6a5384413f71b35cfd0e5/grpcio_status-1.75.0-py3-none-any.whl.metadata
+  Using cached grpcio_status-1.75.0-py3-none-any.whl.metadata (1.1 kB)
+  Obtaining dependency information for grpcio-status<2.0.0,>=1.33.2 from https://files.pythonhosted.org/packages/28/aa/1b1fe7d8ab699e1ec26d3a36b91d3df9f83a30abc07d4c881d0296b17b67/grpcio_status-1.74.0-py3-none-any.whl.metadata
+  Using cached grpcio_status-1.74.0-py3-none-any.whl.metadata (1.1 kB)
+  Obtaining dependency information for grpcio-status<2.0.0,>=1.33.2 from https://files.pythonhosted.org/packages/2e/50/ee32e6073e2c3a4457be168e2bbf84d02ad9d2c18c4a578a641480c293d4/grpcio_status-1.73.1-py3-none-any.whl.metadata
+  Using cached grpcio_status-1.73.1-py3-none-any.whl.metadata (1.1 kB)
+  Obtaining dependency information for grpcio-status<2.0.0,>=1.33.2 from https://files.pythonhosted.org/packages/e2/95/e4b963a8730e04fae0e98cdd12212a9ffb318daf8687ea3220b78b34f8fa/grpcio_status-1.73.0-py3-none-any.whl.metadata
+  Using cached grpcio_status-1.73.0-py3-none-any.whl.metadata (1.1 kB)
+  Obtaining dependency information for grpcio-status<2.0.0,>=1.33.2 from https://files.pythonhosted.org/packages/14/53/473ee4db326aced076c5a7b503692cab10e3d0d963ac8916fc3a1994bc8a/grpcio_status-1.72.2-py3-none-any.whl.metadata
+  Using cached grpcio_status-1.72.2-py3-none-any.whl.metadata (1.1 kB)
+  Obtaining dependency information for grpcio-status<2.0.0,>=1.33.2 from https://files.pythonhosted.org/packages/11/62/529a3d6b00792ef464d929ffa8980a300ad3030842880d04213ef9e6e0fd/grpcio_status-1.72.1-py3-none-any.whl.metadata
+  Using cached grpcio_status-1.72.1-py3-none-any.whl.metadata (1.1 kB)
+  Obtaining dependency information for grpcio-status<2.0.0,>=1.33.2 from https://files.pythonhosted.org/packages/67/58/317b0134129b556a93a3b0afe00ee675b5657f0155509e22fcb853bafe2d/grpcio_status-1.71.2-py3-none-any.whl.metadata
+  Using cached grpcio_status-1.71.2-py3-none-any.whl.metadata (1.1 kB)
+Collecting charset_normalizer<4,>=2 (from requests<3.0.0,>=2.18.0->google-api-core->google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for charset_normalizer<4,>=2 from https://files.pythonhosted.org/packages/67/ff/f6b948ca32e4f2a4576aa129d8bed61f2e0543bf9f5f2b7fc3758ed005c9/charset_normalizer-3.4.4-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Using cached charset_normalizer-3.4.4-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+Collecting urllib3<3,>=1.21.1 (from requests<3.0.0,>=2.18.0->google-api-core->google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for urllib3<3,>=1.21.1 from https://files.pythonhosted.org/packages/39/08/aaaad47bc4e9dc8c725e68f9d04865dbcb2052843ff09c97b08904852d84/urllib3-2.6.3-py3-none-any.whl.metadata
+  Using cached urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+Collecting certifi>=2017.4.17 (from requests<3.0.0,>=2.18.0->google-api-core->google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for certifi>=2017.4.17 from https://files.pythonhosted.org/packages/e6/ad/3cc14f097111b4de0040c83a525973216457bbeeb63739ef1ed275c1c021/certifi-2026.1.4-py3-none-any.whl.metadata
+  Using cached certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+  Link requires a different Python (3.14.2 not in: '>=3.7,<3.11'): https://files.pythonhosted.org/packages/3a/be/650f9c091ef71cb01d735775d554e068752d3ff63d7943b26316dc401749/numpy-1.21.2.zip (from https://pypi.org/simple/numpy/) (requires-python:>=3.7,<3.11)
+  Link requires a different Python (3.14.2 not in: '>=3.7,<3.11'): https://files.pythonhosted.org/packages/5f/d6/ad58ded26556eaeaa8c971e08b6466f17c4ac4d786cd3d800e26ce59cc01/numpy-1.21.3.zip (from https://pypi.org/simple/numpy/) (requires-python:>=3.7,<3.11)
+  Link requires a different Python (3.14.2 not in: '>=3.7,<3.11'): https://files.pythonhosted.org/packages/fb/48/b0708ebd7718a8933f0d3937513ef8ef2f4f04529f1f66ca86d873043921/numpy-1.21.4.zip (from https://pypi.org/simple/numpy/) (requires-python:>=3.7,<3.11)
+  Link requires a different Python (3.14.2 not in: '>=3.7,<3.11'): https://files.pythonhosted.org/packages/c2/a8/a924a09492bdfee8c2ec3094d0a13f2799800b4fdc9c890738aeeb12c72e/numpy-1.21.5.zip (from https://pypi.org/simple/numpy/) (requires-python:>=3.7,<3.11)
+  Link requires a different Python (3.14.2 not in: '>=3.7,<3.11'): https://files.pythonhosted.org/packages/45/b7/de7b8e67f2232c26af57c205aaad29fe17754f793404f59c8a730c7a191a/numpy-1.21.6.zip (from https://pypi.org/simple/numpy/) (requires-python:>=3.7,<3.11)
+  Link requires a different Python (3.14.2 not in: '<3.13,>=3.9'): https://files.pythonhosted.org/packages/55/b3/b13bce39ba82b7398c06d10446f5ffd5c07db39b09bd37370dc720c7951c/numpy-1.26.0.tar.gz (from https://pypi.org/simple/numpy/) (requires-python:<3.13,>=3.9)
+  Link requires a different Python (3.14.2 not in: '<3.13,>=3.9'): https://files.pythonhosted.org/packages/78/23/f78fd8311e0f710fe1d065d50b92ce0057fe877b8ed7fd41b28ad6865bfc/numpy-1.26.1.tar.gz (from https://pypi.org/simple/numpy/) (requires-python:<3.13,>=3.9)
+Collecting numpy<3.0,>=1.25.0 (from faiss-cpu->-r requirements.txt (line 8))
+  Obtaining dependency information for numpy<3.0,>=1.25.0 from https://files.pythonhosted.org/packages/5d/6c/7f237821c9642fb2a04d2f1e88b4295677144ca93285fd76eff3bcba858d/numpy-2.4.2-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Using cached numpy-2.4.2-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+Collecting packaging (from faiss-cpu->-r requirements.txt (line 8))
+  Obtaining dependency information for packaging from https://files.pythonhosted.org/packages/b7/b9/c538f279a4e237a006a2c98387d081e9eb060d203d8ed34467cc0f0b9b53/packaging-26.0-py3-none-any.whl.metadata
+  Using cached packaging-26.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting httplib2<1.0.0,>=0.19.0 (from google-api-python-client->-r requirements.txt (line 9))
+  Obtaining dependency information for httplib2<1.0.0,>=0.19.0 from https://files.pythonhosted.org/packages/2f/90/fd509079dfcab01102c0fdd87f3a9506894bc70afcf9e9785ef6b2b3aff6/httplib2-0.31.2-py3-none-any.whl.metadata
+  Using cached httplib2-0.31.2-py3-none-any.whl.metadata (2.2 kB)
+Collecting google-auth-httplib2<1.0.0,>=0.2.0 (from google-api-python-client->-r requirements.txt (line 9))
+  Obtaining dependency information for google-auth-httplib2<1.0.0,>=0.2.0 from https://files.pythonhosted.org/packages/99/d5/3c97526c8796d3caf5f4b3bed2b05e8a7102326f00a334e7a438237f3b22/google_auth_httplib2-0.3.0-py3-none-any.whl.metadata
+  Using cached google_auth_httplib2-0.3.0-py3-none-any.whl.metadata (3.1 kB)
+Collecting uritemplate<5,>=3.0.1 (from google-api-python-client->-r requirements.txt (line 9))
+  Obtaining dependency information for uritemplate<5,>=3.0.1 from https://files.pythonhosted.org/packages/a9/99/3ae339466c9183ea5b8ae87b34c0b897eda475d2aec2307cae60e5cd4f29/uritemplate-4.2.0-py3-none-any.whl.metadata
+  Using cached uritemplate-4.2.0-py3-none-any.whl.metadata (2.6 kB)
+Collecting pyparsing<4,>=3.1 (from httplib2<1.0.0,>=0.19.0->google-api-python-client->-r requirements.txt (line 9))
+  Obtaining dependency information for pyparsing<4,>=3.1 from https://files.pythonhosted.org/packages/10/bd/c038d7cc38edc1aa5bf91ab8068b63d4308c66c4c8bb3cbba7dfbc049f9c/pyparsing-3.3.2-py3-none-any.whl.metadata
+  Using cached pyparsing-3.3.2-py3-none-any.whl.metadata (5.8 kB)
+Collecting requests-oauthlib>=0.7.0 (from google-auth-oauthlib->-r requirements.txt (line 10))
+  Obtaining dependency information for requests-oauthlib>=0.7.0 from https://files.pythonhosted.org/packages/3b/5d/63d4ae3b9daea098d5d6f5da83984853c1bbacd5dc826764b249fe119d24/requests_oauthlib-2.0.0-py2.py3-none-any.whl.metadata
+  Using cached requests_oauthlib-2.0.0-py2.py3-none-any.whl.metadata (11 kB)
+Collecting iniconfig>=1.0.1 (from pytest->-r requirements.txt (line 12))
+  Obtaining dependency information for iniconfig>=1.0.1 from https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl.metadata
+  Using cached iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting pluggy<2,>=1.5 (from pytest->-r requirements.txt (line 12))
+  Obtaining dependency information for pluggy<2,>=1.5 from https://files.pythonhosted.org/packages/54/20/4d324d65cc6d9205fabedc306948156824eb9f0ee1633355a8f7ec5c66bf/pluggy-1.6.0-py3-none-any.whl.metadata
+  Using cached pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+Collecting pygments>=2.7.2 (from pytest->-r requirements.txt (line 12))
+  Obtaining dependency information for pygments>=2.7.2 from https://files.pythonhosted.org/packages/c7/21/705964c7812476f378728bdf590ca4b771ec72385c533964653c68e86bdc/pygments-2.19.2-py3-none-any.whl.metadata
+  Using cached pygments-2.19.2-py3-none-any.whl.metadata (2.5 kB)
+Collecting aiofiles>=24.1.0 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for aiofiles>=24.1.0 from https://files.pythonhosted.org/packages/bc/8a/340a1555ae33d7354dbca4faa54948d76d89a27ceef032c8c3bc661d003e/aiofiles-25.1.0-py3-none-any.whl.metadata
+  Using cached aiofiles-25.1.0-py3-none-any.whl.metadata (6.3 kB)
+Collecting aiohttp>=3.11.11 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for aiohttp>=3.11.11 from https://files.pythonhosted.org/packages/e3/d1/e30e537a15f53485b61f5be525f2157da719819e8377298502aebac45536/aiohttp-3.13.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Using cached aiohttp-3.13.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.1 kB)
+Collecting aiosqlite~=0.20 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for aiosqlite~=0.20 from https://files.pythonhosted.org/packages/00/b7/e3bf5133d697a08128598c8d0abc5e16377b51465a33756de24fa7dee953/aiosqlite-0.22.1-py3-none-any.whl.metadata
+  Using cached aiosqlite-0.22.1-py3-none-any.whl.metadata (4.3 kB)
+Collecting lxml~=5.3 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Using cached lxml-5.4.0-cp314-cp314-linux_x86_64.whl
+Collecting litellm>=1.53.1 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for litellm>=1.53.1 from https://files.pythonhosted.org/packages/e6/05/3516cc7386b220d388aa0bd833308c677e94eceb82b2756dd95e06f6a13f/litellm-1.81.6-py3-none-any.whl.metadata
+  Using cached litellm-1.81.6-py3-none-any.whl.metadata (30 kB)
+Collecting pillow>=10.4 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for pillow>=10.4 from https://files.pythonhosted.org/packages/c4/5a/8ba375025701c09b309e8d5163c5a4ce0102fa86bbf8800eb0d7ac87bc51/pillow-12.1.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Using cached pillow-12.1.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+Collecting playwright>=1.49.0 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for playwright>=1.49.0 from https://files.pythonhosted.org/packages/f1/af/009958cbf23fac551a940d34e3206e6c7eed2b8c940d0c3afd1feb0b0589/playwright-1.58.0-py3-none-manylinux1_x86_64.whl.metadata
+  Using cached playwright-1.58.0-py3-none-manylinux1_x86_64.whl.metadata (3.5 kB)
+Collecting patchright>=1.49.0 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for patchright>=1.49.0 from https://files.pythonhosted.org/packages/ea/86/98d8f42d5186b6864144fb25e21da8aa7cffa5b9d1d76752276610b9ea58/patchright-1.58.0-py3-none-manylinux1_x86_64.whl.metadata
+  Using cached patchright-1.58.0-py3-none-manylinux1_x86_64.whl.metadata (13 kB)
+Collecting beautifulsoup4~=4.12 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for beautifulsoup4~=4.12 from https://files.pythonhosted.org/packages/1a/39/47f9197bdd44df24d67ac8893641e16f386c984a0619ef2ee4c51fbbc019/beautifulsoup4-4.14.3-py3-none-any.whl.metadata
+  Using cached beautifulsoup4-4.14.3-py3-none-any.whl.metadata (3.8 kB)
+Collecting tf-playwright-stealth>=1.1.0 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for tf-playwright-stealth>=1.1.0 from https://files.pythonhosted.org/packages/11/3d/2653f4cf49660bb44eeac8270617cc4c0287d61716f249f55053f0af0724/tf_playwright_stealth-1.2.0-py3-none-any.whl.metadata
+  Using cached tf_playwright_stealth-1.2.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting xxhash~=3.4 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for xxhash~=3.4 from https://files.pythonhosted.org/packages/ed/ba/603ce3961e339413543d8cd44f21f2c80e2a7c5cfe692a7b1f2cccf58f3c/xxhash-3.6.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Using cached xxhash-3.6.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (13 kB)
+Collecting rank-bm25~=0.2 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for rank-bm25~=0.2 from https://files.pythonhosted.org/packages/2a/21/f691fb2613100a62b3fa91e9988c991e9ca5b89ea31c0d3152a3210344f9/rank_bm25-0.2.2-py3-none-any.whl.metadata
+  Using cached rank_bm25-0.2.2-py3-none-any.whl.metadata (3.2 kB)
+Collecting snowballstemmer~=2.2 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for snowballstemmer~=2.2 from https://files.pythonhosted.org/packages/ed/dc/c02e01294f7265e63a7315fe086dd1df7dacb9f840a804da846b96d01b96/snowballstemmer-2.2.0-py2.py3-none-any.whl.metadata
+  Using cached snowballstemmer-2.2.0-py2.py3-none-any.whl.metadata (6.5 kB)
+Collecting pyOpenSSL>=25.3.0 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for pyOpenSSL>=25.3.0 from https://files.pythonhosted.org/packages/d1/81/ef2b1dfd1862567d573a4fdbc9f969067621764fbb74338496840a1d2977/pyopenssl-25.3.0-py3-none-any.whl.metadata
+  Using cached pyopenssl-25.3.0-py3-none-any.whl.metadata (17 kB)
+Collecting psutil>=6.1.1 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for psutil>=6.1.1 from https://files.pythonhosted.org/packages/b5/70/5d8df3b09e25bce090399cf48e452d25c935ab72dad19406c77f4e828045/psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Using cached psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl.metadata (22 kB)
+Collecting nltk>=3.9.1 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for nltk>=3.9.1 from https://files.pythonhosted.org/packages/60/90/81ac364ef94209c100e12579629dc92bf7a709a84af32f8c551b02c07e94/nltk-3.9.2-py3-none-any.whl.metadata
+  Using cached nltk-3.9.2-py3-none-any.whl.metadata (3.2 kB)
+Collecting rich>=13.9.4 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for rich>=13.9.4 from https://files.pythonhosted.org/packages/ef/45/615f5babd880b4bd7d405cc0dc348234c5ffb6ed1ea33e152ede08b2072d/rich-14.3.2-py3-none-any.whl.metadata
+  Downloading rich-14.3.2-py3-none-any.whl.metadata (18 kB)
+Collecting cssselect>=1.2.0 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for cssselect>=1.2.0 from https://files.pythonhosted.org/packages/20/0c/7bb51e3acfafd16c48875bf3db03607674df16f5b6ef8d056586af7e2b8b/cssselect-1.4.0-py3-none-any.whl.metadata
+  Using cached cssselect-1.4.0-py3-none-any.whl.metadata (2.4 kB)
+Collecting fake-useragent>=2.0.3 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for fake-useragent>=2.0.3 from https://files.pythonhosted.org/packages/51/37/b3ea9cd5558ff4cb51957caca2193981c6b0ff30bd0d2630ac62505d99d0/fake_useragent-2.2.0-py3-none-any.whl.metadata
+  Using cached fake_useragent-2.2.0-py3-none-any.whl.metadata (17 kB)
+Collecting chardet>=5.2.0 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for chardet>=5.2.0 from https://files.pythonhosted.org/packages/38/6f/f5fbc992a329ee4e0f288c1fe0e2ad9485ed064cac731ed2fe47dcc38cbf/chardet-5.2.0-py3-none-any.whl.metadata
+  Using cached chardet-5.2.0-py3-none-any.whl.metadata (3.4 kB)
+Collecting brotli>=1.1.0 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for brotli>=1.1.0 from https://files.pythonhosted.org/packages/f3/2f/0976d5b097ff8a22163b10617f76b2557f15f0f39d6a0fe1f02b1a53e92b/brotli-1.2.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata
+  Using cached brotli-1.2.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (6.1 kB)
+Collecting humanize>=4.10.0 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for humanize>=4.10.0 from https://files.pythonhosted.org/packages/c5/7b/bca5613a0c3b542420cf92bd5e5fb8ebd5435ce1011a091f66bb7693285e/humanize-4.15.0-py3-none-any.whl.metadata
+  Using cached humanize-4.15.0-py3-none-any.whl.metadata (7.8 kB)
+Collecting lark>=1.2.2 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for lark>=1.2.2 from https://files.pythonhosted.org/packages/82/3d/14ce75ef66813643812f3093ab17e46d3a206942ce7376d31ec2d36229e7/lark-1.3.1-py3-none-any.whl.metadata
+  Using cached lark-1.3.1-py3-none-any.whl.metadata (1.8 kB)
+Collecting alphashape>=1.3.1 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for alphashape>=1.3.1 from https://files.pythonhosted.org/packages/e4/ad/77fad9d6f974ec58d837cb49fb9b483d6227a420c4f908c3578633de1d47/alphashape-1.3.1-py2.py3-none-any.whl.metadata
+  Using cached alphashape-1.3.1-py2.py3-none-any.whl.metadata (18 kB)
+Collecting shapely>=2.0.0 (from crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for shapely>=2.0.0 from https://files.pythonhosted.org/packages/8a/cb/4948be52ee1da6927831ab59e10d4c29baa2a714f599f1f0d1bc747f5777/shapely-2.1.2-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata
+  Using cached shapely-2.1.2-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (6.8 kB)
+Collecting soupsieve>=1.6.1 (from beautifulsoup4~=4.12->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for soupsieve>=1.6.1 from https://files.pythonhosted.org/packages/46/2c/1462b1d0a634697ae9e55b3cecdcb64788e8b7d63f54d923fcd0bb140aed/soupsieve-2.8.3-py3-none-any.whl.metadata
+  Using cached soupsieve-2.8.3-py3-none-any.whl.metadata (4.6 kB)
+Collecting transformers<6.0.0,>=4.41.0 (from sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for transformers<6.0.0,>=4.41.0 from https://files.pythonhosted.org/packages/52/f3/ac976fa8e305c9e49772527e09fbdc27cc6831b8a2f6b6063406626be5dd/transformers-5.0.0-py3-none-any.whl.metadata
+  Using cached transformers-5.0.0-py3-none-any.whl.metadata (37 kB)
+Collecting huggingface-hub>=0.20.0 (from sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for huggingface-hub>=0.20.0 from https://files.pythonhosted.org/packages/f9/84/a579b95c46fe8e319f89dc700c087596f665141575f4dcf136aaa97d856f/huggingface_hub-1.3.5-py3-none-any.whl.metadata
+  Using cached huggingface_hub-1.3.5-py3-none-any.whl.metadata (13 kB)
+Collecting torch>=1.11.0 (from sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for torch>=1.11.0 from https://files.pythonhosted.org/packages/5e/cd/4b95ef7f293b927c283db0b136c42be91c8ec6845c44de0238c8c23bdc80/torch-2.10.0-cp314-cp314-manylinux_2_28_x86_64.whl.metadata
+  Using cached torch-2.10.0-cp314-cp314-manylinux_2_28_x86_64.whl.metadata (31 kB)
+Collecting scikit-learn (from sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for scikit-learn from https://files.pythonhosted.org/packages/b8/cb/861b41341d6f1245e6ca80b1c1a8c4dfce43255b03df034429089ca2a2c5/scikit_learn-1.8.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Using cached scikit_learn-1.8.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (11 kB)
+  Link requires a different Python (3.14.2 not in: '>=3.7,<3.10'): https://files.pythonhosted.org/packages/99/f1/c00d6be56e1a718a3068079e3ec8ce044d7179345280f6a3f5066068af0d/scipy-1.6.2.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:>=3.7,<3.10)
+  Link requires a different Python (3.14.2 not in: '>=3.7,<3.10'): https://files.pythonhosted.org/packages/fe/fd/8704c7b7b34cdac850485e638346025ca57c5a859934b9aa1be5399b33b7/scipy-1.6.3.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:>=3.7,<3.10)
+  Link requires a different Python (3.14.2 not in: '>=3.7,<3.10'): https://files.pythonhosted.org/packages/bb/bb/944f559d554df6c9adf037aa9fc982a9706ee0e96c0d5beac701cb158900/scipy-1.7.0.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:>=3.7,<3.10)
+  Link requires a different Python (3.14.2 not in: '>=3.7,<3.10'): https://files.pythonhosted.org/packages/47/33/a24aec22b7be7fdb10ec117a95e1e4099890d8bbc6646902f443fc7719d1/scipy-1.7.1.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:>=3.7,<3.10)
+  Link requires a different Python (3.14.2 not in: '>=3.7,<3.11'): https://files.pythonhosted.org/packages/0e/23/58c4f995475a2a97cb5f4a032aedaf881ad87cd976a7180c55118d105a1d/scipy-1.7.2.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:>=3.7,<3.11)
+  Link requires a different Python (3.14.2 not in: '>=3.7,<3.11'): https://files.pythonhosted.org/packages/61/67/1a654b96309c991762ee9bc39c363fc618076b155fe52d295211cf2536c7/scipy-1.7.3.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:>=3.7,<3.11)
+  Link requires a different Python (3.14.2 not in: '>=3.8,<3.11'): https://files.pythonhosted.org/packages/c0/ad/e3c052ed4e0027a8abef0a5e8441a044427d252d17d9aee06d56e62fc698/scipy-1.8.0rc1.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:>=3.8,<3.11)
+  Link requires a different Python (3.14.2 not in: '>=3.8,<3.11'): https://files.pythonhosted.org/packages/29/d2/151a54944b333e465f98804dced31dab1284f3c37b752b9cefa710b64681/scipy-1.8.0rc2.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:>=3.8,<3.11)
+  Link requires a different Python (3.14.2 not in: '>=3.8,<3.11'): https://files.pythonhosted.org/packages/e4/26/83dd1c6378513a6241d984bda9f08c512b6e35fff13fba3acc1b3c195f02/scipy-1.8.0rc3.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:>=3.8,<3.11)
+  Link requires a different Python (3.14.2 not in: '>=3.8,<3.11'): https://files.pythonhosted.org/packages/22/78/056cc43e7737811b6f50886788a940f852773dd9804f5365952805db9648/scipy-1.8.0rc4.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:>=3.8,<3.11)
+  Link requires a different Python (3.14.2 not in: '>=3.8,<3.11'): https://files.pythonhosted.org/packages/b4/a2/4faa34bf0cdbefd5c706625f1234987795f368eb4e97bde9d6f46860843e/scipy-1.8.0.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:>=3.8,<3.11)
+  Link requires a different Python (3.14.2 not in: '>=3.8,<3.11'): https://files.pythonhosted.org/packages/26/b5/9330f004b9a3b2b6a31f59f46f1617ce9ca15c0e7fe64288c20385a05c9d/scipy-1.8.1.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:>=3.8,<3.11)
+  Link requires a different Python (3.14.2 not in: '>=3.8,<3.12'): https://files.pythonhosted.org/packages/87/82/8b9bf8bb8030f1eef281ad2af87cc648e06e4a4974c2b9201a57d991b12c/scipy-1.9.0rc1.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:>=3.8,<3.12)
+  Link requires a different Python (3.14.2 not in: '>=3.8,<3.12'): https://files.pythonhosted.org/packages/5a/87/27f9ee75c32138d6eaabff2b91744c97a3fdbbbdd78948372dac93e0079f/scipy-1.9.0rc2.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:>=3.8,<3.12)
+  Link requires a different Python (3.14.2 not in: '>=3.8,<3.12'): https://files.pythonhosted.org/packages/57/72/484c38e5b814b48b41ac6432ef69077f2e7c8094925d3ce17bc3d61359b0/scipy-1.9.0rc3.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:>=3.8,<3.12)
+  Link requires a different Python (3.14.2 not in: '>=3.8,<3.12'): https://files.pythonhosted.org/packages/a8/e3/4ec401f609d34162b7023a09165da491630879e4cfa2336667fe2102cd06/scipy-1.9.0.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:>=3.8,<3.12)
+  Link requires a different Python (3.14.2 not in: '>=3.8,<3.12'): https://files.pythonhosted.org/packages/db/af/16906139f52bc6866c43401869ce247662739ad71afa11c6f18505eb0546/scipy-1.9.1.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:>=3.8,<3.12)
+  Link requires a different Python (3.14.2 not in: '<3.12,>=3.8'): https://files.pythonhosted.org/packages/a2/ce/2592c3b550cf8f68879d4ff2159f3c689ee6f032f8fc9059022074f7bd75/scipy-1.10.0rc1.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:<3.12,>=3.8)
+  Link requires a different Python (3.14.2 not in: '<3.12,>=3.8'): https://files.pythonhosted.org/packages/6b/a3/7de758a32569e06877a6b298bdf7b529ce97a33c55deb2b1637b0162fd9d/scipy-1.10.0rc2.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:<3.12,>=3.8)
+  Link requires a different Python (3.14.2 not in: '<3.12,>=3.8'): https://files.pythonhosted.org/packages/d6/bd/2d13a273d95f7b7d9903c906c486040b0aebb85e008f93a5dd0891f21f1f/scipy-1.10.0.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:<3.12,>=3.8)
+  Link requires a different Python (3.14.2 not in: '<3.12,>=3.8'): https://files.pythonhosted.org/packages/84/a9/2bf119f3f9cff1f376f924e39cfae18dec92a1514784046d185731301281/scipy-1.10.1.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:<3.12,>=3.8)
+  Link requires a different Python (3.14.2 not in: '<3.13,>=3.9'): https://files.pythonhosted.org/packages/8c/95/61cf1d8453b2de242991b5371b31d51d53dde38dc99b9b43c0d2b1933fac/scipy-1.11.0rc1.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:<3.13,>=3.9)
+  Link requires a different Python (3.14.2 not in: '<3.13,>=3.9'): https://files.pythonhosted.org/packages/8a/56/d9cc5fa64b8083d495bf1db0a2b10923acda3a105eca7f28765f47564be0/scipy-1.11.0rc2.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:<3.13,>=3.9)
+  Link requires a different Python (3.14.2 not in: '<3.13,>=3.9'): https://files.pythonhosted.org/packages/fa/d0/724c8204f87b6f807e3e67de32b8b4922d579154a448ce94e89129064bf1/scipy-1.11.0.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:<3.13,>=3.9)
+  Link requires a different Python (3.14.2 not in: '<3.13,>=3.9'): https://files.pythonhosted.org/packages/a6/98/fceb84466a74b8fe74ce2dcc3a0a89cb7b4a689d4775e0fb4c95f335ef6a/scipy-1.11.1.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:<3.13,>=3.9)
+  Link requires a different Python (3.14.2 not in: '<3.13,>=3.9'): https://files.pythonhosted.org/packages/9c/ef/87a5565907645998d7c62e76b84b0ca9f0b7c25cd433f5617a968051cec3/scipy-1.11.2.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:<3.13,>=3.9)
+  Link requires a different Python (3.14.2 not in: '<3.13,>=3.9'): https://files.pythonhosted.org/packages/39/7b/9f265b7f074195392e893a5cdc66116c2f7a31fd5f3d9cceff661ec6df82/scipy-1.11.3.tar.gz (from https://pypi.org/simple/scipy/) (requires-python:<3.13,>=3.9)
+Collecting scipy (from sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for scipy from https://files.pythonhosted.org/packages/b8/7e/8c917cc573310e5dc91cbeead76f1b600d3fb17cf0969db02c9cf92e3cfa/scipy-1.17.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Using cached scipy-1.17.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+Collecting filelock (from transformers<6.0.0,>=4.41.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for filelock from https://files.pythonhosted.org/packages/b5/36/7fb70f04bf00bc646cd5bb45aa9eddb15e19437a28b8fb2b4a5249fac770/filelock-3.20.3-py3-none-any.whl.metadata
+  Using cached filelock-3.20.3-py3-none-any.whl.metadata (2.1 kB)
+Collecting regex!=2019.12.17 (from transformers<6.0.0,>=4.41.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for regex!=2019.12.17 from https://files.pythonhosted.org/packages/07/78/c77f644b68ab054e5a674fb4da40ff7bffb2c88df58afa82dbf86573092d/regex-2026.1.15-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Using cached regex-2026.1.15-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+Collecting tokenizers<=0.23.0,>=0.22.0 (from transformers<6.0.0,>=4.41.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for tokenizers<=0.23.0,>=0.22.0 from https://files.pythonhosted.org/packages/2e/76/932be4b50ef6ccedf9d3c6639b056a967a86258c6d9200643f01269211ca/tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata
+  Using cached tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+Collecting typer-slim (from transformers<6.0.0,>=4.41.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for typer-slim from https://files.pythonhosted.org/packages/c8/0a/4aca634faf693e33004796b6cee0ae2e1dba375a800c16ab8d3eff4bb800/typer_slim-0.21.1-py3-none-any.whl.metadata
+  Using cached typer_slim-0.21.1-py3-none-any.whl.metadata (16 kB)
+Collecting safetensors>=0.4.3 (from transformers<6.0.0,>=4.41.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for safetensors>=0.4.3 from https://files.pythonhosted.org/packages/a0/60/429e9b1cb3fc651937727befe258ea24122d9663e4d5709a48c9cbfceecb/safetensors-0.7.0-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata
+  Using cached safetensors-0.7.0-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+Collecting fsspec>=2023.5.0 (from huggingface-hub>=0.20.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for fsspec>=2023.5.0 from https://files.pythonhosted.org/packages/01/c9/97cc5aae1648dcb851958a3ddf73ccd7dbe5650d95203ecb4d7720b4cdbf/fsspec-2026.1.0-py3-none-any.whl.metadata
+  Using cached fsspec-2026.1.0-py3-none-any.whl.metadata (10 kB)
+Collecting hf-xet<2.0.0,>=1.2.0 (from huggingface-hub>=0.20.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for hf-xet<2.0.0,>=1.2.0 from https://files.pythonhosted.org/packages/9a/92/cf3ab0b652b082e66876d08da57fcc6fa2f0e6c70dfbbafbd470bb73eb47/hf_xet-1.2.0-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata
+  Using cached hf_xet-1.2.0-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
+Collecting shellingham (from huggingface-hub>=0.20.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for shellingham from https://files.pythonhosted.org/packages/e0/f9/0595336914c5619e5f28a1fb793285925a8cd4b432c9da0a987836c7f822/shellingham-1.5.4-py2.py3-none-any.whl.metadata
+  Using cached shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+Collecting httpcore==1.* (from httpx->-r requirements.txt (line 18))
+  Obtaining dependency information for httpcore==1.* from https://files.pythonhosted.org/packages/7e/f5/f66802a942d491edb555dd61e3a9961140fd64c90bce1eafd741609d334d/httpcore-1.0.9-py3-none-any.whl.metadata
+  Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+Collecting trio<1.0,>=0.31.0 (from selenium->-r requirements.txt (line 15))
+  Obtaining dependency information for trio<1.0,>=0.31.0 from https://files.pythonhosted.org/packages/41/bf/945d527ff706233636c73880b22c7c953f3faeb9d6c7e2e85bfbfd0134a0/trio-0.32.0-py3-none-any.whl.metadata
+  Using cached trio-0.32.0-py3-none-any.whl.metadata (8.5 kB)
+Collecting trio-websocket<1.0,>=0.12.2 (from selenium->-r requirements.txt (line 15))
+  Obtaining dependency information for trio-websocket<1.0,>=0.12.2 from https://files.pythonhosted.org/packages/c7/19/eb640a397bba49ba49ef9dbe2e7e5c04202ba045b6ce2ec36e9cadc51e04/trio_websocket-0.12.2-py3-none-any.whl.metadata
+  Using cached trio_websocket-0.12.2-py3-none-any.whl.metadata (5.1 kB)
+Collecting trio-typing>=0.10.0 (from selenium->-r requirements.txt (line 15))
+  Obtaining dependency information for trio-typing>=0.10.0 from https://files.pythonhosted.org/packages/89/ff/9bd795273eb14fac7f6a59d16cc8c4d0948a619a1193d375437c7f50f3eb/trio_typing-0.10.0-py3-none-any.whl.metadata
+  Using cached trio_typing-0.10.0-py3-none-any.whl.metadata (10 kB)
+Collecting types-certifi>=2021.10.8.3 (from selenium->-r requirements.txt (line 15))
+  Obtaining dependency information for types-certifi>=2021.10.8.3 from https://files.pythonhosted.org/packages/b5/63/2463d89481e811f007b0e1cd0a91e52e141b47f9de724d20db7b861dcfec/types_certifi-2021.10.8.3-py3-none-any.whl.metadata
+  Using cached types_certifi-2021.10.8.3-py3-none-any.whl.metadata (1.4 kB)
+Collecting types-urllib3>=1.26.25.14 (from selenium->-r requirements.txt (line 15))
+  Obtaining dependency information for types-urllib3>=1.26.25.14 from https://files.pythonhosted.org/packages/11/7b/3fc711b2efea5e85a7a0bbfe269ea944aa767bbba5ec52f9ee45d362ccf3/types_urllib3-1.26.25.14-py3-none-any.whl.metadata
+  Using cached types_urllib3-1.26.25.14-py3-none-any.whl.metadata (1.7 kB)
+Collecting websocket-client<2.0,>=1.8.0 (from selenium->-r requirements.txt (line 15))
+  Obtaining dependency information for websocket-client<2.0,>=1.8.0 from https://files.pythonhosted.org/packages/34/db/b10e48aa8fff7407e67470363eac595018441cf32d5e1001567a7aeba5d2/websocket_client-1.9.0-py3-none-any.whl.metadata
+  Using cached websocket_client-1.9.0-py3-none-any.whl.metadata (8.3 kB)
+Collecting attrs>=23.2.0 (from trio<1.0,>=0.31.0->selenium->-r requirements.txt (line 15))
+  Obtaining dependency information for attrs>=23.2.0 from https://files.pythonhosted.org/packages/3a/2a/7cc015f5b9f5db42b7d48157e23356022889fc354a2813c15934b7cb5c0e/attrs-25.4.0-py3-none-any.whl.metadata
+  Using cached attrs-25.4.0-py3-none-any.whl.metadata (10 kB)
+Collecting sortedcontainers (from trio<1.0,>=0.31.0->selenium->-r requirements.txt (line 15))
+  Obtaining dependency information for sortedcontainers from https://files.pythonhosted.org/packages/32/46/9cb0e58b2deb7f82b84065f37f3bffeb12413f947f9388e4cac22c4621ce/sortedcontainers-2.4.0-py2.py3-none-any.whl.metadata
+  Using cached sortedcontainers-2.4.0-py2.py3-none-any.whl.metadata (10 kB)
+Collecting outcome (from trio<1.0,>=0.31.0->selenium->-r requirements.txt (line 15))
+  Obtaining dependency information for outcome from https://files.pythonhosted.org/packages/55/8b/5ab7257531a5d830fc8000c476e63c935488d74609b50f9384a643ec0a62/outcome-1.3.0.post0-py2.py3-none-any.whl.metadata
+  Using cached outcome-1.3.0.post0-py2.py3-none-any.whl.metadata (2.6 kB)
+Collecting sniffio>=1.3.0 (from trio<1.0,>=0.31.0->selenium->-r requirements.txt (line 15))
+  Obtaining dependency information for sniffio>=1.3.0 from https://files.pythonhosted.org/packages/e9/44/75a9c9421471a6c4805dbf2356f7c181a29c1879239abab1ea2cc8f38b40/sniffio-1.3.1-py3-none-any.whl.metadata
+  Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+Collecting wsproto>=0.14 (from trio-websocket<1.0,>=0.12.2->selenium->-r requirements.txt (line 15))
+  Obtaining dependency information for wsproto>=0.14 from https://files.pythonhosted.org/packages/a4/f5/10b68b7b1544245097b2a1b8238f66f2fc6dcaeb24ba5d917f52bd2eed4f/wsproto-1.3.2-py3-none-any.whl.metadata
+  Using cached wsproto-1.3.2-py3-none-any.whl.metadata (5.2 kB)
+Collecting pysocks!=1.5.7,<2.0,>=1.5.6 (from urllib3[socks]<3.0,>=2.6.3->selenium->-r requirements.txt (line 15))
+  Obtaining dependency information for pysocks!=1.5.7,<2.0,>=1.5.6 from https://files.pythonhosted.org/packages/8d/59/b4572118e098ac8e46e399a1dd0f2d85403ce8bbaad9ec79373ed6badaf9/PySocks-1.7.1-py3-none-any.whl.metadata
+  Using cached PySocks-1.7.1-py3-none-any.whl.metadata (13 kB)
+Collecting python-dateutil>=2.7.0 (from dateparser->-r requirements.txt (line 17))
+  Obtaining dependency information for python-dateutil>=2.7.0 from https://files.pythonhosted.org/packages/ec/57/56b9bcc3c9c6a792fcbaf139543cee77261f3651ca9da0c93f5c1221264b/python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata
+  Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+Collecting pytz>=2024.2 (from dateparser->-r requirements.txt (line 17))
+  Obtaining dependency information for pytz>=2024.2 from https://files.pythonhosted.org/packages/81/c4/34e93fe5f5429d7570ec1fa436f1986fb1f00c3e0f43a589fe2bbcd22c3f/pytz-2025.2-py2.py3-none-any.whl.metadata
+  Using cached pytz-2025.2-py2.py3-none-any.whl.metadata (22 kB)
+Collecting tzlocal>=0.2 (from dateparser->-r requirements.txt (line 17))
+  Obtaining dependency information for tzlocal>=0.2 from https://files.pythonhosted.org/packages/c2/14/e2a54fabd4f08cd7af1c07030603c3356b74da07f7cc056e600436edfa17/tzlocal-5.3.1-py3-none-any.whl.metadata
+  Using cached tzlocal-5.3.1-py3-none-any.whl.metadata (7.6 kB)
+Collecting langchain-core<2.0.0,>=1.2.7 (from langchain->-r requirements.txt (line 19))
+  Obtaining dependency information for langchain-core<2.0.0,>=1.2.7 from https://files.pythonhosted.org/packages/6e/6f/34a9fba14d191a67f7e2ee3dbce3e9b86d2fa7310e2c7f2c713583481bd2/langchain_core-1.2.7-py3-none-any.whl.metadata
+  Using cached langchain_core-1.2.7-py3-none-any.whl.metadata (3.7 kB)
+Collecting langgraph<1.1.0,>=1.0.7 (from langchain->-r requirements.txt (line 19))
+  Obtaining dependency information for langgraph<1.1.0,>=1.0.7 from https://files.pythonhosted.org/packages/7e/0e/fe80144e3e4048e5d19ccdb91ac547c1a7dc3da8dbd1443e210048194c14/langgraph-1.0.7-py3-none-any.whl.metadata
+  Using cached langgraph-1.0.7-py3-none-any.whl.metadata (7.4 kB)
+Collecting jsonpatch<2.0.0,>=1.33.0 (from langchain-core<2.0.0,>=1.2.7->langchain->-r requirements.txt (line 19))
+  Obtaining dependency information for jsonpatch<2.0.0,>=1.33.0 from https://files.pythonhosted.org/packages/73/07/02e16ed01e04a374e644b575638ec7987ae846d25ad97bcc9945a3ee4b0e/jsonpatch-1.33-py2.py3-none-any.whl.metadata
+  Using cached jsonpatch-1.33-py2.py3-none-any.whl.metadata (3.0 kB)
+Collecting langsmith<1.0.0,>=0.3.45 (from langchain-core<2.0.0,>=1.2.7->langchain->-r requirements.txt (line 19))
+  Obtaining dependency information for langsmith<1.0.0,>=0.3.45 from https://files.pythonhosted.org/packages/ec/9a/5bc17ea3c746363e73c11df5e89068fea1ed175ca9c00fdb6886efc35b21/langsmith-0.6.7-py3-none-any.whl.metadata
+  Using cached langsmith-0.6.7-py3-none-any.whl.metadata (15 kB)
+Collecting packaging (from faiss-cpu->-r requirements.txt (line 8))
+  Obtaining dependency information for packaging from https://files.pythonhosted.org/packages/20/12/38679034af332785aac8774540895e234f4d07f7545804097de4b666afd8/packaging-25.0-py3-none-any.whl.metadata
+  Using cached packaging-25.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting tenacity!=8.4.0,<10.0.0,>=8.1.0 (from langchain-core<2.0.0,>=1.2.7->langchain->-r requirements.txt (line 19))
+  Obtaining dependency information for tenacity!=8.4.0,<10.0.0,>=8.1.0 from https://files.pythonhosted.org/packages/e5/30/643397144bfbfec6f6ef821f36f33e57d35946c44a2352d3c9f0ae847619/tenacity-9.1.2-py3-none-any.whl.metadata
+  Using cached tenacity-9.1.2-py3-none-any.whl.metadata (1.2 kB)
+Collecting uuid-utils<1.0,>=0.12.0 (from langchain-core<2.0.0,>=1.2.7->langchain->-r requirements.txt (line 19))
+  Obtaining dependency information for uuid-utils<1.0,>=0.12.0 from https://files.pythonhosted.org/packages/8a/27/84121c51ea72f013f0e03d0886bcdfa96b31c9b83c98300a7bd5cc4fa191/uuid_utils-0.14.0-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata
+  Using cached uuid_utils-0.14.0-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
+Collecting jsonpointer>=1.9 (from jsonpatch<2.0.0,>=1.33.0->langchain-core<2.0.0,>=1.2.7->langchain->-r requirements.txt (line 19))
+  Obtaining dependency information for jsonpointer>=1.9 from https://files.pythonhosted.org/packages/71/92/5e77f98553e9e75130c78900d000368476aed74276eb8ae8796f65f00918/jsonpointer-3.0.0-py2.py3-none-any.whl.metadata
+  Using cached jsonpointer-3.0.0-py2.py3-none-any.whl.metadata (2.3 kB)
+Collecting langgraph-checkpoint<5.0.0,>=2.1.0 (from langgraph<1.1.0,>=1.0.7->langchain->-r requirements.txt (line 19))
+  Obtaining dependency information for langgraph-checkpoint<5.0.0,>=2.1.0 from https://files.pythonhosted.org/packages/4a/de/ddd53b7032e623f3c7bcdab2b44e8bf635e468f62e10e5ff1946f62c9356/langgraph_checkpoint-4.0.0-py3-none-any.whl.metadata
+  Using cached langgraph_checkpoint-4.0.0-py3-none-any.whl.metadata (4.9 kB)
+Collecting langgraph-prebuilt<1.1.0,>=1.0.7 (from langgraph<1.1.0,>=1.0.7->langchain->-r requirements.txt (line 19))
+  Obtaining dependency information for langgraph-prebuilt<1.1.0,>=1.0.7 from https://files.pythonhosted.org/packages/47/49/5e37abb3f38a17a3487634abc2a5da87c208cc1d14577eb8d7184b25c886/langgraph_prebuilt-1.0.7-py3-none-any.whl.metadata
+  Using cached langgraph_prebuilt-1.0.7-py3-none-any.whl.metadata (5.2 kB)
+  Link requires a different Python (3.14.2 not in: '<3.12,>=3.9.0'): https://files.pythonhosted.org/packages/5c/79/de8c27a3537cd794a15550def5268286890b7c74d191914b54373a9395da/langgraph_sdk-0.1.0-py3-none-any.whl (from https://pypi.org/simple/langgraph-sdk/) (requires-python:<3.12,>=3.9.0)
+  Link requires a different Python (3.14.2 not in: '<3.12,>=3.9.0'): https://files.pythonhosted.org/packages/5d/6e/216d56ac7066e0fefa3b12881aa92bd243d7cc86cb34a52892abaea47ebe/langgraph_sdk-0.1.0.tar.gz (from https://pypi.org/simple/langgraph-sdk/) (requires-python:<3.12,>=3.9.0)
+  Link requires a different Python (3.14.2 not in: '<3.12,>=3.9.0'): https://files.pythonhosted.org/packages/a0/76/d22975788ffc5f9d30dbe8e8cb11c10e0dfb8c6d182076cdf75eadd4ef21/langgraph_sdk-0.1.1-py3-none-any.whl (from https://pypi.org/simple/langgraph-sdk/) (requires-python:<3.12,>=3.9.0)
+  Link requires a different Python (3.14.2 not in: '<3.12,>=3.9.0'): https://files.pythonhosted.org/packages/95/27/8bd7b3a46c26862ae3af617ee4c82e7ea911a563a870bd0784b3d64a3188/langgraph_sdk-0.1.1.tar.gz (from https://pypi.org/simple/langgraph-sdk/) (requires-python:<3.12,>=3.9.0)
+  Link requires a different Python (3.14.2 not in: '<3.12,>=3.9.0'): https://files.pythonhosted.org/packages/1f/c6/0c5bc85303561e5de1787c3300b3287a074cc4f09bab0a1f976d7c9867e4/langgraph_sdk-0.1.2-py3-none-any.whl (from https://pypi.org/simple/langgraph-sdk/) (requires-python:<3.12,>=3.9.0)
+  Link requires a different Python (3.14.2 not in: '<3.12,>=3.9.0'): https://files.pythonhosted.org/packages/42/aa/78e77a133ec34588f75bd24cca669ed1d57328389ee26243883632518de4/langgraph_sdk-0.1.2.tar.gz (from https://pypi.org/simple/langgraph-sdk/) (requires-python:<3.12,>=3.9.0)
+  Link requires a different Python (3.14.2 not in: '<3.13,>=3.9.0'): https://files.pythonhosted.org/packages/b0/64/31e9cfdcbf3515cf1c97b5490deb125640d132c94a2657f68ff377899ba6/langgraph_sdk-0.1.3-py3-none-any.whl (from https://pypi.org/simple/langgraph-sdk/) (requires-python:<3.13,>=3.9.0)
+  Link requires a different Python (3.14.2 not in: '<3.13,>=3.9.0'): https://files.pythonhosted.org/packages/0e/9a/d7f8b31073a325d5932cbbda88b53281469516d2dbef99762328f46812fb/langgraph_sdk-0.1.3.tar.gz (from https://pypi.org/simple/langgraph-sdk/) (requires-python:<3.13,>=3.9.0)
+Collecting langgraph-sdk<0.4.0,>=0.3.0 (from langgraph<1.1.0,>=1.0.7->langchain->-r requirements.txt (line 19))
+  Obtaining dependency information for langgraph-sdk<0.4.0,>=0.3.0 from https://files.pythonhosted.org/packages/6e/be/4ad511bacfdd854afb12974f407cb30010dceb982dc20c55491867b34526/langgraph_sdk-0.3.3-py3-none-any.whl.metadata
+  Using cached langgraph_sdk-0.3.3-py3-none-any.whl.metadata (1.6 kB)
+Collecting ormsgpack>=1.12.0 (from langgraph-checkpoint<5.0.0,>=2.1.0->langgraph<1.1.0,>=1.0.7->langchain->-r requirements.txt (line 19))
+  Obtaining dependency information for ormsgpack>=1.12.0 from https://files.pythonhosted.org/packages/78/e1/7cfbf28de8bca6efe7e525b329c31277d1b64ce08dcba723971c241a9d60/ormsgpack-1.12.2-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata
+  Using cached ormsgpack-1.12.2-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.2 kB)
+Collecting orjson>=3.10.1 (from langgraph-sdk<0.4.0,>=0.3.0->langgraph<1.1.0,>=1.0.7->langchain->-r requirements.txt (line 19))
+  Obtaining dependency information for orjson>=3.10.1 from https://files.pythonhosted.org/packages/32/a7/573fec3df4dc8fc259b7770dc6c0656f91adce6e19330c78d23f87945d1e/orjson-3.11.6-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata
+  Using cached orjson-3.11.6-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (41 kB)
+Collecting requests-toolbelt>=1.0.0 (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.7->langchain->-r requirements.txt (line 19))
+  Obtaining dependency information for requests-toolbelt>=1.0.0 from https://files.pythonhosted.org/packages/3f/51/d4db610ef29373b879047326cbf6fa98b6c1969d6f6dc423279de2b1be2c/requests_toolbelt-1.0.0-py2.py3-none-any.whl.metadata
+  Using cached requests_toolbelt-1.0.0-py2.py3-none-any.whl.metadata (14 kB)
+Collecting zstandard>=0.23.0 (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.7->langchain->-r requirements.txt (line 19))
+  Obtaining dependency information for zstandard>=0.23.0 from https://files.pythonhosted.org/packages/31/dc/cc50210e11e465c975462439a492516a73300ab8caa8f5e0902544fd748b/zstandard-0.25.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Using cached zstandard-0.25.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (3.3 kB)
+Collecting langchain-classic<2.0.0,>=1.0.0 (from langchain-community->-r requirements.txt (line 20))
+  Obtaining dependency information for langchain-classic<2.0.0,>=1.0.0 from https://files.pythonhosted.org/packages/83/0f/eab87f017d7fe28e8c11fff614f4cdbfae32baadb77d0f79e9f922af1df2/langchain_classic-1.0.1-py3-none-any.whl.metadata
+  Using cached langchain_classic-1.0.1-py3-none-any.whl.metadata (4.2 kB)
+Collecting SQLAlchemy<3.0.0,>=1.4.0 (from langchain-community->-r requirements.txt (line 20))
+  Obtaining dependency information for SQLAlchemy<3.0.0,>=1.4.0 from https://files.pythonhosted.org/packages/05/45/1256fb597bb83b58a01ddb600c59fe6fdf0e5afe333f0456ed75c0f8d7bd/sqlalchemy-2.0.46-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Using cached sqlalchemy-2.0.46-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (9.5 kB)
+  Link requires a different Python (3.14.2 not in: '>=3.7,<3.12'): https://files.pythonhosted.org/packages/26/3a/502d66312c1e707a4d5f73d2fc2165a4217d8c77df3a1eb4c09db26dd3b0/dataclasses_json-0.5.12-py3-none-any.whl (from https://pypi.org/simple/dataclasses-json/) (requires-python:>=3.7,<3.12)
+  Link requires a different Python (3.14.2 not in: '>=3.7,<3.12'): https://files.pythonhosted.org/packages/1b/d9/525264de7b38b113a540651a1233df8b20bf3659106cdf94fb7ecf4f3969/dataclasses_json-0.5.12.tar.gz (from https://pypi.org/simple/dataclasses-json/) (requires-python:>=3.7,<3.12)
+  Link requires a different Python (3.14.2 not in: '>=3.7,<3.12'): https://files.pythonhosted.org/packages/30/85/df2259c0bee64b8c38772c43e849a7c312183d7415934546577614885170/dataclasses_json-0.5.13-py3-none-any.whl (from https://pypi.org/simple/dataclasses-json/) (requires-python:>=3.7,<3.12)
+  Link requires a different Python (3.14.2 not in: '>=3.7,<3.12'): https://files.pythonhosted.org/packages/67/eb/59381792c7f3849ec836a384d826140cbd73779017d4a379dcb4c260d3a0/dataclasses_json-0.5.13.tar.gz (from https://pypi.org/simple/dataclasses-json/) (requires-python:>=3.7,<3.12)
+  Link requires a different Python (3.14.2 not in: '>=3.7,<3.13'): https://files.pythonhosted.org/packages/97/5f/e7cc90f36152810cab08b6c9c1125e8bcb9d76f8b3018d101b5f877b386c/dataclasses_json-0.5.14-py3-none-any.whl (from https://pypi.org/simple/dataclasses-json/) (requires-python:>=3.7,<3.13)
+  Link requires a different Python (3.14.2 not in: '>=3.7,<3.13'): https://files.pythonhosted.org/packages/92/30/43b04314b64fbd4562216721bfbf95022922c57e0340809b99f5e049d8ea/dataclasses_json-0.5.14.tar.gz (from https://pypi.org/simple/dataclasses-json/) (requires-python:>=3.7,<3.13)
+Collecting dataclasses-json<0.7.0,>=0.6.7 (from langchain-community->-r requirements.txt (line 20))
+  Obtaining dependency information for dataclasses-json<0.7.0,>=0.6.7 from https://files.pythonhosted.org/packages/c3/be/d0d44e092656fe7a06b55e6103cbce807cdbdee17884a5367c68c9860853/dataclasses_json-0.6.7-py3-none-any.whl.metadata
+  Using cached dataclasses_json-0.6.7-py3-none-any.whl.metadata (25 kB)
+Collecting pydantic-settings<3.0.0,>=2.10.1 (from langchain-community->-r requirements.txt (line 20))
+  Obtaining dependency information for pydantic-settings<3.0.0,>=2.10.1 from https://files.pythonhosted.org/packages/c1/60/5d4751ba3f4a40a6891f24eec885f51afd78d208498268c734e256fb13c4/pydantic_settings-2.12.0-py3-none-any.whl.metadata
+  Using cached pydantic_settings-2.12.0-py3-none-any.whl.metadata (3.4 kB)
+Collecting httpx-sse<1.0.0,>=0.4.0 (from langchain-community->-r requirements.txt (line 20))
+  Obtaining dependency information for httpx-sse<1.0.0,>=0.4.0 from https://files.pythonhosted.org/packages/d2/fd/6668e5aec43ab844de6fc74927e155a3b37bf40d7c3790e49fc0406b6578/httpx_sse-0.4.3-py3-none-any.whl.metadata
+  Using cached httpx_sse-0.4.3-py3-none-any.whl.metadata (9.7 kB)
+Collecting aiohappyeyeballs>=2.5.0 (from aiohttp>=3.11.11->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for aiohappyeyeballs>=2.5.0 from https://files.pythonhosted.org/packages/0f/15/5bf3b99495fb160b63f95972b81750f18f7f4e02ad051373b669d17d44f2/aiohappyeyeballs-2.6.1-py3-none-any.whl.metadata
+  Using cached aiohappyeyeballs-2.6.1-py3-none-any.whl.metadata (5.9 kB)
+Collecting aiosignal>=1.4.0 (from aiohttp>=3.11.11->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for aiosignal>=1.4.0 from https://files.pythonhosted.org/packages/fb/76/641ae371508676492379f16e2fa48f4e2c11741bd63c48be4b12a6b09cba/aiosignal-1.4.0-py3-none-any.whl.metadata
+  Using cached aiosignal-1.4.0-py3-none-any.whl.metadata (3.7 kB)
+Collecting frozenlist>=1.1.1 (from aiohttp>=3.11.11->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for frozenlist>=1.1.1 from https://files.pythonhosted.org/packages/a7/b2/fabede9fafd976b991e9f1b9c8c873ed86f202889b864756f240ce6dd855/frozenlist-1.8.0-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata
+  Using cached frozenlist-1.8.0-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (20 kB)
+Collecting multidict<7.0,>=4.5 (from aiohttp>=3.11.11->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for multidict<7.0,>=4.5 from https://files.pythonhosted.org/packages/fe/3b/8ec5074bcfc450fe84273713b4b0a0dd47c0249358f5d82eb8104ffe2520/multidict-6.7.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Using cached multidict-6.7.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (5.3 kB)
+Collecting propcache>=0.2.0 (from aiohttp>=3.11.11->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for propcache>=0.2.0 from https://files.pythonhosted.org/packages/b2/f2/889ad4b2408f72fe1a4f6a19491177b30ea7bf1a0fd5f17050ca08cfc882/propcache-0.4.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Using cached propcache-0.4.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (13 kB)
+Collecting yarl<2.0,>=1.17.0 (from aiohttp>=3.11.11->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for yarl<2.0,>=1.17.0 from https://files.pythonhosted.org/packages/f5/e7/d8c5a7752fef68205296201f8ec2bf718f5c805a7a7e9880576c67600658/yarl-1.22.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Using cached yarl-1.22.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (75 kB)
+Collecting marshmallow<4.0.0,>=3.18.0 (from dataclasses-json<0.7.0,>=0.6.7->langchain-community->-r requirements.txt (line 20))
+  Obtaining dependency information for marshmallow<4.0.0,>=3.18.0 from https://files.pythonhosted.org/packages/be/2f/5108cb3ee4ba6501748c4908b908e55f42a5b66245b4cfe0c99326e1ef6e/marshmallow-3.26.2-py3-none-any.whl.metadata
+  Using cached marshmallow-3.26.2-py3-none-any.whl.metadata (7.3 kB)
+Collecting typing-inspect<1,>=0.4.0 (from dataclasses-json<0.7.0,>=0.6.7->langchain-community->-r requirements.txt (line 20))
+  Obtaining dependency information for typing-inspect<1,>=0.4.0 from https://files.pythonhosted.org/packages/65/f3/107a22063bf27bdccf2024833d3445f4eea42b2e598abfbd46f6a63b6cb0/typing_inspect-0.9.0-py3-none-any.whl.metadata
+  Using cached typing_inspect-0.9.0-py3-none-any.whl.metadata (1.5 kB)
+Collecting langchain-text-splitters<2.0.0,>=1.1.0 (from langchain-classic<2.0.0,>=1.0.0->langchain-community->-r requirements.txt (line 20))
+  Obtaining dependency information for langchain-text-splitters<2.0.0,>=1.1.0 from https://files.pythonhosted.org/packages/d8/1a/a84ed1c046deecf271356b0179c1b9fba95bfdaa6f934e1849dee26fad7b/langchain_text_splitters-1.1.0-py3-none-any.whl.metadata
+  Using cached langchain_text_splitters-1.1.0-py3-none-any.whl.metadata (2.7 kB)
+Collecting greenlet>=1 (from SQLAlchemy<3.0.0,>=1.4.0->langchain-community->-r requirements.txt (line 20))
+  Obtaining dependency information for greenlet>=1 from https://files.pythonhosted.org/packages/80/38/9d42d60dffb04b45f03dbab9430898352dba277758640751dc5cc316c521/greenlet-3.3.1-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Using cached greenlet-3.3.1-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (3.7 kB)
+Collecting mypy-extensions>=0.3.0 (from typing-inspect<1,>=0.4.0->dataclasses-json<0.7.0,>=0.6.7->langchain-community->-r requirements.txt (line 20))
+  Obtaining dependency information for mypy-extensions>=0.3.0 from https://files.pythonhosted.org/packages/79/7b/2c79738432f5c924bef5071f933bcc9efd0473bac3b4aa584a6f7c1c8df8/mypy_extensions-1.1.0-py3-none-any.whl.metadata
+  Using cached mypy_extensions-1.1.0-py3-none-any.whl.metadata (1.1 kB)
+Collecting groq<1.0.0,>=0.30.0 (from langchain-groq->-r requirements.txt (line 21))
+  Obtaining dependency information for groq<1.0.0,>=0.30.0 from https://files.pythonhosted.org/packages/5f/d6/645a081750e43f858b7d09dce5d8e1e76cf11e7e4bdba81252e04f78963d/groq-0.37.1-py3-none-any.whl.metadata
+  Using cached groq-0.37.1-py3-none-any.whl.metadata (16 kB)
+Collecting distro<2,>=1.7.0 (from groq<1.0.0,>=0.30.0->langchain-groq->-r requirements.txt (line 21))
+  Obtaining dependency information for distro<2,>=1.7.0 from https://files.pythonhosted.org/packages/12/b3/231ffd4ab1fc9d679809f356cebee130ac7daa00d6d6f3206dd4fd137e9e/distro-1.9.0-py3-none-any.whl.metadata
+  Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+Collecting primp>=0.15.0 (from duckduckgo-search->-r requirements.txt (line 22))
+  Obtaining dependency information for primp>=0.15.0 from https://files.pythonhosted.org/packages/c3/7b/cbd5d999a07ff2a21465975d4eb477ae6f69765e8fe8c9087dab250180d8/primp-0.15.0-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata
+  Using cached primp-0.15.0-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (13 kB)
+Collecting click-log>=0.3.2 (from alphashape>=1.3.1->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for click-log>=0.3.2 from https://files.pythonhosted.org/packages/ae/5a/4f025bc751087833686892e17e7564828e409c43b632878afeae554870cd/click_log-0.4.0-py2.py3-none-any.whl.metadata
+  Using cached click_log-0.4.0-py2.py3-none-any.whl.metadata (1.2 kB)
+Collecting trimesh>=3.9.8 (from alphashape>=1.3.1->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for trimesh>=3.9.8 from https://files.pythonhosted.org/packages/b0/be/69fffc97b78f52a5d1372e5d56a0599291e96996a47089fb6312bc023d88/trimesh-4.11.1-py3-none-any.whl.metadata
+  Using cached trimesh-4.11.1-py3-none-any.whl.metadata (13 kB)
+Collecting networkx>=2.5 (from alphashape>=1.3.1->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for networkx>=2.5 from https://files.pythonhosted.org/packages/9e/c9/b2622292ea83fbb4ec318f5b9ab867d0a28ab43c5717bb85b0a5f6b3b0a4/networkx-3.6.1-py3-none-any.whl.metadata
+  Using cached networkx-3.6.1-py3-none-any.whl.metadata (6.8 kB)
+Collecting rtree>=0.9.7 (from alphashape>=1.3.1->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for rtree>=0.9.7 from https://files.pythonhosted.org/packages/d1/75/e5d44be90525cd28503e7f836d077ae6663ec0687a13ba7810b4114b3668/rtree-1.4.1-py3-none-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Using cached rtree-1.4.1-py3-none-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (2.1 kB)
+Collecting cffi>=2.0.0 (from cryptography>=38.0.3->google-auth>=2.15.0->google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for cffi>=2.0.0 from https://files.pythonhosted.org/packages/47/d9/d83e293854571c877a92da46fdec39158f8d7e68da75bf73581225d28e90/cffi-2.0.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata
+  Using cached cffi-2.0.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.6 kB)
+Collecting pycparser (from cffi>=2.0.0->cryptography>=38.0.3->google-auth>=2.15.0->google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for pycparser from https://files.pythonhosted.org/packages/0c/c3/44f3fbbfa403ea2a7c779186dc20772604442dde72947e7d01069cbe98e3/pycparser-3.0-py3-none-any.whl.metadata
+  Using cached pycparser-3.0-py3-none-any.whl.metadata (8.2 kB)
+Collecting h2<5,>=3 (from httpx[brotli,http2,socks]>=0.28.1->ddgs->-r requirements.txt (line 23))
+  Obtaining dependency information for h2<5,>=3 from https://files.pythonhosted.org/packages/69/b2/119f6e6dcbd96f9069ce9a2665e0146588dc9f88f29549711853645e736a/h2-4.3.0-py3-none-any.whl.metadata
+  Using cached h2-4.3.0-py3-none-any.whl.metadata (5.1 kB)
+Collecting socksio==1.* (from httpx[brotli,http2,socks]>=0.28.1->ddgs->-r requirements.txt (line 23))
+  Obtaining dependency information for socksio==1.* from https://files.pythonhosted.org/packages/37/c3/6eeb6034408dac0fa653d126c9204ade96b819c936e136c5e8a6897eee9c/socksio-1.0.0-py3-none-any.whl.metadata
+  Using cached socksio-1.0.0-py3-none-any.whl.metadata (6.1 kB)
+Collecting hyperframe<7,>=6.1 (from h2<5,>=3->httpx[brotli,http2,socks]>=0.28.1->ddgs->-r requirements.txt (line 23))
+  Obtaining dependency information for hyperframe<7,>=6.1 from https://files.pythonhosted.org/packages/48/30/47d0bf6072f7252e6521f3447ccfa40b421b6824517f82854703d0f5a98b/hyperframe-6.1.0-py3-none-any.whl.metadata
+  Using cached hyperframe-6.1.0-py3-none-any.whl.metadata (4.3 kB)
+Collecting hpack<5,>=4.1 (from h2<5,>=3->httpx[brotli,http2,socks]>=0.28.1->ddgs->-r requirements.txt (line 23))
+  Obtaining dependency information for hpack<5,>=4.1 from https://files.pythonhosted.org/packages/07/c6/80c95b1b2b94682a72cbdbfb85b81ae2daffa4291fbfa1b1464502ede10d/hpack-4.1.0-py3-none-any.whl.metadata
+  Using cached hpack-4.1.0-py3-none-any.whl.metadata (4.6 kB)
+Collecting fastuuid>=0.13.0 (from litellm>=1.53.1->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for fastuuid>=0.13.0 from https://files.pythonhosted.org/packages/ef/33/4105ca574f6ded0af6a797d39add041bcfb468a1255fbbe82fcb6f592da2/fastuuid-0.14.0-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata
+  Using cached fastuuid-0.14.0-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (1.1 kB)
+Collecting importlib-metadata>=6.8.0 (from litellm>=1.53.1->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for importlib-metadata>=6.8.0 from https://files.pythonhosted.org/packages/fa/5e/f8e9a1d23b9c20a551a8a02ea3637b4642e22c2626e3a13a9a29cdea99eb/importlib_metadata-8.7.1-py3-none-any.whl.metadata
+  Using cached importlib_metadata-8.7.1-py3-none-any.whl.metadata (4.7 kB)
+Collecting jinja2<4.0.0,>=3.1.2 (from litellm>=1.53.1->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for jinja2<4.0.0,>=3.1.2 from https://files.pythonhosted.org/packages/62/a1/3d680cbfd5f4b8f15abc1d571870c5fc3e594bb582bc3b64ea099db13e56/jinja2-3.1.6-py3-none-any.whl.metadata
+  Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Collecting jsonschema<5.0.0,>=4.23.0 (from litellm>=1.53.1->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for jsonschema<5.0.0,>=4.23.0 from https://files.pythonhosted.org/packages/69/90/f63fb5873511e014207a475e2bb4e8b2e570d655b00ac19a9a0ca0a385ee/jsonschema-4.26.0-py3-none-any.whl.metadata
+  Using cached jsonschema-4.26.0-py3-none-any.whl.metadata (7.6 kB)
+Collecting openai>=2.8.0 (from litellm>=1.53.1->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for openai>=2.8.0 from https://files.pythonhosted.org/packages/16/83/0315bf2cfd75a2ce8a7e54188e9456c60cec6c0cf66728ed07bd9859ff26/openai-2.16.0-py3-none-any.whl.metadata
+  Using cached openai-2.16.0-py3-none-any.whl.metadata (29 kB)
+Collecting tiktoken>=0.7.0 (from litellm>=1.53.1->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for tiktoken>=0.7.0 from https://files.pythonhosted.org/packages/f5/de/9341a6d7a8f1b448573bbf3425fa57669ac58258a667eb48a25dfe916d70/tiktoken-0.12.0-cp314-cp314-manylinux_2_28_x86_64.whl.metadata
+  Using cached tiktoken-0.12.0-cp314-cp314-manylinux_2_28_x86_64.whl.metadata (6.7 kB)
+Collecting MarkupSafe>=2.0 (from jinja2<4.0.0,>=3.1.2->litellm>=1.53.1->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for MarkupSafe>=2.0 from https://files.pythonhosted.org/packages/41/3c/a36c2450754618e62008bf7435ccb0f88053e07592e6028a34776213d877/markupsafe-3.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Using cached markupsafe-3.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+Collecting jsonschema-specifications>=2023.03.6 (from jsonschema<5.0.0,>=4.23.0->litellm>=1.53.1->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for jsonschema-specifications>=2023.03.6 from https://files.pythonhosted.org/packages/41/45/1a4ed80516f02155c51f51e8cedb3c1902296743db0bbc66608a0db2814f/jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata
+  Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+Collecting referencing>=0.28.4 (from jsonschema<5.0.0,>=4.23.0->litellm>=1.53.1->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for referencing>=0.28.4 from https://files.pythonhosted.org/packages/2c/58/ca301544e1fa93ed4f80d724bf5b194f6e4b945841c5bfd555878eea9fcb/referencing-0.37.0-py3-none-any.whl.metadata
+  Using cached referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+Collecting rpds-py>=0.25.0 (from jsonschema<5.0.0,>=4.23.0->litellm>=1.53.1->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for rpds-py>=0.25.0 from https://files.pythonhosted.org/packages/ce/81/9a91c0111ce1758c92516a3e44776920b579d9a7c09b2b06b642d4de3f0f/rpds_py-0.30.0-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata
+  Using cached rpds_py-0.30.0-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+Collecting zipp>=3.20 (from importlib-metadata>=6.8.0->litellm>=1.53.1->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for zipp>=3.20 from https://files.pythonhosted.org/packages/2e/54/647ade08bf0db230bfea292f893923872fd20be6ac6f53b2b936ba839d75/zipp-3.23.0-py3-none-any.whl.metadata
+  Using cached zipp-3.23.0-py3-none-any.whl.metadata (3.6 kB)
+Collecting joblib (from nltk>=3.9.1->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for joblib from https://files.pythonhosted.org/packages/7b/91/984aca2ec129e2757d1e4e3c81c3fcda9d0f85b74670a094cc443d9ee949/joblib-1.5.3-py3-none-any.whl.metadata
+  Using cached joblib-1.5.3-py3-none-any.whl.metadata (5.5 kB)
+Collecting jiter<1,>=0.10.0 (from openai>=2.8.0->litellm>=1.53.1->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for jiter<1,>=0.10.0 from https://files.pythonhosted.org/packages/87/30/d718d599f6700163e28e2c71c0bbaf6dace692e7df2592fd793ac9276717/jiter-0.12.0-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata
+  Using cached jiter-0.12.0-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.2 kB)
+Collecting pyee<14,>=13 (from patchright>=1.49.0->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for pyee<14,>=13 from https://files.pythonhosted.org/packages/9b/4d/b9add7c84060d4c1906abe9a7e5359f2a60f7a9a4f67268b2766673427d8/pyee-13.0.0-py3-none-any.whl.metadata
+  Using cached pyee-13.0.0-py3-none-any.whl.metadata (2.9 kB)
+Collecting pyasn1<0.7.0,>=0.6.1 (from pyasn1-modules>=0.2.1->google-auth>=2.15.0->google.generativeai->-r requirements.txt (line 7))
+  Obtaining dependency information for pyasn1<0.7.0,>=0.6.1 from https://files.pythonhosted.org/packages/44/b5/a96872e5184f354da9c84ae119971a0a4c221fe9b27a4d94bd43f2596727/pyasn1-0.6.2-py3-none-any.whl.metadata
+  Using cached pyasn1-0.6.2-py3-none-any.whl.metadata (8.4 kB)
+Collecting six>=1.5 (from python-dateutil>=2.7.0->dateparser->-r requirements.txt (line 17))
+  Obtaining dependency information for six>=1.5 from https://files.pythonhosted.org/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl.metadata
+  Using cached six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting oauthlib>=3.0.0 (from requests-oauthlib>=0.7.0->google-auth-oauthlib->-r requirements.txt (line 10))
+  Obtaining dependency information for oauthlib>=3.0.0 from https://files.pythonhosted.org/packages/be/9c/92789c596b8df838baa98fa71844d84283302f7604ed565dafe5a6b5041a/oauthlib-3.3.1-py3-none-any.whl.metadata
+  Using cached oauthlib-3.3.1-py3-none-any.whl.metadata (7.9 kB)
+Collecting markdown-it-py>=2.2.0 (from rich>=13.9.4->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for markdown-it-py>=2.2.0 from https://files.pythonhosted.org/packages/94/54/e7d793b573f298e1c9013b8c4dade17d481164aa517d1d7148619c2cedbf/markdown_it_py-4.0.0-py3-none-any.whl.metadata
+  Using cached markdown_it_py-4.0.0-py3-none-any.whl.metadata (7.3 kB)
+Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=13.9.4->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for mdurl~=0.1 from https://files.pythonhosted.org/packages/b3/38/89ba8ad64ae25be8de66a6d463314cf1eb366222074cfda9ee839c56a4b4/mdurl-0.1.2-py3-none-any.whl.metadata
+  Using cached mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+Collecting fake-http-header<0.4.0,>=0.3.5 (from tf-playwright-stealth>=1.1.0->crawl4ai[sync]->-r requirements.txt (line 13))
+  Obtaining dependency information for fake-http-header<0.4.0,>=0.3.5 from https://files.pythonhosted.org/packages/e3/0b/2849c87d9f13766e29c0a2f4d31681aa72e035016b251ab19d99bde7b592/fake_http_header-0.3.5-py3-none-any.whl.metadata
+  Using cached fake_http_header-0.3.5-py3-none-any.whl.metadata (3.5 kB)
+Collecting setuptools (from torch>=1.11.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for setuptools from https://files.pythonhosted.org/packages/94/b8/f1f62a5e3c0ad2ff1d189590bfa4c46b4f3b6e49cef6f26c6ee4e575394d/setuptools-80.10.2-py3-none-any.whl.metadata
+  Using cached setuptools-80.10.2-py3-none-any.whl.metadata (6.6 kB)
+Collecting sympy>=1.13.3 (from torch>=1.11.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for sympy>=1.13.3 from https://files.pythonhosted.org/packages/a2/09/77d55d46fd61b4a135c444fc97158ef34a095e5681d0a6c10b75bf356191/sympy-1.14.0-py3-none-any.whl.metadata
+  Using cached sympy-1.14.0-py3-none-any.whl.metadata (12 kB)
+Collecting cuda-bindings==12.9.4 (from torch>=1.11.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for cuda-bindings==12.9.4 from https://files.pythonhosted.org/packages/d1/af/6dfd8f2ed90b1d4719bc053ff8940e494640fe4212dc3dd72f383e4992da/cuda_bindings-12.9.4-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Using cached cuda_bindings-12.9.4-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (2.6 kB)
+Collecting nvidia-cuda-nvrtc-cu12==12.8.93 (from torch>=1.11.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for nvidia-cuda-nvrtc-cu12==12.8.93 from https://files.pythonhosted.org/packages/05/6b/32f747947df2da6994e999492ab306a903659555dddc0fbdeb9d71f75e52/nvidia_cuda_nvrtc_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl.metadata
+  Using cached nvidia_cuda_nvrtc_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl.metadata (1.7 kB)
+Collecting nvidia-cuda-runtime-cu12==12.8.90 (from torch>=1.11.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for nvidia-cuda-runtime-cu12==12.8.90 from https://files.pythonhosted.org/packages/0d/9b/a997b638fcd068ad6e4d53b8551a7d30fe8b404d6f1804abf1df69838932/nvidia_cuda_runtime_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata
+  Using cached nvidia_cuda_runtime_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.7 kB)
+Collecting nvidia-cuda-cupti-cu12==12.8.90 (from torch>=1.11.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for nvidia-cuda-cupti-cu12==12.8.90 from https://files.pythonhosted.org/packages/f8/02/2adcaa145158bf1a8295d83591d22e4103dbfd821bcaf6f3f53151ca4ffa/nvidia_cuda_cupti_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata
+  Using cached nvidia_cuda_cupti_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.7 kB)
+Collecting nvidia-cudnn-cu12==9.10.2.21 (from torch>=1.11.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for nvidia-cudnn-cu12==9.10.2.21 from https://files.pythonhosted.org/packages/ba/51/e123d997aa098c61d029f76663dedbfb9bc8dcf8c60cbd6adbe42f76d049/nvidia_cudnn_cu12-9.10.2.21-py3-none-manylinux_2_27_x86_64.whl.metadata
+  Using cached nvidia_cudnn_cu12-9.10.2.21-py3-none-manylinux_2_27_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-cublas-cu12==12.8.4.1 (from torch>=1.11.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for nvidia-cublas-cu12==12.8.4.1 from https://files.pythonhosted.org/packages/dc/61/e24b560ab2e2eaeb3c839129175fb330dfcfc29e5203196e5541a4c44682/nvidia_cublas_cu12-12.8.4.1-py3-none-manylinux_2_27_x86_64.whl.metadata
+  Using cached nvidia_cublas_cu12-12.8.4.1-py3-none-manylinux_2_27_x86_64.whl.metadata (1.7 kB)
+Collecting nvidia-cufft-cu12==11.3.3.83 (from torch>=1.11.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for nvidia-cufft-cu12==11.3.3.83 from https://files.pythonhosted.org/packages/1f/13/ee4e00f30e676b66ae65b4f08cb5bcbb8392c03f54f2d5413ea99a5d1c80/nvidia_cufft_cu12-11.3.3.83-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata
+  Using cached nvidia_cufft_cu12-11.3.3.83-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.7 kB)
+Collecting nvidia-curand-cu12==10.3.9.90 (from torch>=1.11.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for nvidia-curand-cu12==10.3.9.90 from https://files.pythonhosted.org/packages/fb/aa/6584b56dc84ebe9cf93226a5cde4d99080c8e90ab40f0c27bda7a0f29aa1/nvidia_curand_cu12-10.3.9.90-py3-none-manylinux_2_27_x86_64.whl.metadata
+  Using cached nvidia_curand_cu12-10.3.9.90-py3-none-manylinux_2_27_x86_64.whl.metadata (1.7 kB)
+Collecting nvidia-cusolver-cu12==11.7.3.90 (from torch>=1.11.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for nvidia-cusolver-cu12==11.7.3.90 from https://files.pythonhosted.org/packages/85/48/9a13d2975803e8cf2777d5ed57b87a0b6ca2cc795f9a4f59796a910bfb80/nvidia_cusolver_cu12-11.7.3.90-py3-none-manylinux_2_27_x86_64.whl.metadata
+  Using cached nvidia_cusolver_cu12-11.7.3.90-py3-none-manylinux_2_27_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-cusparse-cu12==12.5.8.93 (from torch>=1.11.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for nvidia-cusparse-cu12==12.5.8.93 from https://files.pythonhosted.org/packages/c2/f5/e1854cb2f2bcd4280c44736c93550cc300ff4b8c95ebe370d0aa7d2b473d/nvidia_cusparse_cu12-12.5.8.93-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata
+  Using cached nvidia_cusparse_cu12-12.5.8.93-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-cusparselt-cu12==0.7.1 (from torch>=1.11.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for nvidia-cusparselt-cu12==0.7.1 from https://files.pythonhosted.org/packages/56/79/12978b96bd44274fe38b5dde5cfb660b1d114f70a65ef962bcbbed99b549/nvidia_cusparselt_cu12-0.7.1-py3-none-manylinux2014_x86_64.whl.metadata
+  Using cached nvidia_cusparselt_cu12-0.7.1-py3-none-manylinux2014_x86_64.whl.metadata (7.0 kB)
+Collecting nvidia-nccl-cu12==2.27.5 (from torch>=1.11.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for nvidia-nccl-cu12==2.27.5 from https://files.pythonhosted.org/packages/6e/89/f7a07dc961b60645dbbf42e80f2bc85ade7feb9a491b11a1e973aa00071f/nvidia_nccl_cu12-2.27.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata
+  Using cached nvidia_nccl_cu12-2.27.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.0 kB)
+Collecting nvidia-nvshmem-cu12==3.4.5 (from torch>=1.11.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for nvidia-nvshmem-cu12==3.4.5 from https://files.pythonhosted.org/packages/b5/09/6ea3ea725f82e1e76684f0708bbedd871fc96da89945adeba65c3835a64c/nvidia_nvshmem_cu12-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata
+  Using cached nvidia_nvshmem_cu12-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.1 kB)
+Collecting nvidia-nvtx-cu12==12.8.90 (from torch>=1.11.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for nvidia-nvtx-cu12==12.8.90 from https://files.pythonhosted.org/packages/a2/eb/86626c1bbc2edb86323022371c39aa48df6fd8b0a1647bc274577f72e90b/nvidia_nvtx_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata
+  Using cached nvidia_nvtx_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.8 kB)
+Collecting nvidia-nvjitlink-cu12==12.8.93 (from torch>=1.11.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for nvidia-nvjitlink-cu12==12.8.93 from https://files.pythonhosted.org/packages/f6/74/86a07f1d0f42998ca31312f998bd3b9a7eff7f52378f4f270c8679c77fb9/nvidia_nvjitlink_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl.metadata
+  Using cached nvidia_nvjitlink_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl.metadata (1.7 kB)
+Collecting nvidia-cufile-cu12==1.13.1.3 (from torch>=1.11.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for nvidia-cufile-cu12==1.13.1.3 from https://files.pythonhosted.org/packages/bb/fe/1bcba1dfbfb8d01be8d93f07bfc502c93fa23afa6fd5ab3fc7c1df71038a/nvidia_cufile_cu12-1.13.1.3-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata
+  Using cached nvidia_cufile_cu12-1.13.1.3-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (1.7 kB)
+Collecting triton==3.6.0 (from torch>=1.11.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for triton==3.6.0 from https://files.pythonhosted.org/packages/df/3d/9e7eee57b37c80cec63322c0231bb6da3cfe535a91d7a4d64896fcb89357/triton-3.6.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata
+  Using cached triton-3.6.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (1.7 kB)
+Collecting cuda-pathfinder~=1.1 (from cuda-bindings==12.9.4->torch>=1.11.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for cuda-pathfinder~=1.1 from https://files.pythonhosted.org/packages/0b/02/4dbe7568a42e46582248942f54dc64ad094769532adbe21e525e4edf7bc4/cuda_pathfinder-1.3.3-py3-none-any.whl.metadata
+  Using cached cuda_pathfinder-1.3.3-py3-none-any.whl.metadata (1.9 kB)
+Collecting mpmath<1.4,>=1.1.0 (from sympy>=1.13.3->torch>=1.11.0->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for mpmath<1.4,>=1.1.0 from https://files.pythonhosted.org/packages/43/e3/7d92a15f894aa0c9c4b49b8ee9ac9850d6e63b03c9c32c0367a13ae62209/mpmath-1.3.0-py3-none-any.whl.metadata
+  Using cached mpmath-1.3.0-py3-none-any.whl.metadata (8.6 kB)
+Collecting async-generator (from trio-typing>=0.10.0->selenium->-r requirements.txt (line 15))
+  Obtaining dependency information for async-generator from https://files.pythonhosted.org/packages/71/52/39d20e03abd0ac9159c162ec24b93fbcaa111e8400308f2465432495ca2b/async_generator-1.10-py3-none-any.whl.metadata
+  Using cached async_generator-1.10-py3-none-any.whl.metadata (4.9 kB)
+Collecting threadpoolctl>=3.2.0 (from scikit-learn->sentence-transformers->-r requirements.txt (line 14))
+  Obtaining dependency information for threadpoolctl>=3.2.0 from https://files.pythonhosted.org/packages/32/d5/f9a850d79b0851d1d4ef6456097579a9005b31fea68726a4ae5f2d82ddd9/threadpoolctl-3.6.0-py3-none-any.whl.metadata
+  Using cached threadpoolctl-3.6.0-py3-none-any.whl.metadata (13 kB)
+Using cached fastapi-0.128.0-py3-none-any.whl (103 kB)
+Using cached starlette-0.50.0-py3-none-any.whl (74 kB)
+Using cached anyio-4.12.1-py3-none-any.whl (113 kB)
+Using cached uvicorn-0.40.0-py3-none-any.whl (68 kB)
+Using cached pydantic-2.12.5-py3-none-any.whl (463 kB)
+Using cached pydantic_core-2.41.5-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+Using cached python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+Using cached motor-3.7.1-py3-none-any.whl (74 kB)
+Using cached pymongo-4.16.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (2.2 MB)
+Using cached dnspython-2.8.0-py3-none-any.whl (331 kB)
+Using cached google_generativeai-0.8.6-py3-none-any.whl (155 kB)
+Using cached google_ai_generativelanguage-0.6.15-py3-none-any.whl (1.3 MB)
+Using cached google_api_core-2.25.2-py3-none-any.whl (162 kB)
+Using cached googleapis_common_protos-1.72.0-py3-none-any.whl (297 kB)
+Using cached grpcio_status-1.71.2-py3-none-any.whl (14 kB)
+Using cached protobuf-5.29.5-cp38-abi3-manylinux2014_x86_64.whl (319 kB)
+Using cached google_auth-2.49.0.dev0-py3-none-any.whl (236 kB)
+Using cached grpcio-1.76.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (6.6 MB)
+Using cached proto_plus-1.27.0-py3-none-any.whl (50 kB)
+Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+Using cached charset_normalizer-3.4.4-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (152 kB)
+Using cached idna-3.11-py3-none-any.whl (71 kB)
+Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+Using cached urllib3-2.6.3-py3-none-any.whl (131 kB)
+Using cached faiss_cpu-1.13.2-cp310-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (23.8 MB)
+Using cached numpy-2.4.2-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.6 MB)
+Using cached google_api_python_client-2.188.0-py3-none-any.whl (14.9 MB)
+Using cached google_auth_httplib2-0.3.0-py3-none-any.whl (9.5 kB)
+Using cached httplib2-0.31.2-py3-none-any.whl (91 kB)
+Using cached pyparsing-3.3.2-py3-none-any.whl (122 kB)
+Using cached uritemplate-4.2.0-py3-none-any.whl (11 kB)
+Using cached google_auth_oauthlib-1.2.4-py3-none-any.whl (19 kB)
+Using cached google_cloud_speech-2.36.0-py3-none-any.whl (342 kB)
+Using cached pytest-9.0.2-py3-none-any.whl (374 kB)
+Using cached pluggy-1.6.0-py3-none-any.whl (20 kB)
+Using cached crawl4ai-0.8.0-py3-none-any.whl (453 kB)
+Using cached aiosqlite-0.22.1-py3-none-any.whl (17 kB)
+Using cached beautifulsoup4-4.14.3-py3-none-any.whl (107 kB)
+Using cached rank_bm25-0.2.2-py3-none-any.whl (8.6 kB)
+Using cached snowballstemmer-2.2.0-py2.py3-none-any.whl (93 kB)
+Using cached xxhash-3.6.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (194 kB)
+Using cached sentence_transformers-5.2.2-py3-none-any.whl (494 kB)
+Using cached transformers-5.0.0-py3-none-any.whl (10.1 MB)
+Using cached huggingface_hub-1.3.5-py3-none-any.whl (536 kB)
+Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+Using cached hf_xet-1.2.0-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)
+Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+Using cached tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)
+Using cached selenium-4.40.0-py3-none-any.whl (9.6 MB)
+Using cached trio-0.32.0-py3-none-any.whl (512 kB)
+Using cached trio_websocket-0.12.2-py3-none-any.whl (21 kB)
+Using cached PySocks-1.7.1-py3-none-any.whl (16 kB)
+Using cached websocket_client-1.9.0-py3-none-any.whl (82 kB)
+Using cached webdriver_manager-4.0.2-py2.py3-none-any.whl (27 kB)
+Using cached dateparser-1.2.2-py3-none-any.whl (315 kB)
+Using cached langchain-1.2.7-py3-none-any.whl (108 kB)
+Using cached langchain_core-1.2.7-py3-none-any.whl (490 kB)
+Using cached jsonpatch-1.33-py2.py3-none-any.whl (12 kB)
+Using cached langgraph-1.0.7-py3-none-any.whl (157 kB)
+Using cached langgraph_checkpoint-4.0.0-py3-none-any.whl (46 kB)
+Using cached langgraph_prebuilt-1.0.7-py3-none-any.whl (35 kB)
+Using cached langgraph_sdk-0.3.3-py3-none-any.whl (67 kB)
+Using cached langsmith-0.6.7-py3-none-any.whl (309 kB)
+Using cached packaging-25.0-py3-none-any.whl (66 kB)
+Using cached pyyaml-6.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (794 kB)
+Using cached tenacity-9.1.2-py3-none-any.whl (28 kB)
+Using cached uuid_utils-0.14.0-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (341 kB)
+Using cached langchain_community-0.4.1-py3-none-any.whl (2.5 MB)
+Using cached aiohttp-3.13.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.7 MB)
+Using cached dataclasses_json-0.6.7-py3-none-any.whl (28 kB)
+Using cached httpx_sse-0.4.3-py3-none-any.whl (9.0 kB)
+Using cached langchain_classic-1.0.1-py3-none-any.whl (1.0 MB)
+Using cached langchain_text_splitters-1.1.0-py3-none-any.whl (34 kB)
+Using cached marshmallow-3.26.2-py3-none-any.whl (50 kB)
+Using cached multidict-6.7.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (248 kB)
+Using cached pydantic_settings-2.12.0-py3-none-any.whl (51 kB)
+Using cached sqlalchemy-2.0.46-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (3.3 MB)
+Using cached typing_inspect-0.9.0-py3-none-any.whl (8.8 kB)
+Using cached yarl-1.22.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (372 kB)
+Using cached langchain_groq-1.1.1-py3-none-any.whl (19 kB)
+Using cached groq-0.37.1-py3-none-any.whl (137 kB)
+Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+Using cached duckduckgo_search-8.1.1-py3-none-any.whl (18 kB)
+Using cached ddgs-9.10.0-py3-none-any.whl (40 kB)
+Using cached html2text-2025.4.15-py3-none-any.whl (34 kB)
+Using cached aiofiles-25.1.0-py3-none-any.whl (14 kB)
+Using cached aiohappyeyeballs-2.6.1-py3-none-any.whl (15 kB)
+Using cached aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+Using cached alphashape-1.3.1-py2.py3-none-any.whl (13 kB)
+Using cached annotated_doc-0.0.4-py3-none-any.whl (5.3 kB)
+Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+Using cached attrs-25.4.0-py3-none-any.whl (67 kB)
+Using cached brotli-1.2.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.4 MB)
+Using cached certifi-2026.1.4-py3-none-any.whl (152 kB)
+Using cached chardet-5.2.0-py3-none-any.whl (199 kB)
+Using cached click-8.3.1-py3-none-any.whl (108 kB)
+Using cached click_log-0.4.0-py2.py3-none-any.whl (4.3 kB)
+Using cached cryptography-46.0.4-cp311-abi3-manylinux_2_34_x86_64.whl (4.5 MB)
+Using cached cffi-2.0.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (219 kB)
+Using cached cssselect-1.4.0-py3-none-any.whl (18 kB)
+Using cached fake_useragent-2.2.0-py3-none-any.whl (161 kB)
+Using cached frozenlist-1.8.0-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (231 kB)
+Using cached fsspec-2026.1.0-py3-none-any.whl (201 kB)
+Using cached greenlet-3.3.1-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (660 kB)
+Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+Using cached httptools-0.7.1-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (472 kB)
+Using cached h2-4.3.0-py3-none-any.whl (61 kB)
+Using cached hpack-4.1.0-py3-none-any.whl (34 kB)
+Using cached hyperframe-6.1.0-py3-none-any.whl (13 kB)
+Using cached socksio-1.0.0-py3-none-any.whl (12 kB)
+Using cached humanize-4.15.0-py3-none-any.whl (132 kB)
+Using cached iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+Using cached jsonpointer-3.0.0-py2.py3-none-any.whl (7.6 kB)
+Using cached lark-1.3.1-py3-none-any.whl (113 kB)
+Using cached litellm-1.81.6-py3-none-any.whl (12.2 MB)
+Using cached jinja2-3.1.6-py3-none-any.whl (134 kB)
+Using cached jsonschema-4.26.0-py3-none-any.whl (90 kB)
+Using cached fastuuid-0.14.0-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (278 kB)
+Using cached importlib_metadata-8.7.1-py3-none-any.whl (27 kB)
+Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+Using cached markupsafe-3.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (23 kB)
+Using cached mypy_extensions-1.1.0-py3-none-any.whl (5.0 kB)
+Using cached networkx-3.6.1-py3-none-any.whl (2.1 MB)
+Using cached nltk-3.9.2-py3-none-any.whl (1.5 MB)
+Using cached openai-2.16.0-py3-none-any.whl (1.1 MB)
+Using cached jiter-0.12.0-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (364 kB)
+Using cached orjson-3.11.6-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (145 kB)
+Using cached ormsgpack-1.12.2-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (212 kB)
+Using cached outcome-1.3.0.post0-py2.py3-none-any.whl (10 kB)
+Using cached patchright-1.58.0-py3-none-manylinux1_x86_64.whl (46.2 MB)
+Using cached pyee-13.0.0-py3-none-any.whl (15 kB)
+Using cached pillow-12.1.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+Using cached playwright-1.58.0-py3-none-manylinux1_x86_64.whl (46.2 MB)
+Using cached primp-0.15.0-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)
+Using cached propcache-0.4.1-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (201 kB)
+Using cached psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (155 kB)
+Using cached pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+Using cached pyasn1-0.6.2-py3-none-any.whl (83 kB)
+Using cached pygments-2.19.2-py3-none-any.whl (1.2 MB)
+Using cached pyopenssl-25.3.0-py3-none-any.whl (57 kB)
+Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Using cached pytz-2025.2-py2.py3-none-any.whl (509 kB)
+Using cached referencing-0.37.0-py3-none-any.whl (26 kB)
+Using cached regex-2026.1.15-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (803 kB)
+Using cached requests_oauthlib-2.0.0-py2.py3-none-any.whl (24 kB)
+Using cached oauthlib-3.3.1-py3-none-any.whl (160 kB)
+Using cached requests_toolbelt-1.0.0-py2.py3-none-any.whl (54 kB)
+Downloading rich-14.3.2-py3-none-any.whl (309 kB)
+Using cached markdown_it_py-4.0.0-py3-none-any.whl (87 kB)
+Using cached mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Using cached rpds_py-0.30.0-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (382 kB)
+Using cached rtree-1.4.1-py3-none-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (507 kB)
+Using cached safetensors-0.7.0-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (507 kB)
+Using cached scipy-1.17.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.0 MB)
+Using cached shapely-2.1.2-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (3.1 MB)
+Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+Using cached soupsieve-2.8.3-py3-none-any.whl (37 kB)
+Using cached tf_playwright_stealth-1.2.0-py3-none-any.whl (33 kB)
+Using cached fake_http_header-0.3.5-py3-none-any.whl (14 kB)
+Using cached tiktoken-0.12.0-cp314-cp314-manylinux_2_28_x86_64.whl (1.2 MB)
+Using cached torch-2.10.0-cp314-cp314-manylinux_2_28_x86_64.whl (915.7 MB)
+Using cached cuda_bindings-12.9.4-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (11.9 MB)
+Using cached nvidia_cublas_cu12-12.8.4.1-py3-none-manylinux_2_27_x86_64.whl (594.3 MB)
+Using cached nvidia_cuda_cupti_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (10.2 MB)
+Using cached nvidia_cuda_nvrtc_cu12-12.8.93-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (88.0 MB)
+Using cached nvidia_cuda_runtime_cu12-12.8.90-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (954 kB)
+Using cached nvidia_cudnn_cu12-9.10.2.21-py3-none-manylinux_2_27_x86_64.whl (706.8 MB)
+Using cached nvidia_cufft_cu12-11.3.3.83-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (193.1 MB)
+Using cached nvidia_cufile_cu12-1.13.1.3-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.2 MB)
+Using cached nvidia_curand_cu12-10.3.9.90-py3-none-manylinux_2_27_x86_64.whl (63.6 MB)
+Using cached nvidia_cusolver_cu12-11.7.3.90-py3-none-manylinux_2_27_x86_64.whl (267.5 MB)
+Using cached nvidia_cusparse_cu12-12.5.8.93-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (288.2 MB)
+Downloading nvidia_cusparselt_cu12-0.7.1-py3-none-manylinux2014_x86_64.whl (287.2 MB)
+   ╸   85… 1.4  eta 0:0…
+       MB  MB/s         
+
+[notice] A new release of pip is available: 25.1.1 -> 26.0
+[notice] To update, run: pip install --upgrade pip
+ERROR: Exception:
+Traceback (most recent call last):
+  File "/home/shaffan/Desktop/AI-Concierge/backend/venv/lib64/python3.14/site-packages/pip/_vendor/urllib3/response.py", line 438, in _error_catcher
+    yield
+  File "/home/shaffan/Desktop/AI-Concierge/backend/venv/lib64/python3.14/site-packages/pip/_vendor/urllib3/response.py", line 561, in read
+    data = self._fp_read(amt) if not fp_closed else b""
+           ~~~~~~~~~~~~~^^^^^
+  File "/home/shaffan/Desktop/AI-Concierge/backend/venv/lib64/python3.14/site-packages/pip/_vendor/urllib3/response.py", line 527, in _fp_read
+    return self._fp.read(amt) if amt is not None else self._fp.read()
+           ~~~~~~~~~~~~~^^^^^
+  File "/home/shaffan/Desktop/AI-Concierge/backend/venv/lib64/python3.14/site-packages/pip/_vendor/cachecontrol/filewrapper.py", line 102, in read
+    self.__buf.write(data)
+    ~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib64/python3.14/tempfile.py", line 520, in func_wrapper
+    return func(*args, **kwargs)
+OSError: [Errno 122] Disk quota exceeded
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/shaffan/Desktop/AI-Concierge/backend/venv/lib64/python3.14/site-packages/pip/_internal/cli/base_command.py", line 105, in _run_wrapper
+    status = _inner_run()
+  File "/home/shaffan/Desktop/AI-Concierge/backend/venv/lib64/python3.14/site-packages/pip/_internal/cli/base_command.py", line 96, in _inner_run
+    return self.run(options, args)
+           ~~~~~~~~^^^^^^^^^^^^^^^
+  File "/home/shaffan/Desktop/AI-Concierge/backend/venv/lib64/python3.14/site-packages/pip/_internal/cli/req_command.py", line 68, in wrapper
+    return func(self, options, args)
+  File "/home/shaffan/Desktop/AI-Concierge/backend/venv/lib64/python3.14/site-packages/pip/_internal/commands/install.py", line 387, in run
+    requirement_set = resolver.resolve(
+        reqs, check_supported_wheels=not options.target_dir
+    )
+  File "/home/shaffan/Desktop/AI-Concierge/backend/venv/lib64/python3.14/site-packages/pip/_internal/resolution/resolvelib/resolver.py", line 182, in resolve
+    self.factory.preparer.prepare_linked_requirements_more(reqs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/shaffan/Desktop/AI-Concierge/backend/venv/lib64/python3.14/site-packages/pip/_internal/operations/prepare.py", line 559, in prepare_linked_requirements_more
+    self._complete_partial_requirements(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        partially_downloaded_reqs,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        parallel_builds=parallel_builds,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/shaffan/Desktop/AI-Concierge/backend/venv/lib64/python3.14/site-packages/pip/_internal/operations/prepare.py", line 474, in _complete_partial_requirements
+    for link, (filepath, _) in batch_download:
+                               ^^^^^^^^^^^^^^
+  File "/home/shaffan/Desktop/AI-Concierge/backend/venv/lib64/python3.14/site-packages/pip/_internal/network/download.py", line 313, in __call__
+    filepath, content_type = self._downloader(link, location)
+                             ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/home/shaffan/Desktop/AI-Concierge/backend/venv/lib64/python3.14/site-packages/pip/_internal/network/download.py", line 185, in __call__
+    bytes_received = self._process_response(
+        resp, link, content_file, 0, total_length
+    )
+  File "/home/shaffan/Desktop/AI-Concierge/backend/venv/lib64/python3.14/site-packages/pip/_internal/network/download.py", line 208, in _process_response
+    return self._write_chunks_to_file(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        chunks, content_file, allow_partial=bool(total_length)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/shaffan/Desktop/AI-Concierge/backend/venv/lib64/python3.14/site-packages/pip/_internal/network/download.py", line 218, in _write_chunks_to_file
+    for chunk in chunks:
+                 ^^^^^^
+  File "/home/shaffan/Desktop/AI-Concierge/backend/venv/lib64/python3.14/site-packages/pip/_internal/cli/progress_bars.py", line 61, in _rich_download_progress_bar
+    for chunk in iterable:
+                 ^^^^^^^^
+  File "/home/shaffan/Desktop/AI-Concierge/backend/venv/lib64/python3.14/site-packages/pip/_internal/network/utils.py", line 65, in response_chunks
+    for chunk in response.raw.stream(
+                 ~~~~~~~~~~~~~~~~~~~^
+        chunk_size,
+        ^^^^^^^^^^^
+    ...<22 lines>...
+        decode_content=False,
+        ^^^^^^^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "/home/shaffan/Desktop/AI-Concierge/backend/venv/lib64/python3.14/site-packages/pip/_vendor/urllib3/response.py", line 622, in stream
+    data = self.read(amt=amt, decode_content=decode_content)
+  File "/home/shaffan/Desktop/AI-Concierge/backend/venv/lib64/python3.14/site-packages/pip/_vendor/urllib3/response.py", line 560, in read
+    with self._error_catcher():
+         ~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib64/python3.14/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/home/shaffan/Desktop/AI-Concierge/backend/venv/lib64/python3.14/site-packages/pip/_vendor/urllib3/response.py", line 455, in _error_catcher
+    raise ProtocolError("Connection broken: %r" % e, e)
+pip._vendor.urllib3.exceptions.ProtocolError: ("Connection broken: OSError(122, 'Disk quota exceeded')", OSError(122, 'Disk quota exceeded'))
